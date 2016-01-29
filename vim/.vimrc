@@ -1,25 +1,412 @@
-set mouse=a
-set expandtab " :retab fixes everything!
-set tabstop=3
-set shiftwidth=3
-set number
-set textwidth=79
-set clipboard=unnamed
-set backup
-set backupdir=./.backup,.,/tmp
-set directory=.,./.backup,/tmp
+" vim: sw=4 ts=4
+" next two lines avoid exiting with error code 1
+" http://unix.stackexchange.com/questions/14497/why-would-vim-return-non-zero-exit-code-if-i-exit-immediately-after-opening
+filetype on
+filetype off
 
-" Use Solarized color scheme
-syntax on 
+" make tab complete better
+set wildmode=longest,list,full
+set wildmenu
+
+if has('vim_starting')
+    set nocompatible               " Be iMproved
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+" Note: You don't set neobundle setting in .gvimrc!
+" Original repos on github
+" NeoBundle 'Lokaltog/vim-easymotion', '09c0cea8'   " This plugin is locked at revision 09c0cea8
+" NeoBundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" vim-scripts repos
+" NeoBundle 'L9'
+" NeoBundle 'FuzzyFinder'
+" NeoBundle 'rails.vim'
+" Non github repos
+" NeoBundle 'git://git.wincent.com/command-t.git'
+" gist repos
+" NeoBundle 'gist:Shougo/656148', {
+" \ 'name': 'everything.vim',
+" \ 'script_type': 'plugin'}
+" Non git repos
+" NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
+" NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
+" ...
+"
+" Brief help
+" :NeoBundleList          - list configured bundles
+" :NeoBundleInstall(!)    - install(update) bundles
+" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+
+" Recommended to install
+" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+
+NeoBundle 'Shougo/vimproc'
+
+if version > 702
+    NeoBundle 'Shougo/unite.vim'
+endif
+
+" don't really use this one any more?
+NeoBundle 'taglist.vim'
+
+" Tagbar is a nice way to browse code
+NeoBundle 'majutsushi/tagbar'
+" I prefer Tagbar default to the order things are declared
+let g:tagbar_sort = 0
+
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/syntastic'
+let g:syntastic_mode_map = { "mode": "passive", "active_filetypes": [], "passive_filetypes": [] }
+
+" airline and related, for enhanced status line
+NeoBundle 'bling/vim-airline'
+set laststatus=2
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" This should give a nice purple statusline, if it doesn't
+" make sure the terminal reports itself as supporting 256 color
+NeoBundle 'paranoida/vim-airlineish'
+let g:airline_theme = 'airlineish'
+
+" tpope's vim scripts
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-markdown'
+
+" need to figure out how to use this
+NeoBundle 'brookhong/cscope.vim' " A vim plugin to help you to create cscope database and connect to existing proper database automatically.
+
+NeoBundle 'vim-scripts/SyntaxRange'
+
+" filetype off
+filetype plugin indent on     " Required!
+
+"NeoBundle 'altercation/vim-colors-solarized'
+
+" IndentGuides - make indentation more visible
+NeoBundle 'nathanaelkane/vim-indent-guides'
+
+NeoBundle 'ervandew/supertab' " tab to complete ... maybe should use YouCompleteMe
+
+" CtrlP - makes opening files super easy
+"NeoBundle 'kien/ctrlp.vim' " no longer maintained, so using the one below
+NeoBundle 'ctrlpvim/ctrlp.vim'
+" make ctrlp behave better - fewer files to index and more relevent results
+set wildignore+=*.o,*.pyc,*.swp,tpc
+let g:ctrlp_max_files = 0
+" easier way to get between buffers
+nmap <C-_> :CtrlPBuffer<CR>
+
+NeoBundle 'eapache/rainbow_parentheses.vim'
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+au Syntax * RainbowParenthesesLoadChevrons
+
+NeoBundle 'gavinbeatty/vmath.vim' " picked this up from Conway (see below)
+vmap <expr>  ++  VMATH_YankAndAnalyse()
+nmap         ++  vip++
+
+NeoBundle 'vim-scripts/csv.vim' " A Filetype plugin for csv files.
+
+" also using Marks plugin: http://www.vim.org/scripts/script.php?script_id=2666
+" to make Marks use a bigger palette
+let g:mwDefaultHighlightingPalette = 'maximum'
+
+" no longer used ... but maybe one day?
+"NeoBundle 'vim-scripts/ShowMarks'
+"--------------------------
+"====[BEGIN Shit I've added]===============================================================
+"NeoBundle 'reedes/vim-pencil' "Word Processing
+NeoBundle 'beloglazov/vim-online-thesaurus' "Online Theaurus
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'hdima/python-syntax'
+NeoBundle 'adimit/prolog.vim'
+"========[BEGIN Goyo]======================================================================
+NeoBundle 'junegunn/goyo.vim' "Distraction-free writing
+NeoBundle 'junegunn/limelight.vim'
+function! s:goyo_enter()
+    silent !tmux set status off
+    set noshowmode
+    set noshowcmd
+    set scrolloff=999
+    Limelight
+    let g:airline#extensions#tabline#enabled = 1
+endfunction
+
+function! s:goyo_leave()
+    silent !tmux set status on
+    set showmode
+    set showcmd
+    set scrolloff=5
+    Limelight!
+    " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+"========[END Goyo]======================================================================
+"====[END Shit I've added]===============================================================
+
+" Installation check.
+NeoBundleCheck
+call neobundle#end()
+
+" other stuff ...
+set expandtab
+"set sw=4
+"set ts=4
+
+syntax on
 set background=dark
-colorscheme solarized
+"colorscheme solarized
+"colorscheme desert
+colorscheme xoria256
+"colorscheme desert256
+"colorscheme molokai
+"colorscheme MountainDew
+"colorscheme Tommorrow-Night-Eighties
+set foldmethod=syntax
 
-set foldcolumn=0
-"Pasting On OSX
-"vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-"nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
-call togglebg#map("<F5>")
+"------ indent guides setup ----------
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size=1
+hi IndentGuidesEven ctermbg=235
+hi IndentGuidesOdd ctermbg=234
+"------------------------------------
 
+" In a decent terminal (eg iTerm2), this makes mouse scrolling and clicking
+" behave nicely.
+set mouse=a
+
+" per Pure's Coding Style Guidelines:
+"  http://wiki.purestorage.com/display/psw/Coding+Style
+autocmd FileType c,cpp set softtabstop=8 shiftwidth=8 expandtab
+autocmd FileType python set softtabstop=4 shiftwidth=4 expandtab
+
+" because line numbering is useful
+set nu
+
+" To make C++11 anonymous functions not get marked as errors
+let c_no_curly_error=1
+
+if !exists('g:PreferredLineLength')
+  let g:PreferredLineLength = 100
+endif
+
+function! Unfold ()
+        set foldlevel=99
+        "echom &foldlevel
+endfunction
+
+"autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python normal zR
+"autocmd! Syntax c,cpp,vim,xml,html,xhtml,perl,python call Unfold()
+autocmd Syntax * call Unfold()
+set list
+
+" faster than hitting esc ... well, easier as long as I remember to
+imap jj <Esc>
+
+"==============================================================================
+"===========[ Things From Damian Conway's Better Vim 2013 ]====================
+
+"====[ Make the 81st column stand out ]====================
+" except now we're using g:PreferredLineLength + 1
+
+"    " EITHER the entire 81st column, full-screen...
+"    highlight ColorColumn ctermbg=magenta
+"    set colorcolumn=81
+
+    " OR ELSE just the 81st column of wide lines...
+    highlight ColorColumn ctermbg=magenta
+    "call matchadd('ColorColumn', '\%81v', 100) " original, modified below
+"    call matchadd('ColorColumn', '\%'.(g:PreferredLineLength + 1).'v', 100)
+
+"    " OR ELSE on April Fools day...
+"    highlight ColorColumn ctermbg=red ctermfg=blue
+"    exec 'set colorcolumn=' . join(range(2,80,3), ',')
+"
+"
+"=====[ Highlight matches when jumping to next ]=============
+
+    " This rewires n and N to do the highlighing...
+    nnoremap <silent> n   n:call HLNext(0.2)<cr>
+    nnoremap <silent> N   N:call HLNext(0.2)<cr>
+
+"
+"    " EITHER blink the line containing the match...
+"    function! HLNext (blinktime)
+"        set invcursorline
+"        redraw
+"        exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+"        set invcursorline
+"        redraw
+"    endfunction
+"
+"    " OR ELSE ring the match in red...
+"    function! HLNext (blinktime)
+"        highlight RedOnRed ctermfg=red ctermbg=red
+"        let [bufnum, lnum, col, off] = getpos('.')
+"        let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+"        echo matchlen
+"        let ring_pat = (lnum > 1 ? '\%'.(lnum-1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.\|' : '')
+"                \ . '\%'.lnum.'l\%>'.max([col-4,1]) .'v\%<'.col.'v.'
+"                \ . '\|'
+"                \ . '\%'.lnum.'l\%>'.max([col+matchlen-1,1]) .'v\%<'.(col+matchlen+3).'v.'
+"                \ . '\|'
+"                \ . '\%'.(lnum+1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.'
+"        let ring = matchadd('RedOnRed', ring_pat, 101)
+"        redraw
+"        exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+"        call matchdelete(ring)
+"        redraw
+"    endfunction
+"
+"    " OR ELSE briefly hide everything except the match...
+"    function! HLNext (blinktime)
+"        highlight BlackOnBlack ctermfg=black ctermbg=black
+"        let [bufnum, lnum, col, off] = getpos('.')
+"        let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+"        let hide_pat = '\%<'.lnum.'l.'
+"                \ . '\|'
+"                \ . '\%'.lnum.'l\%<'.col.'v.'
+"                \ . '\|'
+"                \ . '\%'.lnum.'l\%>'.(col+matchlen-1).'v.'
+"                \ . '\|'
+"                \ . '\%>'.lnum.'l.'
+"        let ring = matchadd('BlackOnBlack', hide_pat, 101)
+"        redraw
+"        exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+"        call matchdelete(ring)
+"        redraw
+"    endfunction
+
+    " next line seems to have been missing (oren)
+    highlight WhiteOnRed ctermbg=red ctermfg=white
+
+
+    " OR ELSE just highlight the match in red...
+    function! HLNext (blinktime)
+        " only do this if hls is set
+        if &l:hlsearch != 0
+          let [bufnum, lnum, col, off] = getpos('.')
+          let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+          let target_pat = '\c\%#'.@/
+          let ring = matchadd('WhiteOnRed', target_pat, 101)
+          redraw
+          exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+          call matchdelete(ring)
+          redraw
+        endif
+    endfunction
+
+
+"====[ Make tabs, trailing whitespace, and non-breaking spaces visible ]======
+
+    exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+    set list
+
+"====[ Repalce W with w  to make save commands easier to type ]======
+
+    :command WQA wqa
+    :command WQa wqa
+    :command Wqa wqa
+    :command QA qa
+    :command Qa qa
+    :command WA wa
+    :command Wa wa
+    :command WQ wq
+    :command Wq wq
+    :command W w
+    :command Q q
+
+
+"====[ Swap : and ; to make colon commands easier to type ]======
+
+    "nnoremap  ;  :
+    " I don't use ; enough to justify remapping : to it, but I'm cool with
+    " remapping it to :
+    "nnoremap  :  ;
+
+
+"====[ Swap v and CTRL-V, because Block mode is more useful that Visual mode "]======
+
+"    nnoremap    v   <C-V>
+"    nnoremap <C-V>     v
+"
+"    vnoremap    v   <C-V>
+"    vnoremap <C-V>     v
+
+
+""====[ Always turn on syntax highlighting for diffs ]=========================
+"
+"    " EITHER select by the file-suffix directly...
+"    augroup PatchDiffHighlight
+"        autocmd!
+"        autocmd BufEnter  *.patch,*.rej,*.diff   syntax enable
+"    augroup END
+"
+"    " OR ELSE use the filetype mechanism to select automatically...
+"    filetype on
+"    augroup PatchDiffHighlight
+"        autocmd!
+"        autocmd FileType  diff   syntax enable
+"    augroup END
+"
+"
+""====[ Open any file with a pre-existing swapfile in readonly mode "]=========
+"
+"    augroup NoSimultaneousEdits
+"        autocmd!
+"        autocmd SwapExists * let v:swapchoice = 'o'
+"        autocmd SwapExists * echomsg ErrorMsg
+"        autocmd SwapExists * echo 'Duplicate edit session (readonly)'
+"        autocmd SwapExists * echohl None
+"        autocmd SwapExists * sleep 2
+"    augroup END
+"
+"    " Also consider the autoswap_mac.vim plugin (but beware its limitations)
+"
+"
+""====[ Mappings to activate spell-checking alternatives ]================
+"
+"    nmap  ;s     :set invspell spelllang=en<CR>
+"    nmap  ;ss    :set    spell spelllang=en-basic<CR>
+"
+"    " To create the en-basic (or any other new) spelling list:
+"    "
+"    "     :mkspell  ~/.vim/spell/en-basic  basic_english_words.txt
+"    "
+"    " See :help mkspell
+"
+"
+""====[ Make CTRL-K list diagraphs before each digraph entry ]===============
+"
+"    inoremap <expr> <C-K> ShowDigraphs()
+"
+"    function! ShowDigraphs ()
+"        digraphs
+"        call getchar()
+"        return "\<C-K>"
+"    endfunction
+"
+"    " But also consider the hudigraphs.vim and betterdigraphs.vim plugins,
+"    " which offer smarter and less intrusive alternatives
+"
+"
+"
+
+"====[Shit I've added]===============================================================
+"====[COMMENTS]=====
 " lhs comments
 
 map ,# :s/^/#/<CR>:nohlsearch<CR>
@@ -47,34 +434,28 @@ map ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
 ",; scheme
 ",- sql, ada
 ",c clears any of the previous comments
+set clipboard=unnamed
 
+"func! WordProcessorMode()
+"  setlocal formatoptions=1
+"  setlocal noexpandtab
+"  map j gj
+"  map k gk
+"  setlocal spell spelllang=en_us
+"  setlocal complete+=s
+"  setlocal wrap
+"  setlocal linebreak
+"  setlocal nolist
+"  setlocal textwidth=0
+"  setlocal wrapmargin=0
+"endfu
+"com! WP call WordProcessorMode()
 
-set foldcolumn=1
+autocmd Filetype java       setlocal tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype py,python  setlocal tabstop=3 sts=3 shiftwidth=3
+autocmd Filetype c,cpp      setlocal tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype txt,text   setlocal noexpandtab formatoptions=1 spell spelllang=en_us complete+=s wrap linebreak nolist textwidth=0 wrapmargin=0
 
-au BufWinEnter *.* set foldmethod=marker  "set fold method to marker
-au BufWinEnter *.* set foldmarker===>,<== "set fold markers
-",* c
-",( Standard ML
-",< html
-",d clears any of the wrapping comments
+map <C-y> <C-w>
 
-"If the cursor is not on a valid character 
-"(for example, at the end of a line),
-"it will still be moved back one character (unless virtual-edit mode is
-"enabled).
-"If you are in paste mode and hit <Esc>, the cursor will still be moved back
-"one character (since all mappings are ignored in paste mode).
-"inoremap <silent> <Esc> <C-O>:stopinsert<CR>
-
-
-if has("autocmd")
-	" Enable file type detection
-	" Use the default feiltype settings, so that mail gets 'tw' set to 72
-	" 'cindent' is on in C files, etc.
-	" Also load indent files, to automatically do language-dependent
-	" indenting
-	filetype plugin indent on
-	" ...
-endif
-
-au FileType sh set textwidth=0 wrapmargin=0
+"====[]
