@@ -8,7 +8,7 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper = "/home/jmcgover/.config/awesome/themes/solarized-mine/wallpaper.jpg"
+theme.wallpaper = "~/.config/awesome/themes/solarized-mine/wallpaper.jpg"
 -- }}}
 
 -- {{{ Styles
