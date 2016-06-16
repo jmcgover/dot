@@ -17,6 +17,10 @@
     colorscheme desert   " colorscheme desert
     setlocal nobackup    " get rid of anoying ~file
 
+"====[ Define Shell ]====
+
+    set shell=bash\ --login
+
 "====[ Ignoring Case ]====
 
     setlocal ignorecase
@@ -27,6 +31,10 @@
     let g:arrowson=1
     func ArrowsOff()
         let g:arrowson=0
+        noremap! <Up>    <NOP>
+        noremap! <Down>  <NOP>
+        noremap! <Left>  <NOP>
+        noremap! <Right> <NOP>
         noremap <Up>    <NOP>
         noremap <Down>  <NOP>
         noremap <Left>  <NOP>
@@ -38,6 +46,10 @@
         noremap <Down>  <Down>
         noremap <Left>  <Left>
         noremap <Right> <Right>
+        noremap! <Up>    <Up>
+        noremap! <Down>  <Down>
+        noremap! <Left>  <Left>
+        noremap! <Right> <Right>
     endfunc
     func ToggleArrows()
         if (g:arrowson == 1)
