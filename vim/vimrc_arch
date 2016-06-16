@@ -310,12 +310,12 @@ imap jj <Esc>
     endfunction
 
 
-"====[ Make tabs, trailing whitespace, and non-breaking spaces visible ]======
+"====[ Make tabs, trailing whitespace, and non-breaking spaces visible ]====
 
     exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
     set list
 
-"====[ Repalce W with w  to make save commands easier to type ]======
+"====[ Case Insensitive Save and Quit Commands ]====
 
     :command WQA wqa
     :command WQa wqa
@@ -330,7 +330,7 @@ imap jj <Esc>
     :command Q q
 
 
-"====[ Swap : and ; to make colon commands easier to type ]======
+"====[ Swap : and ; to make colon commands easier to type ]====
 
     "nnoremap  ;  :
     " I don't use ; enough to justify remapping : to it, but I'm cool with
@@ -338,7 +338,7 @@ imap jj <Esc>
     "nnoremap  :  ;
 
 
-"====[ Swap v and CTRL-V, because Block mode is more useful that Visual mode "]======
+"====[ Swap v and CTRL-V, because Block mode is more useful that Visual mode "]====
 
 "    nnoremap    v   <C-V>
 "    nnoremap <C-V>     v
@@ -347,7 +347,7 @@ imap jj <Esc>
 "    vnoremap <C-V>     v
 
 
-""====[ Always turn on syntax highlighting for diffs ]=========================
+""====[ Always turn on syntax highlighting for diffs ]====
 "
 "    " EITHER select by the file-suffix directly...
 "    augroup PatchDiffHighlight
@@ -402,13 +402,10 @@ imap jj <Esc>
 "    " But also consider the hudigraphs.vim and betterdigraphs.vim plugins,
 "    " which offer smarter and less intrusive alternatives
 "
-"
-"
-
 "====[Shit I've added]===============================================================
 "====[COMMENTS]=====
-" lhs comments
 
+" lhs comments
 map ,# :s/^/#/<CR>:nohlsearch<CR>
 map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
 map ,> :s/^/> /<CR>:nohlsearch<CR>
