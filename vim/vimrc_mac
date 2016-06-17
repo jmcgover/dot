@@ -7,7 +7,7 @@
 
 "====[ Minimal .vimrc (Pilfered) ]====
 
-    " Minimal .vimrc pilfered from:
+    " Minimal .vimrc pilfered (exactly) from:
     " http://stackoverflow.com/questions/1840862/favorite-minimalistic-vimrc-configuration
     setlocal backspace=2 " backspace in insert mode works like normal editor
     syntax on            " syntax highlighting
@@ -17,13 +17,59 @@
     colorscheme desert   " colorscheme desert
     setlocal nobackup    " get rid of anoying ~file
 
+"====[ Dein Plugin Manager ]====
+
+    "dein Scripts-----------------------------
+    " To Install:
+    " $ mkdir -p ~/.vim/dein/repos/github.com/Shougo/dein.vim
+    " $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+    " $ sh ./installer.sh ~/.vim/dein/repos/github.com/Shougo/dein.vim
+    if &compatible
+        set nocompatible " Makes VIM not compatible with VI (be IMproved or whatever)
+    endif
+
+    " Required:
+    set runtimepath^=/Users/jmcgovern/.vim/dein/repos/github.com/Shougo/dein.vim/repos/github.com/Shougo/dein.vim
+
+    " Required:
+    call dein#begin(expand('/Users/jmcgovern/.vim/dein/repos/github.com/Shougo/dein.vim'))
+
+    " Let dein manage dein
+    " Required:
+    "call dein#add('Shougo/dein.vim')
+
+    " Add or remove your plugins here:
+    "call dein#add('Shougo/neosnippet.vim')
+    "call dein#add('Shougo/neosnippet-snippets')
+    "call dein#add('Rip-Rip/clang_complete')
+    call dein#add('flazz/vim-colorschemes')
+
+    " You can specify revision/branch/tag.
+    "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+    " Required:
+    call dein#end()
+
+    " Required:
+    filetype plugin indent on
+
+    " If you want to install not installed plugins on startup.
+    if dein#check_install()
+      call dein#install()
+    endif
+    "End dein Scripts-------------------------
+
 "====[ Color Scheme ]====
 
+    colorscheme desert
     colorscheme slate
+    colorscheme xoria256
+    colorscheme 3dglasses
+    colorscheme Benokai
 
 "====[ Define Shell ]====
 
-    " Sources .bash_profile
+    " Sources .bash_profile upon :sh
     set shell=bash\ --login
 
 "====[ Ignoring Case ]====
@@ -127,10 +173,6 @@
     autocmd InsertEnter * call SetLineNumber()
     autocmd InsertLeave * call SetRelativeLineNumber()
 
-"====[ Future NeoBundle Stuffs ]====
-
-    "NeoBundle 'Rip-Rip/clang_complete'
-    "NeoBundle 'Rip-Rip/clang_complete'
 
 "====[ Case Insensitive Save and Quit Commands ]====
 
