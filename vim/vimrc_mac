@@ -17,14 +17,31 @@
     colorscheme desert   " colorscheme desert
     setlocal nobackup    " get rid of anoying ~file
 
+"====[ Color Scheme ]====
+
+    colorscheme slate
+
 "====[ Define Shell ]====
 
+    " Sources .bash_profile
     set shell=bash\ --login
 
 "====[ Ignoring Case ]====
 
     setlocal ignorecase
     setlocal smartcase
+
+"====[ Highlight Search ]====
+
+    func ToggleHighlight()
+        if (&hlsearch == 1)
+            set nohlsearch
+        else
+            set hlsearch
+        endif
+    endfunc
+    nnoremap <C-H> :call ToggleHighlight()<cr>
+    set hlsearch
 
 "====[ Arrow Removal ]====
 
@@ -35,17 +52,17 @@
         noremap! <Down>  <NOP>
         noremap! <Left>  <NOP>
         noremap! <Right> <NOP>
-        noremap <Up>    <NOP>
-        noremap <Down>  <NOP>
-        noremap <Left>  <NOP>
-        noremap <Right> <NOP>
+        noremap  <Up>    <NOP>
+        noremap  <Down>  <NOP>
+        noremap  <Left>  <NOP>
+        noremap  <Right> <NOP>
     endfunc
     func ArrowsOn()
         let g:arrowson=1
-        noremap <Up>    <Up>
-        noremap <Down>  <Down>
-        noremap <Left>  <Left>
-        noremap <Right> <Right>
+        noremap  <Up>    <Up>
+        noremap  <Down>  <Down>
+        noremap  <Left>  <Left>
+        noremap  <Right> <Right>
         noremap! <Up>    <Up>
         noremap! <Down>  <Down>
         noremap! <Left>  <Left>
@@ -62,13 +79,14 @@
 
 "====[ Turn Off Error Noises ]====
 
-    setlocal novisualbell " get rid of anoying visual beeps
-    setlocal noerrorbells " get rid of anoying audio beeps
+    setlocal novisualbell " remove annoying visual beeps
+    setlocal noerrorbells " remove annoying audio beeps
 
 "====[ Tabs to Spaces ]====
 
     " DEFAULT: 4 space tabs
     " expandtab: means TAB key will insert <sofftabstop> number of spaces
+    " set used because setlocal didn't work for vim -O (inserted tab)
      set tabstop=4
      set shiftwidth=4
      set softtabstop=4
@@ -111,7 +129,8 @@
 
 "====[ Future NeoBundle Stuffs ]====
 
-    "NeoBundle 'Rip-Rip/clang_complete '
+    "NeoBundle 'Rip-Rip/clang_complete'
+    "NeoBundle 'Rip-Rip/clang_complete'
 
 "====[ Case Insensitive Save and Quit Commands ]====
 
@@ -129,17 +148,18 @@
 
 "====[COMMENTS]=====
 
-    ",# shell, perl, etc
-    ",/ c++
-    ",> email quote
-    "," vim
-    ",% latex, prolog
-    ",! assembly/X-resources
-    ",; scheme
-    ",- sql, ada
-    ",c clears any of the previous comments
+    " Command/Comment Legend
+    " ,# : shell, perl, etc
+    " ,/ : c++
+    " ,> : email quote
+    " ," : vim
+    " ,% : latex, prolog
+    " ,! : assembly/X-resources
+    " ,; : scheme
+    " ,- : sql, ada
+    " ,c : clears any of the previous comments
 
-    " lhs comments
+    " LHS Comments
     map ,# :s/^/#/<CR>:nohlsearch<CR>
     map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
     map ,> :s/^/> /<CR>:nohlsearch<CR>
@@ -150,11 +170,11 @@
     map ,- :s/^/--/<CR>:nohlsearch<CR>
     map ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
 
-    " wrapping comments
-     map ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>:nohlsearch<CR>
-     map ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>:nohlsearch<CR>
-     map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>:nohlsearch<CR>
-     map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
+    " Wrapping Comments
+    map ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>:nohlsearch<CR>
+    map ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>:nohlsearch<CR>
+    map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>:nohlsearch<CR>
+    map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
 
 "====[ FileType Specifics ]====
 
