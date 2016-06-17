@@ -71,6 +71,8 @@
 
     " Sources .bash_profile upon :sh
     set shell=bash\ --login
+    " Makes tab complete work like bash
+    set wildmode=longest,list
 
 "====[ Ignoring Case ]====
 
@@ -153,6 +155,7 @@
     " change to relative line numbering
     function! SetRelativeLineNumber()
         setlocal relativenumber
+        setlocal number
     endfunc
     " toggles relative/absolute line
     function! ToggleLineNumStyle()
@@ -165,7 +168,8 @@
     " ctrl + n calls toggle
     nnoremap <C-n> :call ToggleLineNumStyle()<cr>
     " DEFAULT: relative line numbering
-    call SetRelativeLineNumber() 
+    set relativenumber
+    set number
     " only relative when pane in focus
     :autocmd WinLeave * call SetLineNumber()
     :autocmd WinEnter * call SetRelativeLineNumber()
