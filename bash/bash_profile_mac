@@ -4,7 +4,6 @@
 echo '.bash_profile'
 
 # PROMPT
-
 # Color the hostname
 # Light Blue
 export HOST_COLOR="\[\033[1;36m\]"
@@ -60,7 +59,6 @@ if [[ "${UNAME_S}" == "Darwin" ]]; then
         man -t $1 | open -f -a /Applications/Preview.app
     }
 fi
-
 
 # ALIASES
 alias ls="ls -G"
