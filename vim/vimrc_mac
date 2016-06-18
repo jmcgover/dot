@@ -242,6 +242,7 @@
 
     " NerdTREE:
     " call dein#add('scrooloose/nerdtree')
+    nnoremap <C-F> :NERDTree<cr>
 
     " Commands:
     " Type :help NERDTreeMappings to read through all of the default keyboard
@@ -254,6 +255,9 @@
     " m: Show the NERD Tree menu
     " R: Refresh the tree, useful if files change outside of Vim
     " ?: Toggle NERD Tree's quick help
+    "
+    " Options:
+    let NERDTreeWinSize=65
 
 "====[ Syntastic ]====
 
@@ -326,6 +330,12 @@
     let g:airline_theme = 'base16'
     let g:airline_theme = 'wombat'
 
+"====[ VIM Split Settings ]====
+
+    noremap _ <C-w>-
+    noremap + <C-w>+
+    noremap < <C-w><
+    noremap > <C-w>>
 "====[ FileType Specifics ]====
 
 autocmd Filetype java       setlocal tabstop=4 sts=4 shiftwidth=4
@@ -343,6 +353,8 @@ function TextMode()
     setlocal nolist 
     setlocal textwidth=0 
     setlocal wrapmargin=0
+    "noremap j gj 
+    "noremap k gk
 endfunction
 autocmd Filetype txt,text call TextMode()
 
