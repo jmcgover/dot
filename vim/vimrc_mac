@@ -193,10 +193,10 @@
     endif
 
     " Required:
-    set runtimepath^=/Users/jmcgovern/.vim/dein/repos/github.com/Shougo/dein.vim/repos/github.com/Shougo/dein.vim
+    set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim/repos/github.com/Shougo/dein.vim
 
     " Required:
-    call dein#begin(expand('/Users/jmcgovern/.vim/dein/repos/github.com/Shougo/dein.vim'))
+    call dein#begin(expand('~/.vim/dein/repos/github.com/Shougo/dein.vim'))
 
     " Let dein manage dein
     " Required:
@@ -205,12 +205,12 @@
     " Add or remove your plugins here:
     "call dein#add('Shougo/neosnippet.vim')
     "call dein#add('Shougo/neosnippet-snippets')
-    call dein#add('Rip-Rip/clang_complete')
+    "call dein#add('Rip-Rip/clang_complete')
+    "call dein#add('scrooloose/syntastic')
+
     call dein#add('flazz/vim-colorschemes')
     call dein#add('scrooloose/nerdtree')
-    call dein#add('scrooloose/syntastic')
     call dein#add('eapache/rainbow_parentheses.vim')
-    " call dein#add('Lokaltog/vim-powerline')
     call dein#add('vim-airline/vim-airline')
     call dein#add('vim-airline/vim-airline-themes')
 
@@ -273,6 +273,8 @@
     let g:syntastic_auto_loc_list = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
+    let g:syntastic_objc_compiler_options="-F/AppleInternal/Library/Frameworks"
+    let g:syntastic_full_redraws=1
 
 "====[ Rainbow Parentheses Settings ]====
 
@@ -336,11 +338,18 @@
     noremap + <C-w>+
     noremap < <C-w><
     noremap > <C-w>>
+
+"====[ ClangComplete ]====
+"
+   let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
+   let g:clang_user_options="-F/AppleInternal/Library/Frameworks"
+
 "====[ FileType Specifics ]====
 
-autocmd Filetype java       setlocal tabstop=4 sts=4 shiftwidth=4
-autocmd Filetype py,python  setlocal tabstop=4 sts=4 shiftwidth=4
-autocmd Filetype c,cpp      setlocal tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
+autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 
 function TextMode()
     setlocal noexpandtab 
@@ -357,5 +366,10 @@ function TextMode()
     "noremap k gk
 endfunction
 autocmd Filetype txt,text call TextMode()
+:au BufWritePost * redraw!
+
+" Some motherfucker (possibly me) mapped this shit away.
+:unmap <
+:unmap >
 
 "====[ END ~/.vimrc ]====
