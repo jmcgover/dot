@@ -1,0 +1,375 @@
+"====[ BEGIN ~/.vimrc ]====
+
+    " Preferred Location: ~/.vimrc
+    " Jeff McGovern
+    " 6/14/2016
+    " 6/15/2016
+    " 6/17/2016: Added Dein
+
+"====[ Minimal .vimrc (Pilfered) ]====
+
+    " Minimal .vimrc pilfered (almost exactly) from:
+    " http://stackoverflow.com/questions/1840862/favorite-minimalistic-vimrc-configuration
+    setlocal backspace=2 " backspace in insert mode works like normal editor
+    syntax on            " syntax highlighting
+    filetype indent on   " activates indenting for files
+    setlocal autoindent  " auto indenting
+    setlocal number      " line numbers
+    colorscheme desert   " colorscheme desert
+    setlocal nobackup    " get rid of anoying ~file
+
+"====[ Mouse Support ]====
+
+    set mouse=a
+
+"====[ Define Shell ]====
+
+    " Sources .bash_profile upon :sh
+    set shell=bash\ --login
+    " Makes tab complete work like bash
+    set wildmode=longest,list
+
+"====[ Ignoring Case ]====
+
+    setlocal ignorecase
+    setlocal smartcase
+
+"====[ Highlight Search ]====
+
+    func ToggleHighlight()
+        if (&hlsearch == 1)
+            set nohlsearch
+        else
+            set hlsearch
+        endif
+    endfunc
+    nnoremap <C-H> :call ToggleHighlight()<cr>
+    set hlsearch
+
+"====[ Arrow Removal ]====
+
+    let g:arrowson=1
+    func ArrowsOff()
+        let g:arrowson=0
+        noremap! <Up>    <NOP>
+        noremap! <Down>  <NOP>
+        noremap! <Left>  <NOP>
+        noremap! <Right> <NOP>
+        noremap  <Up>    <NOP>
+        noremap  <Down>  <NOP>
+        noremap  <Left>  <NOP>
+        noremap  <Right> <NOP>
+    endfunc
+    func ArrowsOn()
+        let g:arrowson=1
+        noremap  <Up>    <Up>
+        noremap  <Down>  <Down>
+        noremap  <Left>  <Left>
+        noremap  <Right> <Right>
+        noremap! <Up>    <Up>
+        noremap! <Down>  <Down>
+        noremap! <Left>  <Left>
+        noremap! <Right> <Right>
+    endfunc
+    func ToggleArrows()
+        if (g:arrowson == 1)
+            call ArrowsOff()
+        else
+            call ArrowsOn()
+        endif
+    endfunc
+    call ArrowsOff()
+
+"====[ Turn Off Error Noises ]====
+
+    setlocal novisualbell " remove annoying visual beeps
+    setlocal noerrorbells " remove annoying audio beeps
+
+"====[ Tabs to Spaces ]====
+
+    " DEFAULT: 4 space tabs
+    " expandtab: means TAB key will insert <sofftabstop> number of spaces
+    " set used because setlocal didn't work for vim -O (inserted tab)
+     set tabstop=4
+     set shiftwidth=4
+     set softtabstop=4
+     set expandtab
+
+"====[ Tabs, trailing whitespace, and non-breaking spaces visible ]====
+
+    exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+    set list
+
+"====[ Ruler ]====
+    " Displays the row,col in the bottom right
+    set ruler
+
+"====[ Relative Line Numbering ]====
+
+    " change to absolute line numbering
+    function! SetLineNumber()
+        setlocal norelativenumber
+        setlocal number
+    endfunc
+    " change to relative line numbering
+    function! SetRelativeLineNumber()
+        setlocal relativenumber
+        setlocal number
+    endfunc
+    " toggles relative/absolute line
+    function! ToggleLineNumStyle()
+        if (&relativenumber == 1)
+            call SetLineNumber()
+        else
+            call SetRelativeLineNumber()
+        endif
+    endfunc
+    " ctrl + n calls toggle
+    nnoremap <C-n> :call ToggleLineNumStyle()<cr>
+    " DEFAULT: relative line numbering
+    set relativenumber
+    set number
+    " only relative when pane in focus
+    :autocmd WinLeave * call SetLineNumber()
+    :autocmd WinEnter * call SetRelativeLineNumber()
+    " switches to absolute when in insert
+    autocmd InsertEnter * call SetLineNumber()
+    autocmd InsertLeave * call SetRelativeLineNumber()
+
+
+"====[ Case Insensitive Save and Quit Commands ]====
+
+    :command WQA wqa
+    :command WQa wqa
+    :command Wqa wqa
+    :command QA qa
+    :command Qa qa
+    :command WA wa
+    :command Wa wa
+    :command WQ wq
+    :command Wq wq
+    :command W w
+    :command Q q
+
+"====[COMMENTS]=====
+
+    " Command/Comment Legend
+    " ,# : shell, perl, etc
+    " ,/ : c++
+    " ,> : email quote
+    " ," : vim
+    " ,% : latex, prolog
+    " ,! : assembly/X-resources
+    " ,; : scheme
+    " ,- : sql, ada
+    " ,c : clears any of the previous comments
+
+    " LHS Comments
+    map ,# :s/^/#/<CR>:nohlsearch<CR>
+    map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
+    map ,> :s/^/> /<CR>:nohlsearch<CR>
+    map ," :s/^/\"/<CR>:nohlsearch<CR>
+    map ,% :s/^/%/<CR>:nohlsearch<CR>
+    map ,! :s/^/!/<CR>:nohlsearch<CR>
+    map ,; :s/^/;/<CR>:nohlsearch<CR>
+    map ,- :s/^/--/<CR>:nohlsearch<CR>
+    map ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
+
+    " Wrapping Comments
+    map ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>:nohlsearch<CR>
+    map ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>:nohlsearch<CR>
+    map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>:nohlsearch<CR>
+    map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
+
+"====[ Dein Plugin Manager ]====
+
+    "dein Scripts-----------------------------
+    " To Install:
+    " $ mkdir -p ~/.vim/dein/repos/github.com/Shougo/dein.vim
+    " $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+    " $ sh ./installer.sh ~/.vim/dein/repos/github.com/Shougo/dein.vim
+    if &compatible
+        set nocompatible " Makes VIM not compatible with VI (be IMproved or whatever)
+    endif
+
+    " Required:
+    set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim/repos/github.com/Shougo/dein.vim
+
+    " Required:
+    call dein#begin(expand('~/.vim/dein/repos/github.com/Shougo/dein.vim'))
+
+    " Let dein manage dein
+    " Required:
+    call dein#add('Shougo/dein.vim')
+
+    " Add or remove your plugins here:
+    "call dein#add('Shougo/neosnippet.vim')
+    "call dein#add('Shougo/neosnippet-snippets')
+    "call dein#add('Rip-Rip/clang_complete')
+    "call dein#add('scrooloose/syntastic')
+
+    call dein#add('flazz/vim-colorschemes')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('eapache/rainbow_parentheses.vim')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
+
+    " You can specify revision/branch/tag.
+    "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+    " Required:
+    call dein#end()
+
+    " Required:
+    filetype plugin indent on
+
+    " If you want to install not installed plugins on startup.
+    if dein#check_install()
+      call dein#install()
+    endif
+    "End dein Scripts-------------------------
+
+"====[ Color Scheme ]====
+
+    " DEIN: Colors must occur after call dein#end()
+    colorscheme desert
+    colorscheme slate
+    colorscheme xoria256
+    colorscheme 3dglasses
+    colorscheme Benokai
+
+"====[ NerdTREE ]====
+
+    " NerdTREE:
+    " call dein#add('scrooloose/nerdtree')
+    nnoremap <C-F> :NERDTree<cr>
+
+    " Commands:
+    " Type :help NERDTreeMappings to read through all of the default keyboard
+    " shortcuts. These are the ones I use the most frequently:
+    "
+    " t: Open the selected file in a new tab
+    " i: Open the selected file in a horizontal split window
+    " s: Open the selected file in a vertical split window
+    " I: Toggle hidden files
+    " m: Show the NERD Tree menu
+    " R: Refresh the tree, useful if files change outside of Vim
+    " ?: Toggle NERD Tree's quick help
+    "
+    " Options:
+    let NERDTreeWinSize=65
+
+"====[ Syntastic ]====
+
+    " Syntastic:
+    " call dein#add('scrooloose/syntastic')
+
+    " Recommended Settings:
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_objc_compiler_options="-F/AppleInternal/Library/Frameworks"
+    let g:syntastic_full_redraws=1
+
+"====[ Rainbow Parentheses Settings ]====
+
+    " Rainbow Parentheses:
+    " call dein#add('eapache/rainbow_parentheses.vim')
+
+	" Options:
+     let g:rbpt_colorpairs = [
+         \ ['brown',       'RoyalBlue3'],
+         \ ['Darkblue',    'SeaGreen3'],
+         \ ['darkgray',    'DarkOrchid3'],
+         \ ['darkgreen',   'firebrick3'],
+         \ ['darkcyan',    'RoyalBlue3'],
+         \ ['darkred',     'SeaGreen3'],
+         \ ['darkmagenta', 'DarkOrchid3'],
+         \ ['brown',       'firebrick3'],
+         \ ['gray',        'RoyalBlue3'],
+         \ ['black',       'SeaGreen3'],
+         \ ['darkmagenta', 'DarkOrchid3'],
+         \ ['Darkblue',    'firebrick3'],
+         \ ['darkgreen',   'RoyalBlue3'],
+         \ ['darkcyan',    'SeaGreen3'],
+         \ ['darkred',     'DarkOrchid3'],
+         \ ['red',         'firebrick3'],
+         \ ]
+    " let g:rbpt_max = 16
+    " let g:rbpt_loadcmd_toggle = 0
+
+    " Commands:
+    " :RainbowParenthesesToggle       " Toggle it on/off
+    " :RainbowParenthesesLoadRound    " (), the default when toggling
+    " :RainbowParenthesesLoadSquare   " []
+    " :RainbowParenthesesLoadBraces   " {}
+    " :RainbowParenthesesLoadChevrons " <>
+    
+    " Always On Rainbow Parens:
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+    au Syntax * RainbowParenthesesLoadChevrons
+
+"====[ Vim Airline Settings ]====
+
+    " Airline:
+    " call dein#add('Lokaltog/vim-powerline')
+    " call dein#add('vim-airline/vim-airline')
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+    let g:airline_powerline_fonts = 0
+
+    " Airline Themes:
+    " call dein#add('vim-airline/vim-airline-themes')
+    let g:airline_theme = 'base16'
+    let g:airline_theme = 'wombat'
+
+"====[ VIM Split Settings ]====
+
+    noremap _ <C-w>-
+    noremap + <C-w>+
+    noremap < <C-w><
+    noremap > <C-w>>
+
+"====[ ClangComplete ]====
+"
+   let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
+   let g:clang_user_options="-F/AppleInternal/Library/Frameworks"
+
+"====[ FileType Specifics ]====
+
+autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
+autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+
+function TextMode()
+    setlocal noexpandtab 
+    setlocal formatoptions=1 
+    setlocal spell 
+    setlocal spelllang=en_us 
+    setlocal complete+=s 
+    setlocal wrap 
+    setlocal linebreak 
+    setlocal nolist 
+    setlocal textwidth=0 
+    setlocal wrapmargin=0
+    "noremap j gj 
+    "noremap k gk
+endfunction
+autocmd Filetype txt,text call TextMode()
+:au BufWritePost * redraw!
+
+" Some motherfucker (possibly me) mapped this shit away.
+:unmap <
+:unmap >
+
+"====[ END ~/.vimrc ]====
