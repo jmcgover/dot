@@ -233,11 +233,14 @@
 "====[ Color Scheme ]====
 
     " DEIN: Colors must occur after call dein#end()
-    colorscheme desert
-    colorscheme slate
-    colorscheme 3dglasses
-    colorscheme Benokai
+    " colorscheme desert
+    " colorscheme slate
+    " colorscheme 3dglasses
+    " colorscheme Benokai
     colorscheme xoria256
+    highlight Normal ctermbg=NONE
+    highlight nonText ctermbg=NONE
+    highlight LineNr ctermbg=NONE
 
 "====[ NerdTREE ]====
 
@@ -266,16 +269,16 @@
     " call dein#add('scrooloose/syntastic')
 
     " Recommended Settings:
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+    " set statusline+=%#warningmsg#
+    " set statusline+=%{SyntasticStatuslineFlag()}
+    " set statusline+=%*
 
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_objc_compiler_options="-F/AppleInternal/Library/Frameworks"
-    let g:syntastic_full_redraws=1
+    " let g:syntastic_always_populate_loc_list = 1
+    " let g:syntastic_auto_loc_list = 1
+    " let g:syntastic_check_on_open = 1
+    " let g:syntastic_check_on_wq = 0
+    " let g:syntastic_objc_compiler_options="-F/AppleInternal/Library/Frameworks"
+    " let g:syntastic_full_redraws=1
 
 ""====[ Rainbow Parentheses Settings ]====
 "
