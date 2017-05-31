@@ -1,3 +1,2 @@
-echo .bashrc
+#echo .bashrc
 
-PATH="$PATH:/System/Library/Frameworks:/AppleInternal/Library/Frameworks"
