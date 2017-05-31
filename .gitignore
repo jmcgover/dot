@@ -1,2 +1,5 @@
 # Fortune Index Files
 *.dat
+
+# OS X Bookeeping
+.DS_Store
