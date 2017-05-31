@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # DEBUGGING
-echo '.bash_profile'
+# echo '.bash_profile'
 
 # PROMPT
 # Color the hostname
@@ -17,7 +17,7 @@ COLON_COLOR='0m'
 if [ ${UID} -eq 0 ]; then
     COLON_COLOR='1;31m'
 fi
-PS1=`echo -ne "$HOST_COLOR\h\[\033[00m\]\[\e[$COLON_COLOR\]:\[\033[01;33m\][\w]\[\033[00m\]\\[\033[01;33m\]\$\[\033[00m\] "`
+PS1=`echo -ne "$HOST_COLOR$(scutil --get LocalHostName)\[\033[00m\]\[\e[$COLON_COLOR\]:\[\033[01;33m\][\w]\[\033[00m\]\\[\033[01;33m\]\$\[\033[00m\] "`
 
 # FUNCTIONS
 function mkcd() {
@@ -71,3 +71,13 @@ alias tree="tree -C"
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
+
+PATH="/System/Library/Frameworks:/AppleInternal/Library/Frameworks:$PATH"
+#PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# Setting PATH for Python 3.6
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+export PATH
+export TERM=xterm-256color
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
