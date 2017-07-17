@@ -1,13 +1,33 @@
-#! /bin/env sh
+#! /usr/bin/env sh
 
-VUNDLE_REPO=
+# vundle (cause dein sucks)
+vundleRepo="https://github.com/VundleVim/Vundle.vim.git"
+vundleTarget="${HOME}/.vim/bundle/Vundle.vim"
 
-CUR_DIR=$(pwd)
+echo "INSTALLING vundle"
+git clone ${vundleRepo} ${vundleTarget}
 
-echo Changing from ${CUR_DIR} to ${HOME}
+errno=$?
+if [ ${errno} != "0" ]; then
+    (>&2 echo "Received error:" ${errno})
+    (>&2 echo "Exiting")
+    exit ${errno}
+fi
+
+# vimrc
+echo "INSTALLING vimrc"
+currentDirectory=$(pwd)
+echo Changing from ${currentDirectory} to ${HOME}
 cd ${HOME}
 pwd
-ln -sv "${CUR_DIR}/vimrc" .vimrc
-cd ${CUR_DIR}
+ln -sv "${currentDirectory}/vimrc" .vimrc
+cd ${currentDirectory}
 
+# Plugins
+echo "INSTALLING plugins"
+vim -c 'PluginInstall' -c 'qa!' << EOF
+
+EOF
+
+echo "DONE"
 exit 0

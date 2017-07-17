@@ -181,55 +181,69 @@
     map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>:nohlsearch<CR>
     map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
 
-"====[ Dein Plugin Manager ]====
 
-    "dein Scripts-----------------------------
-    if &compatible
-      set nocompatible               " Be iMproved
-    endif
+"====[ Vundle Plugin Manager ]====
 
-    " Required:
-    set runtimepath+=/Users/jmcgover/.vim/bundles/repos/github.com/Shougo/dein.vim
+   set nocompatible              " be iMproved, required
+   filetype off                  " required
 
-    " Required:
-    if dein#load_state('/Users/jmcgover/.vim/bundles')
-      call dein#begin('/Users/jmcgover/.vim/bundles')
+   " set the runtime path to include Vundle and initialize
+   set rtp+=~/.vim/bundle/Vundle.vim
+   call vundle#begin()
+   " alternatively, pass a path where Vundle should install plugins
+   "call vundle#begin('~/some/path/here')
 
-      " Let dein manage dein
-      " Required:
-      call dein#add('/Users/jmcgover/.vim/bundles/repos/github.com/Shougo/dein.vim')
+   " let Vundle manage Vundle, required
+   Plugin 'VundleVim/Vundle.vim'
 
-      " Add or remove your plugins here:
-      "call dein#add('Shougo/neosnippet.vim')
-      "call dein#add('Shougo/neosnippet-snippets')
+   " The following are examples of different formats supported.
+   " Keep Plugin commands between vundle#begin/end.
+   " plugin on GitHub repo
+   " Plugin 'tpope/vim-fugitive'
+   " plugin from http://vim-scripts.org/vim/scripts.html
+   " Plugin 'L9'
+   " Git plugin not hosted on GitHub
+   " Plugin 'git://git.wincent.com/command-t.git'
+   " git repos on your local machine (i.e. when working on your own plugin)
+   " Plugin 'file:///home/gmarik/path/to/plugin'
+   " The sparkup vim script is in a subdirectory of this repo called vim.
+   " Pass the path to set the runtimepath properly.
+   " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+   " Install L9 and avoid a Naming conflict if you've already installed a
+   " different version somewhere else.
+   " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-      " You can specify revision/branch/tag.
-      "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-      call dein#add('scrooloose/nerdtree')
-      call dein#add('eapache/rainbow_parentheses.vim')
-      call dein#add('vim-airline/vim-airline')
-      call dein#add('vim-airline/vim-airline-themes')
-      call dein#add('JamshedVesuna/vim-markdown-preview')
-      call dein#add('flazz/vim-colorschemes', 
-                  \ { 'build': 
-                  \ 'mkdir -p /Users/jmcgover/.vim/colors && cp /Users/jmcgover/.vim/bundles/repos/github.com/flazz/vim-colorschemes/colors/* /Users/jmcgover/.vim/colors' }
-                  \ )
+   Plugin 'scrooloose/nerdtree'
+   Plugin 'eapache/rainbow_parentheses.vim'
+   Plugin 'vim-airline/vim-airline'
+   Plugin 'vim-airline/vim-airline-themes'
+   Plugin 'JamshedVesuna/vim-markdown-preview'
+   Plugin 'flazz/vim-colorschemes'
 
-      " Required:
-      call dein#end()
-      call dein#save_state()
-    endif
+  "call dein#add('scrooloose/nerdtree')
+  "call dein#add('eapache/rainbow_parentheses.vim')
+  "call dein#add('vim-airline/vim-airline')
+  "call dein#add('vim-airline/vim-airline-themes')
+  "call dein#add('JamshedVesuna/vim-markdown-preview')
+  "call dein#add('flazz/vim-colorschemes',
+  "            \ { 'build':
+  "            \ 'mkdir -p /Users/jmcgover/.vim/colors && cp /Users/jmcgover/.vim/bundles/repos/github.com/flazz/vim-colorschemes/colors/* /Users/jmcgover/.vim/colors' }
+  "            \ )
 
-    " Required:
-    filetype plugin indent on
-    syntax enable
-
-    " If you want to install not installed plugins on startup.
-    if dein#check_install()
-      call dein#install()
-    endif
-
-    "End dein Scripts-------------------------
+   " All of your Plugins must be added before the following line
+   call vundle#end()            " required
+   filetype plugin indent on    " required
+   " To ignore plugin indent changes, instead use:
+   "filetype plugin on
+   "
+   " Brief help
+   " :PluginList       - lists configured plugins
+   " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+   " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+   " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+   "
+   " see :h vundle for more details or wiki for FAQ
+   " Put your non-Plugin stuff after this line
 
 "====[ Color Scheme ]====
 
@@ -363,17 +377,17 @@ autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 
 function TextMode()
-    setlocal noexpandtab 
-    setlocal formatoptions=1 
-    setlocal spell 
-    setlocal spelllang=en_us 
-    setlocal complete+=s 
-    setlocal wrap 
-    setlocal linebreak 
-    setlocal nolist 
-    setlocal textwidth=0 
+    setlocal noexpandtab
+    setlocal formatoptions=1
+    setlocal spell
+    setlocal spelllang=en_us
+    setlocal complete+=s
+    setlocal wrap
+    setlocal linebreak
+    setlocal nolist
+    setlocal textwidth=0
     setlocal wrapmargin=0
-    "noremap j gj 
+    "noremap j gj
     "noremap k gk
 endfunction
 autocmd Filetype txt,text call TextMode()
