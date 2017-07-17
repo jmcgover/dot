@@ -189,15 +189,15 @@
     endif
 
     " Required:
-    set runtimepath+=$HOME/.vim/bundles/repos/github.com/Shougo/dein.vim
+    set runtimepath+=/Users/jmcgover/.vim/bundles/repos/github.com/Shougo/dein.vim
 
     " Required:
-    if dein#load_state('$HOME/.vim/bundles')
-      call dein#begin('$HOME/.vim/bundles')
+    if dein#load_state('/Users/jmcgover/.vim/bundles')
+      call dein#begin('/Users/jmcgover/.vim/bundles')
 
       " Let dein manage dein
       " Required:
-      call dein#add('$HOME/.vim/bundles/repos/github.com/Shougo/dein.vim')
+      call dein#add('/Users/jmcgover/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
       " Add or remove your plugins here:
       "call dein#add('Shougo/neosnippet.vim')
@@ -209,9 +209,10 @@
       call dein#add('eapache/rainbow_parentheses.vim')
       call dein#add('vim-airline/vim-airline')
       call dein#add('vim-airline/vim-airline-themes')
+      call dein#add('JamshedVesuna/vim-markdown-preview')
       call dein#add('flazz/vim-colorschemes', 
                   \ { 'build': 
-                  \ 'mkdir -p $HOME/.vim/colors && cp $HOME/.vim/bundles/repos/github.com/flazz/vim-colorschemes/colors/* $HOME/.vim/colors' }
+                  \ 'mkdir -p /Users/jmcgover/.vim/colors && cp /Users/jmcgover/.vim/bundles/repos/github.com/flazz/vim-colorschemes/colors/* /Users/jmcgover/.vim/colors' }
                   \ )
 
       " Required:
@@ -241,6 +242,12 @@
     highlight Normal ctermbg=NONE
     highlight nonText ctermbg=NONE
     highlight LineNr ctermbg=NONE
+
+"====[ vim-Markdown-Preview ]====
+
+    " let vim_markdown_preview_github=1
+    let vim_markdown_preview_toggle=2
+    nnoremap <C-p> :call Vim_Markdown_Preview_Local()<cr>
 
 "====[ NerdTREE ]====
 
