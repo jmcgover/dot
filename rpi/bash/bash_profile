@@ -1,0 +1,46 @@
+# ~/.bash_profile
+
+# FUNCTIONS
+function mkcd() {
+    mkdir "$@"
+    cd "${@: -1}"
+}
+
+function cls() {
+    printf "\033c"
+}
+
+function path() {
+    echo -e ${PATH//:/\\n}
+}
+
+function now() {
+    date +"%T"
+}
+
+function nowtime() {
+    now
+}
+
+function nowdate() {
+    date +"%d-%m-%Y"
+}
+
+function ports() {
+    netstat -tulanp
+}
+
+function csvtable() {
+    column -s, -t
+}
+
+function vimbackup() {
+    mkdir -pv .backup/;
+    mv -v *~ .backup/;
+}
+
+function rmvimswp() {
+    rm -v .*.swp
+}
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
