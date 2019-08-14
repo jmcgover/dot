@@ -248,11 +248,11 @@
 "====[ Color Scheme ]====
 
     " DEIN: Colors must occur after call dein#end()
-    " colorscheme desert
-    " colorscheme slate
+    colorscheme desert
+    colorscheme slate
     " colorscheme 3dglasses
     " colorscheme Benokai
-    colorscheme xoria256
+    " colorscheme xoria256
     highlight Normal ctermbg=NONE
     highlight nonText ctermbg=NONE
     highlight LineNr ctermbg=NONE
@@ -260,8 +260,8 @@
 "====[ vim-Markdown-Preview ]====
 
     " let vim_markdown_preview_github=1
-    let vim_markdown_preview_toggle=2
-    nnoremap <C-p> :call Vim_Markdown_Preview_Local()<cr>
+    " let vim_markdown_preview_toggle=2
+    " nnoremap <C-p> :call Vim_Markdown_Preview_Local()<cr>
 
 "====[ NerdTREE ]====
 
