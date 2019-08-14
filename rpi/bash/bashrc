@@ -1,0 +1,38 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Colors
+PS1='[\u@\h \w]\$ '
+PS1='[\[\e[1;34m\]\u@\h\[\e[0m\] \W]\[\e[1;32m\]\$\[\e[0m\] '
+PS1='\[\033[01;32m\][\u@\h \[\033[01;34m\]\W\[\033[01;32m\]]\[\033[01;34m\]\$\[\033[00m\] '
+
+VIMRUNTIME=/usr/bin
+export EDITOR=/usr/bin/vim
+
+export PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
+#export PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]#\[\e[m\] \[\e[0;32m\]'
+alias vimbackup="mkdir -pv .backup/ && mv -v *~ .backup/"
+alias vimswp="rm -v .*.swp"
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
+## ALIASES
+# Linux Basics
+alias ls='ls --color=auto'
+alias bc="bc -l"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias tree='tree -C'
+
+alias escrotum='escrotum "~/Pictures/Screenshots/%Y-%m-%d-%H%M%S_\$wx\$h_escrotum.png"'
+
+# Exports
+export TERM=xterm-256color
+export SYSTEMD_EDITOR="vim"
+TERMINAL="/usr/bin/env urxvtc"
+
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
