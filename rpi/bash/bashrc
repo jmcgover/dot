@@ -1,0 +1,59 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# PROMPT
+# Light Blue
+export HOST_COLOR="\[\033[1;36m\]"
+# Blue
+export HOST_COLOR="\[\033[1;34m\]"
+# Red
+export HOST_COLOR="\[\033[1;31m\]"
+# Light Purple
+export HOST_COLOR="\[\033[1;35m\]"
+# Green
+export HOST_COLOR="\[\033[1;32m\]"
+# Yellow
+export WD_COLOR="\[\033[1;33m\]"
+export DATE_COLOR="\[\033[1;37m\]"
+
+export CMD_COLOR="\[\033[00m\]"
+export VIM_COLOR="\[\033[00m\]"
+
+# Color the colon red if root
+export COLON_COLOR='0m'
+if [ ${UID} -eq 0 ]; then
+    export COLON_COLOR='1;31m'
+fi
+PS1="$DATE_COLOR<\D{%H:%M:%S}>$VIM_COLOR${VIM##*/}$HOST_COLOR\H\[\033[00m\]\[\e[$COLON_COLOR\]:$WD_COLOR[\w]\$$CMD_COLOR "
+
+
+VIMRUNTIME=/usr/bin
+export EDITOR=/usr/bin/vim
+
+export PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
+#export PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]#\[\e[m\] \[\e[0;32m\]'
+alias vimbackup="mkdir -pv .backup/ && mv -v *~ .backup/"
+alias vimswp="rm -v .*.swp"
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
+## ALIASES
+# Linux Basics
+alias ls='ls --color=auto'
+alias bc="bc -l"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias tree='tree -C'
+
+alias escrotum='escrotum "~/Pictures/Screenshots/%Y-%m-%d-%H%M%S_\$wx\$h_escrotum.png"'
+
+# Exports
+export TERM=xterm-256color
+export SYSTEMD_EDITOR="vim"
+TERMINAL="/usr/bin/env urxvtc"
+
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
