@@ -215,10 +215,22 @@
 
    Plugin 'scrooloose/nerdtree'
    Plugin 'eapache/rainbow_parentheses.vim'
-   Plugin 'vim-airline/vim-airline'
-   Plugin 'vim-airline/vim-airline-themes'
    Plugin 'JamshedVesuna/vim-markdown-preview'
    Plugin 'flazz/vim-colorschemes'
+   Plugin 'fatih/vim-go'
+
+   " Linting/Formatting
+   " May need to us pip to install pynvim:
+   "   python3 -m pip install pynvim
+   " Also add the following configuration in the .vimrc:
+   "   let g:python3_host_prog="/path/to/python/executable/"
+   Plugin 'vim-autoformat/vim-autoformat'
+
+   " Airline needs Powerline-patched fonts, which I think are found here:
+   " https://github.com/powerline/fonts
+   Plugin 'vim-airline/vim-airline'
+   Plugin 'vim-airline/vim-airline-themes'
+   Plugin 'Lokaltog/powerline'
 
   "call dein#add('scrooloose/nerdtree')
   "call dein#add('eapache/rainbow_parentheses.vim')
@@ -256,6 +268,12 @@
     highlight Normal ctermbg=NONE
     highlight nonText ctermbg=NONE
     highlight LineNr ctermbg=NONE
+
+"====[ vim-autoformat ]====
+    noremap <c-k> :Autoformat<CR>
+    " Python
+    let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
+    let g:formatters_python = ['autopep8']
 
 "====[ vim-Markdown-Preview ]====
 
@@ -335,12 +353,12 @@
 "    " :RainbowParenthesesLoadBraces   " {}
 "    " :RainbowParenthesesLoadChevrons " <>
 "
-"    " Always On Rainbow Parens:
-"    au VimEnter * RainbowParenthesesToggle
-"    au Syntax * RainbowParenthesesLoadRound
-"    au Syntax * RainbowParenthesesLoadSquare
-"    au Syntax * RainbowParenthesesLoadBraces
-"    au Syntax * RainbowParenthesesLoadChevrons
+    " Always On Rainbow Parens:
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+    au Syntax * RainbowParenthesesLoadChevrons
 
 "====[ Vim Airline Settings ]====
 
@@ -375,6 +393,8 @@ autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
 autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype go         exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
+let g:gofmt_command = "goimports"
 
 function TextMode()
     setlocal noexpandtab
