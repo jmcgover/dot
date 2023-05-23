@@ -1,2 +1,1 @@
-# arch
-Files that I want to keep form y next installation of Arch.
+A collection of config files for different platforms.
