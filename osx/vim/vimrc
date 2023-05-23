@@ -1,10 +1,7 @@
 "====[ BEGIN ~/.vimrc ]====
 
     " Preferred Location: ~/.vimrc
-    " Jeff McGovern
-    " 6/14/2016
-    " 6/15/2016
-    " 6/17/2016: Added Dein
+    " Author: Jeff McGovern
 
 "====[ Minimal .vimrc (Pilfered) ]====
 
@@ -90,10 +87,10 @@
     " DEFAULT: 4 space tabs
     " expandtab: means TAB key will insert <sofftabstop> number of spaces
     " set used because setlocal didn't work for vim -O (inserted tab)
-     set tabstop=4
-     set shiftwidth=4
-     set softtabstop=4
-     set expandtab
+    set tabstop=4
+    set shiftwidth=4
+    set softtabstop=4
+    set expandtab
 
 "====[ Tabs, trailing whitespace, and non-breaking spaces visible ]====
 
@@ -101,6 +98,7 @@
     set list
 
 "====[ Ruler ]====
+
     " Displays the row,col in the bottom right
     set ruler
 
@@ -184,78 +182,78 @@
 
 "====[ Vundle Plugin Manager ]====
 
-   set nocompatible              " be iMproved, required
-   filetype off                  " required
+    set nocompatible              " be iMproved, required
+    filetype off                  " required
 
-   " set the runtime path to include Vundle and initialize
-   set rtp+=~/.vim/bundle/Vundle.vim
-   call vundle#begin()
-   " alternatively, pass a path where Vundle should install plugins
-   "call vundle#begin('~/some/path/here')
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+    " alternatively, pass a path where Vundle should install plugins
+    "call vundle#begin('~/some/path/here')
 
-   " let Vundle manage Vundle, required
-   Plugin 'VundleVim/Vundle.vim'
+    " let Vundle manage Vundle, required
+    Plugin 'VundleVim/Vundle.vim'
 
-   " The following are examples of different formats supported.
-   " Keep Plugin commands between vundle#begin/end.
-   " plugin on GitHub repo
-   " Plugin 'tpope/vim-fugitive'
-   " plugin from http://vim-scripts.org/vim/scripts.html
-   " Plugin 'L9'
-   " Git plugin not hosted on GitHub
-   " Plugin 'git://git.wincent.com/command-t.git'
-   " git repos on your local machine (i.e. when working on your own plugin)
-   " Plugin 'file:///home/gmarik/path/to/plugin'
-   " The sparkup vim script is in a subdirectory of this repo called vim.
-   " Pass the path to set the runtimepath properly.
-   " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-   " Install L9 and avoid a Naming conflict if you've already installed a
-   " different version somewhere else.
-   " Plugin 'ascenator/L9', {'name': 'newL9'}
+    " The following are examples of different formats supported.
+    " Keep Plugin commands between vundle#begin/end.
+    " plugin on GitHub repo
+    " Plugin 'tpope/vim-fugitive'
+    " plugin from http://vim-scripts.org/vim/scripts.html
+    " Plugin 'L9'
+    " Git plugin not hosted on GitHub
+    " Plugin 'git://git.wincent.com/command-t.git'
+    " git repos on your local machine (i.e. when working on your own plugin)
+    " Plugin 'file:///home/gmarik/path/to/plugin'
+    " The sparkup vim script is in a subdirectory of this repo called vim.
+    " Pass the path to set the runtimepath properly.
+    " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+    " Install L9 and avoid a Naming conflict if you've already installed a
+    " different version somewhere else.
+    " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-   Plugin 'scrooloose/nerdtree'
-   Plugin 'eapache/rainbow_parentheses.vim'
-   Plugin 'JamshedVesuna/vim-markdown-preview'
-   Plugin 'flazz/vim-colorschemes'
-   Plugin 'fatih/vim-go'
+    Plugin 'scrooloose/nerdtree'
+    Plugin 'eapache/rainbow_parentheses.vim'
+    Plugin 'JamshedVesuna/vim-markdown-preview'
+    Plugin 'flazz/vim-colorschemes'
+    Plugin 'fatih/vim-go'
 
-   " Linting/Formatting
-   " May need to us pip to install pynvim:
-   "   python3 -m pip install pynvim
-   " Also add the following configuration in the .vimrc:
-   "   let g:python3_host_prog="/path/to/python/executable/"
-   Plugin 'vim-autoformat/vim-autoformat'
+    " Linting/Formatting
+    Plugin 'vim-autoformat/vim-autoformat'
 
-   " Airline needs Powerline-patched fonts, which I think are found here:
-   " https://github.com/powerline/fonts
-   Plugin 'vim-airline/vim-airline'
-   Plugin 'vim-airline/vim-airline-themes'
-   Plugin 'Lokaltog/powerline'
+    " Autocomplete
+    Plugin 'davidhalter/jedi-vim'
+    Plugin 'ervandew/supertab'
 
-  "call dein#add('scrooloose/nerdtree')
-  "call dein#add('eapache/rainbow_parentheses.vim')
-  "call dein#add('vim-airline/vim-airline')
-  "call dein#add('vim-airline/vim-airline-themes')
-  "call dein#add('JamshedVesuna/vim-markdown-preview')
-  "call dein#add('flazz/vim-colorschemes',
-  "            \ { 'build':
-  "            \ 'mkdir -p /Users/jmcgover/.vim/colors && cp /Users/jmcgover/.vim/bundles/repos/github.com/flazz/vim-colorschemes/colors/* /Users/jmcgover/.vim/colors' }
-  "            \ )
+    " Airline needs Powerline-patched fonts, which I think are found here:
+    " https://github.com/powerline/fonts
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'Lokaltog/powerline'
 
-   " All of your Plugins must be added before the following line
-   call vundle#end()            " required
-   filetype plugin indent on    " required
-   " To ignore plugin indent changes, instead use:
-   "filetype plugin on
-   "
-   " Brief help
-   " :PluginList       - lists configured plugins
-   " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-   " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-   " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-   "
-   " see :h vundle for more details or wiki for FAQ
-   " Put your non-Plugin stuff after this line
+    "call dein#add('scrooloose/nerdtree')
+    "call dein#add('eapache/rainbow_parentheses.vim')
+    "call dein#add('vim-airline/vim-airline')
+    "call dein#add('vim-airline/vim-airline-themes')
+    "call dein#add('JamshedVesuna/vim-markdown-preview')
+    "call dein#add('flazz/vim-colorschemes',
+    "            \ { 'build':
+    "            \ 'mkdir -p /Users/jmcgover/.vim/colors && cp /Users/jmcgover/.vim/bundles/repos/github.com/flazz/vim-colorschemes/colors/* /Users/jmcgover/.vim/colors' }
+    "            \ )
+
+    " All of your Plugins must be added before the following line
+    call vundle#end()            " required
+    filetype plugin indent on    " required
+    " To ignore plugin indent changes, instead use:
+    "filetype plugin on
+    "
+    " Brief help
+    " :PluginList       - lists configured plugins
+    " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+    " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+    " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+    "
+    " see :h vundle for more details or wiki for FAQ
+    " Put your non-Plugin stuff after this line
 
 "====[ Color Scheme ]====
 
@@ -270,10 +268,22 @@
     highlight LineNr ctermbg=NONE
 
 "====[ vim-autoformat ]====
+
     noremap <c-k> :Autoformat<CR>
+    " au BufWrite * :Autoformat
+
     " Python
     let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
     let g:formatters_python = ['autopep8']
+
+    " Turn it off for vim, since it's bad
+    autocmd FileType vim let b:autoformat_autoindent=0
+
+
+"====[ jedi-vim ]====
+
+    let g:jedi#use_tabs_not_buffers = 1
+    let g:jedi#use_splits_not_buffers = "top"
 
 "====[ vim-Markdown-Preview ]====
 
@@ -302,7 +312,7 @@
     " Options:
     let NERDTreeWinSize=65
 
-"====[ Syntastic ]====
+    "====[ Syntastic ]====
 
     " Syntastic:
     " call dein#add('scrooloose/syntastic')
@@ -383,38 +393,38 @@
     noremap > <C-w>>
 
 "====[ ClangComplete ]====
-"
-   let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
-   let g:clang_user_options="-F/AppleInternal/Library/Frameworks"
+
+    let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
+    let g:clang_user_options="-F/AppleInternal/Library/Frameworks"
 
 "====[ FileType Specifics ]====
 
-autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
-autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
-autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
-autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
-autocmd Filetype go         exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
-let g:gofmt_command = "goimports"
+    autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+    autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
+    autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+    autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+    autocmd Filetype go         exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
+    let g:gofmt_command = "goimports"
 
-function TextMode()
-    setlocal noexpandtab
-    setlocal formatoptions=1
-    setlocal spell
-    setlocal spelllang=en_us
-    setlocal complete+=s
-    setlocal wrap
-    setlocal linebreak
-    setlocal nolist
-    setlocal textwidth=0
-    setlocal wrapmargin=0
-    "noremap j gj
-    "noremap k gk
-endfunction
-autocmd Filetype txt,text call TextMode()
-:au BufWritePost * redraw!
+    function TextMode()
+        setlocal noexpandtab
+        setlocal formatoptions=1
+        setlocal spell
+        setlocal spelllang=en_us
+        setlocal complete+=s
+        setlocal wrap
+        setlocal linebreak
+        setlocal nolist
+        setlocal textwidth=0
+        setlocal wrapmargin=0
+        "noremap j gj
+        "noremap k gk
+    endfunction
+    autocmd Filetype txt,text call TextMode()
+    :au BufWritePost * redraw!
 
-" Some motherfucker (possibly me) mapped this shit away.
-:unmap <
-:unmap >
+    " Some motherfucker (possibly me) mapped this shit away.
+    :unmap <
+    :unmap >
 
 "====[ END ~/.vimrc ]====
