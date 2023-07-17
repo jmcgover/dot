@@ -180,6 +180,8 @@
     map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
 
 
+" Consider Switching to vim-plug
+" https://github.com/junegunn/vim-plug
 "====[ Vundle Plugin Manager ]====
 
     set nocompatible              " be iMproved, required
@@ -216,9 +218,23 @@
     Plugin 'JamshedVesuna/vim-markdown-preview'
     Plugin 'flazz/vim-colorschemes'
     Plugin 'fatih/vim-go'
+    Plugin 'HerringtonDarkholme/yats.vim'
+    Plugin 'MaxMEllon/vim-jsx-pretty'
 
     " Linting/Formatting
     Plugin 'vim-autoformat/vim-autoformat'
+
+    " Typescript formatting
+    " vim-prettier requires prettier, install with:
+    " npm install --prefix ~/.vim/bundle/ prettier
+    " Consider this solution: https://github.com/VundleVim/Vundle.vim/issues/804#issuecomment-723585604
+    " Consider switching to vim-plug
+    if executable('npm') && !isdirectory($HOME . "/.vim/bundle/node_modules/prettier/")
+        echo "Installing Prettier..."
+        silent call system('npm install --prefix ~/.vim/bundle/ prettier')
+        echo "Done."
+    endif
+    Plugin 'prettier/vim-prettier'
 
     " Autocomplete
     Plugin 'davidhalter/jedi-vim'
@@ -276,6 +292,24 @@
     let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
     let g:formatters_python = ['autopep8']
 
+    " Typescript et al
+    " Source: https://gist.github.com/remarkablemark/23669b32afad86d32b1084f6abc4a9b5
+    let g:prettier#autoformat_require_pragma = 0
+    let g:prettier#config#bracket_spacing = 'true'
+    let g:prettier#config#jsx_bracket_same_line = 'false'
+    " number of spaces per indentation level: a number or 'auto' (use softtabstop)
+    " default: 'auto'
+    let g:prettier#config#tab_width = 2
+
+    " Format on close
+    let g:prettier#autoformat = 0
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue Prettier
+    augroup PrettierFileDetect
+        noremap <c-k> :Prettier<CR>
+        setlocal expandtab tabstop=2 sts=2 shiftwidth=2
+    augroup end
+
+
     " Turn it off for vim, since it's bad
     autocmd FileType vim let b:autoformat_autoindent=0
 
@@ -284,6 +318,35 @@
 
     let g:jedi#use_tabs_not_buffers = 1
     let g:jedi#use_splits_not_buffers = "top"
+
+"====[ GetFileTypes ]====
+
+    " Source: https://vi.stackexchange.com/a/5782
+    function! GetFiletypes()
+        " Get a list of all the runtime directories by taking the value of that
+        " option and splitting it using a comma as the separator.
+        let rtps = split(&runtimepath, ",")
+        " This will be the list of filetypes that the function returns
+        let filetypes = []
+
+        " Loop through each individual item in the list of runtime paths
+        for rtp in rtps
+            let syntax_dir = rtp . "/syntax"
+            " Check to see if there is a syntax directory in this runtimepath.
+            if (isdirectory(syntax_dir))
+                " Loop through each vimscript file in the syntax directory
+                for syntax_file in split(glob(syntax_dir . "/*.vim"), "\n")
+                    " Add this file to the filetypes list with its everything
+                    " except its name removed.
+                    call add(filetypes, fnamemodify(syntax_file, ":t:r"))
+                endfor
+            endif
+        endfor
+
+        " This removes any duplicates and returns the resulting list.
+        " NOTE: This might not be the best way to do this, suggestions are welcome.
+        return uniq(sort(filetypes))
+    endfunction
 
 "====[ vim-Markdown-Preview ]====
 
