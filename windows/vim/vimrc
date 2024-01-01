@@ -2,6 +2,9 @@
 
     " Preferred Location: ~/.vimrc
     " Author: Jeff McGovern
+    " Install vim for Windows from the official vim site:
+    " https://www.vim.org/download.php#pc
+    " The executable installer works just fine.
 
 "====[ Minimal .vimrc (Pilfered) ]====
 
