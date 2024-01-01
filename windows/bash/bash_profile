@@ -1,7 +1,5 @@
 #! /bin/bash
 
-set -x SHELL /bin/bash
-
 # Bash Startup Files:
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
 # Cosmopolitan should be in C:/bin
