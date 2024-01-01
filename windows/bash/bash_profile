@@ -5,6 +5,8 @@
 # Cosmopolitan should be in C:/bin
 export PATH="$PATH:C:/bin"
 
+alias which="command -v"
+
 # PROMPT
 # Color the hostname
 # Light Blue
