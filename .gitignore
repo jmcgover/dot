@@ -3,3 +3,6 @@
 
 # OS X Bookeeping
 .DS_Store
+
+# Vim Undo File
+*.un~
