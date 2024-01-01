@@ -1,0 +1,145 @@
+"====[ BEGIN ~/.vimrc ]====
+
+    " Preferred Location: ~/.vimrc
+    " Author: Jeff McGovern
+
+"====[ Minimal .vimrc (Pilfered) ]====
+
+    " Minimal .vimrc pilfered (almost exactly) from:
+    " http://stackoverflow.com/questions/1840862/favorite-minimalistic-vimrc-configuration
+    setlocal backspace=2 " backspace in insert mode works like normal editor
+    syntax on            " syntax highlighting
+    filetype indent on   " activates indenting for files
+    setlocal autoindent  " auto indenting
+    setlocal number      " line numbers
+    colorscheme desert   " colorscheme desert
+    setlocal nobackup    " get rid of anoying ~file
+
+"====[ Tabs to Spaces ]====
+
+    " DEFAULT: 4 space tabs
+    " expandtab: means TAB key will insert <sofftabstop> number of spaces
+    " set used because setlocal didn't work for vim -O (inserted tab)
+    set tabstop=4
+    set shiftwidth=4
+    set softtabstop=4
+    set expandtab
+
+"====[ Shell ]====
+
+    " Sources .bash_profile upon :sh
+    "set shell=bash\ --login
+    " Makes tab complete work like bash
+    set wildmode=longest,list
+
+"====[ Backup File ]====
+
+    " https://vimhelp.org/vim_faq.txt.html#faq-7.3
+    " https://vimhelp.org/options.txt.html#%27backupdir%27
+    :set backupdir=$TEMP
+
+"====[ Turn Off Error Noises ]====
+
+    setlocal novisualbell " remove annoying visual beeps
+    setlocal noerrorbells " remove annoying audio beeps
+
+"====[ Ignoring Case ]====
+
+    setlocal ignorecase
+    setlocal smartcase
+
+"====[ Highlight Search ]====
+
+    func ToggleHighlight()
+        if (&hlsearch == 1)
+            set nohlsearch
+        else
+            set hlsearch
+        endif
+    endfunc
+    nnoremap <C-H> :call ToggleHighlight()<cr>
+    set hlsearch
+
+"====[ Ruler ]====
+
+    " Displays the row,col in the bottom right
+    set ruler
+
+"====[ Tabs, trailing whitespace, and non-breaking spaces visible ]====
+
+    exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+    set list
+
+"====[ Relative Line Numbering ]====
+
+    " change to absolute line numbering
+    function! SetLineNumber()
+        setlocal norelativenumber
+        setlocal number
+    endfunc
+    " change to relative line numbering
+    function! SetRelativeLineNumber()
+        setlocal relativenumber
+        setlocal number
+    endfunc
+    " toggles relative/absolute line
+    function! ToggleLineNumStyle()
+        if (&relativenumber == 1)
+            call SetLineNumber()
+        else
+            call SetRelativeLineNumber()
+        endif
+    endfunc
+    " ctrl + n calls toggle
+    nnoremap <C-n> :call ToggleLineNumStyle()<cr>
+    " DEFAULT: relative line numbering
+    set relativenumber
+    set number
+    " only relative when pane in focus
+    :autocmd WinLeave * call SetLineNumber()
+    :autocmd WinEnter * call SetRelativeLineNumber()
+    " switches to absolute when in insert
+    autocmd InsertEnter * call SetLineNumber()
+    autocmd InsertLeave * call SetRelativeLineNumber()
+
+"====[ Case Insensitive Save and Quit Commands ]====
+
+    :command WQA wqa
+    :command WQa wqa
+    :command Wqa wqa
+    :command QA qa
+    :command Qa qa
+    :command WA wa
+    :command Wa wa
+    :command WQ wq
+    :command Wq wq
+    :command W w
+    :command Q q
+
+"====[ FileType Specifics ]====
+
+    autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+    autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
+    autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+    autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+    autocmd Filetype go         exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
+    let g:gofmt_command = "goimports"
+
+    function TextMode()
+        setlocal noexpandtab
+        setlocal formatoptions=1
+        setlocal spell
+        setlocal spelllang=en_us
+        setlocal complete+=s
+        setlocal wrap
+        setlocal linebreak
+        setlocal nolist
+        setlocal textwidth=0
+        setlocal wrapmargin=0
+        "noremap j gj
+        "noremap k gk
+    endfunction
+    autocmd Filetype txt,text call TextMode()
+    :au BufWritePost * redraw!
+
+"====[ END ~/.vimrc ]====
