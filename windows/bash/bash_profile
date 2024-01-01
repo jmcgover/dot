@@ -2,5 +2,71 @@
 
 # Bash Startup Files:
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
-
+# Cosmopolitan should be in C:/bin
 export PATH="$PATH:C:/bin"
+
+# PROMPT
+# Color the hostname
+# Light Blue
+export HOST_COLOR="\[\033[1;36m\]"
+# Blue
+export HOST_COLOR="\[\033[1;34m\]"
+# Red
+export HOST_COLOR="\[\033[1;31m\]"
+# Light Purple
+export HOST_COLOR="\[\033[1;35m\]"
+# Green
+export HOST_COLOR="\[\033[1;32m\]"
+# Yellow
+export WD_COLOR="\[\033[1;33m\]"
+export DATE_COLOR="\[\033[1;37m\]"
+
+export CMD_COLOR="\[\033[00m\]"
+export VIM_COLOR="\[\033[00m\]"
+export VIM_COLOR="\[\033[1;35m\]"
+
+# Color the colon red if root
+export COLON_COLOR='0m'
+if [ ${UID} -eq 0 ]; then
+    export COLON_COLOR='1;31m'
+fi
+PS1="$DATE_COLOR<\D{%H:%M:%S}>$VIM_COLOR${VIM##*/}$HOST_COLOR$(scutil --get LocalHostName)\[\033[00m\]\[\e[$COLON_COLOR\]:$WD_COLOR[\w]\$$CMD_COLOR "
+
+# FUNCTIONS
+function mkcd() {
+    mkdir "$@"
+    cd "${@: -1}"
+}
+
+function cls() {
+    printf "\033c"
+}
+
+function path() {
+    echo -e ${PATH//:/\\n}
+}
+
+function now() {
+    date +"%T"
+}
+
+function nowtime() {
+    now
+}
+
+function nowdate() {
+    date +"%d-%m-%Y"
+}
+
+function ports() {
+    netstat -tulanp
+}
+
+function csvtable() {
+    column -s, -t
+}
+
+function work() {
+    tmux new -t "${1}"
+}
+
