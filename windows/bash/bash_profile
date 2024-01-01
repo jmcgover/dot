@@ -1,9 +1,11 @@
 #! /bin/bash
 
+set -x SHELL /bin/bash
+
 # Bash Startup Files:
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
 # Cosmopolitan should be in C:/bin
-export PATH="$PATH:C:/bin"
+export PATH="$PATH:/Windows:/bin"
 
 alias which="command -v"
 
@@ -32,7 +34,7 @@ export COLON_COLOR='0m'
 if [ ${UID} -eq 0 ]; then
     export COLON_COLOR='1;31m'
 fi
-PS1="$DATE_COLOR<\D{%H:%M:%S}>$VIM_COLOR${VIM##*/}$HOST_COLOR$(scutil --get LocalHostName)\[\033[00m\]\[\e[$COLON_COLOR\]:$WD_COLOR[\w]\$$CMD_COLOR "
+PS1="$DATE_COLOR<\D{%H:%M:%S}>$VIM_COLOR${VIM##*/}$HOST_COLOR\h\[\033[00m\]\[\e[$COLON_COLOR\]:$WD_COLOR[\w]\$$CMD_COLOR "
 
 # FUNCTIONS
 function mkcd() {
