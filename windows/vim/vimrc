@@ -28,6 +28,10 @@
     set softtabstop=4
     set expandtab
 
+"====[ Show Windows ^M Character ]====
+
+    :setlocal fileformat=unix
+
 "====[ Shell ]====
 
     " Sources .bash_profile upon :sh
