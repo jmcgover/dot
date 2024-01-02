@@ -3,6 +3,13 @@
 # Bash Startup Files:
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
 
+# ====[ Path ] ====
+# mklink C:\Windows\vim C:\Windows\vim.bat
+# Cosmopolitan should be in C:/bin:
+#  - cosmos-${VERSION}.zip
+#  - cosmocc-${VERSION}.zip
+export PATH="$PATH:/Windows:/~/AppData/Local/Programs/Python/Python39/:/bin"
+
 # ====[ Env Vars ] ====
 # Cosmopolitan vim needs HOME set
 export HOME="$(echo ~)"
@@ -21,13 +28,6 @@ export HISTTIMEFORMAT="%FT%T%Z | "
 export PROMPT_COMMAND='history -a'
 # man shopt: https://ss64.com/bash/shopt.html
 shopt -s histappend
-
-# ====[ Path ] ====
-# mklink C:\Windows\vim C:\Windows\vim.bat
-# Cosmopolitan should be in C:/bin:
-#  - cosmos-${VERSION}.zip
-#  - cosmocc-${VERSION}.zip
-export PATH="$PATH:/Windows:/bin"
 
 # ====[ Cosmopolitan Compiler ] ====
 export CC="cosmocc -I/opt/cosmos/include -L/opt/cosmos/lib"
@@ -107,10 +107,13 @@ function work() {
 
 # ====[ Windows Remaps ] ====
 # Do not generalize this pls.
+
+# VIM
 function vim() {
     vim.bat "$@"
 }
 
+# GIT
 function git-gui() {
     git-gui.exe "$@"
 }
