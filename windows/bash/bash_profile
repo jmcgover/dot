@@ -106,6 +106,29 @@ function work() {
 
 
 # ====[ Windows Remaps ] ====
+# Do not generalize this pls.
 function vim() {
     vim.bat "$@"
+}
+
+function git-gui() {
+    git-gui.exe "$@"
+}
+function git-lfs() {
+    git-lfs.exe "$@"
+}
+function git-receive-pack() {
+    git-receive-pack.exe "$@"
+}
+function git-upload-pack() {
+    git-upload-pack.exe "$@"
+}
+function git() {
+    git.exe "$@"
+}
+function gitk() {
+    gitk.exe "$@"
+}
+function scalar() {
+    scalar.exe "$@"
 }
