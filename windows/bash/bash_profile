@@ -2,12 +2,18 @@
 
 # Bash Startup Files:
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
+
+# ====[ HOME ] ====
+# Cosmopolitan vim needs HOME set
+export HOME="$(echo ~)"
+
+# ====[ PATH ] ====
+# mklink C:\Windows\vim C:\Windows\vim.bat
 # Cosmopolitan should be in C:/bin
 export PATH="$PATH:/Windows:/bin"
 
-alias which="command -v"
 
-# PROMPT
+# ====[ PROMPT ] ====
 # Color the hostname
 # Light Blue
 export HOST_COLOR="\[\033[1;36m\]"
@@ -34,7 +40,10 @@ if [ ${UID} -eq 0 ]; then
 fi
 PS1="$DATE_COLOR<\D{%H:%M:%S}>$VIM_COLOR${VIM##*/}$HOST_COLOR\h\[\033[00m\]\[\e[$COLON_COLOR\]:$WD_COLOR[\w]\$$CMD_COLOR "
 
-# FUNCTIONS
+# ====[ Aliases ] ====
+alias which="command -v"
+
+# ====[ FUNCTIONS ] ====
 function mkcd() {
     mkdir "$@"
     cd "${@: -1}"
