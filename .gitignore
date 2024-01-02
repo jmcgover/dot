@@ -6,3 +6,6 @@
 
 # Vim Undo File
 *.un~
+
+# Vim swp File
+*.swp
