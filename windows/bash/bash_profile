@@ -3,17 +3,33 @@
 # Bash Startup Files:
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
 
-# ====[ HOME ] ====
+# ====[ Env Vars ] ====
 # Cosmopolitan vim needs HOME set
 export HOME="$(echo ~)"
 
-# ====[ PATH ] ====
+# Bash History
+# man shopt: https://ss64.com/bash/shopt.html
+export HISTFILE="${HOME}/.bash_history"
+HISTSIZE=5000
+HISTFILESIZE=10000
+PROMPT_COMMAND='history -a'
+shopt -s histappend
+
+# ====[ Path ] ====
 # mklink C:\Windows\vim C:\Windows\vim.bat
-# Cosmopolitan should be in C:/bin
+# Cosmopolitan should be in C:/bin:
+#  - cosmos-${VERSION}.zip
+#  - cosmocc-${VERSION}.zip
 export PATH="$PATH:/Windows:/bin"
 
+# ====[ Cosmopolitan Compiler ] ====
+export CC="cosmocc -I/opt/cosmos/include -L/opt/cosmos/lib"
+export CXX="cosmoc++ -I/opt/cosmos/include -L/opt/cosmos/lib"
+export PKG_CONFIG="pkg-config --with-path=/opt/cosmos/lib/pkgconfig"
+export INSTALL="cosmoinstall"
+export AR="cosmoar"
 
-# ====[ PROMPT ] ====
+# ====[ Prompt ] ====
 # Color the hostname
 # Light Blue
 export HOST_COLOR="\[\033[1;36m\]"
@@ -43,7 +59,7 @@ PS1="$DATE_COLOR<\D{%H:%M:%S}>$VIM_COLOR${VIM##*/}$HOST_COLOR\h\[\033[00m\]\[\e[
 # ====[ Aliases ] ====
 alias which="command -v"
 
-# ====[ FUNCTIONS ] ====
+# ====[ Functions ] ====
 function mkcd() {
     mkdir "$@"
     cd "${@: -1}"
@@ -81,3 +97,8 @@ function work() {
     tmux new -t "${1}"
 }
 
+
+# ====[ Windows Remaps ] ====
+function vim() {
+    vim.bat "$@"
+}
