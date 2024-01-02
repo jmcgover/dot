@@ -7,12 +7,19 @@
 # Cosmopolitan vim needs HOME set
 export HOME="$(echo ~)"
 
+# Cosmopolitan or redbean uses GST for -8
+# I believe this is a typo:
+# https://github.com/jart/cosmopolitan/issues/1049
+export TZ="GST"
+
 # Bash History
-# man shopt: https://ss64.com/bash/shopt.html
 export HISTFILE="${HOME}/.bash_history"
-HISTSIZE=5000
-HISTFILESIZE=10000
-PROMPT_COMMAND='history -a'
+export HISTFILESIZE=10000
+export HISTSIZE=5000
+export HISTCONTROL=erasedups:ignoredups:ignorespace
+export HISTTIMEFORMAT="%FT%T%Z | "
+export PROMPT_COMMAND='history -a'
+# man shopt: https://ss64.com/bash/shopt.html
 shopt -s histappend
 
 # ====[ Path ] ====
