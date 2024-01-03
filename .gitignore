@@ -9,3 +9,7 @@
 
 # Vim swp File
 *.swp
+
+# Python
+.venv
+.env
