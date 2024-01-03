@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
-import errno
 
 def main() -> int:
+    print("Hello, World!")
     return 0
 
 if __name__ == "__main__":
