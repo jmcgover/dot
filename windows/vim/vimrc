@@ -109,6 +109,36 @@
     autocmd InsertEnter * call SetLineNumber()
     autocmd InsertLeave * call SetRelativeLineNumber()
 
+"====[COMMENTS]=====
+
+    " Command/Comment Legend
+    " ,# : shell, perl, etc
+    " ,/ : c++
+    " ,> : email quote
+    " ," : vim
+    " ,% : latex, prolog
+    " ,! : assembly/X-resources
+    " ,; : scheme
+    " ,- : sql, ada
+    " ,c : clears any of the previous comments
+
+    " LHS Comments
+    map ,# :s/^/#/<CR>:nohlsearch<CR>
+    map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
+    map ,> :s/^/> /<CR>:nohlsearch<CR>
+    map ," :s/^/\"/<CR>:nohlsearch<CR>
+    map ,% :s/^/%/<CR>:nohlsearch<CR>
+    map ,! :s/^/!/<CR>:nohlsearch<CR>
+    map ,; :s/^/;/<CR>:nohlsearch<CR>
+    map ,- :s/^/--/<CR>:nohlsearch<CR>
+    map ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
+
+    " Wrapping Comments
+    map ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>:nohlsearch<CR>
+    map ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>:nohlsearch<CR>
+    map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>:nohlsearch<CR>
+    map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
+
 "====[ Case Insensitive Save and Quit Commands ]====
 
     :command WQA wqa
