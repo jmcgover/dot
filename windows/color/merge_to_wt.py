@@ -61,9 +61,6 @@ def main() -> int:
             color_scheme: dict[str, Any] = json.load(file)
         all_schemes[color_scheme["name"]] = color_scheme
 
-    # Update settings schemes
-    settings["schemes"] = [all_schemes[key] for key in sorted(all_schemes)]
-
     # Output JSON
     print(
         json.dumps(
