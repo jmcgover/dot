@@ -1,0 +1,137 @@
+#! /bin/bash
+
+# Bash Startup Files:
+# https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
+
+# ====[ Path ] ====
+# mklink C:\Windows\vim C:\Windows\vim.bat
+# Cosmopolitan should be in C:/bin:
+#  - cosmos-${VERSION}.zip
+#  - cosmocc-${VERSION}.zip
+export PATH="$PATH:/Windows:/~/AppData/Local/Programs/Python/Python39/:/bin"
+
+# ====[ Env Vars ] ====
+# Cosmopolitan vim needs HOME set
+export HOME="$(echo ~)"
+
+# Cosmopolitan or redbean uses GST for -8
+# I believe this is a typo:
+# https://github.com/jart/cosmopolitan/issues/1049
+export TZ="GST"
+
+# Bash History
+export HISTFILE="${HOME}/.bash_history"
+export HISTFILESIZE=10000
+export HISTSIZE=5000
+export HISTCONTROL=erasedups:ignoredups:ignorespace
+export HISTTIMEFORMAT="%FT%T%Z | "
+export PROMPT_COMMAND='history -a'
+# man shopt: https://ss64.com/bash/shopt.html
+shopt -s histappend
+
+# ====[ Cosmopolitan Compiler ] ====
+export CC="cosmocc -I/opt/cosmos/include -L/opt/cosmos/lib"
+export CXX="cosmoc++ -I/opt/cosmos/include -L/opt/cosmos/lib"
+export PKG_CONFIG="pkg-config --with-path=/opt/cosmos/lib/pkgconfig"
+export INSTALL="cosmoinstall"
+export AR="cosmoar"
+
+# ====[ Prompt ] ====
+# Color the hostname
+# Light Blue
+export HOST_COLOR="\[\033[1;36m\]"
+# Blue
+export HOST_COLOR="\[\033[1;34m\]"
+# Red
+export HOST_COLOR="\[\033[1;31m\]"
+# Light Purple
+export HOST_COLOR="\[\033[1;35m\]"
+# Green
+export HOST_COLOR="\[\033[1;32m\]"
+# Yellow
+export WD_COLOR="\[\033[1;33m\]"
+export DATE_COLOR="\[\033[1;37m\]"
+
+export CMD_COLOR="\[\033[00m\]"
+export VIM_COLOR="\[\033[00m\]"
+export VIM_COLOR="\[\033[1;35m\]"
+
+# Color the colon red if root
+export COLON_COLOR='0m'
+if [ ${UID} -eq 0 ]; then
+    export COLON_COLOR='1;31m'
+fi
+PS1="$DATE_COLOR<\D{%H:%M:%S}>$VIM_COLOR${VIM##*/}$HOST_COLOR\h\[\033[00m\]\[\e[$COLON_COLOR\]:$WD_COLOR[\w]\$$CMD_COLOR "
+
+# ====[ Aliases ] ====
+alias which="command -v"
+
+# ====[ Functions ] ====
+function mkcd() {
+    mkdir "$@"
+    cd "${@: -1}"
+}
+
+function cls() {
+    printf "\033c"
+}
+
+function path() {
+    echo -e ${PATH//:/\\n}
+}
+
+function now() {
+    date +"%T"
+}
+
+function nowtime() {
+    now
+}
+
+function nowdate() {
+    date +"%d-%m-%Y"
+}
+
+function ports() {
+    netstat -tulanp
+}
+
+function csvtable() {
+    column -s, -t
+}
+
+function work() {
+    tmux new -t "${1}"
+}
+
+
+# ====[ Windows Remaps ] ====
+# Do not generalize this pls.
+
+# VIM
+function vim() {
+    vim.bat "$@"
+}
+
+# GIT
+function git-gui() {
+    git-gui.exe "$@"
+}
+function git-lfs() {
+    git-lfs.exe "$@"
+}
+function git-receive-pack() {
+    git-receive-pack.exe "$@"
+}
+function git-upload-pack() {
+    git-upload-pack.exe "$@"
+}
+function git() {
+    git.exe "$@"
+}
+function gitk() {
+    gitk.exe "$@"
+}
+function scalar() {
+    scalar.exe "$@"
+}
