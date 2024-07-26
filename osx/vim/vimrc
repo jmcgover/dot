@@ -182,25 +182,40 @@
     " different version somewhere else.
     " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-    Plugin 'scrooloose/nerdtree'
-    Plugin 'eapache/rainbow_parentheses.vim'
-    Plugin 'JamshedVesuna/vim-markdown-preview'
-    Plugin 'flazz/vim-colorschemes'
-    Plugin 'fatih/vim-go'
     Plugin 'HerringtonDarkholme/yats.vim'
+    Plugin 'JamshedVesuna/vim-markdown-preview'
     Plugin 'MaxMEllon/vim-jsx-pretty'
+    Plugin 'eapache/rainbow_parentheses.vim'
+    Plugin 'fatih/vim-go'
+    Plugin 'flazz/vim-colorschemes'
     Plugin 'raimon49/requirements.txt.vim'
+    Plugin 'scrooloose/nerdtree'
 
     " Linting/Formatting
-    Plugin 'vim-autoformat/vim-autoformat'
+    " Plugin 'vim-autoformat/vim-autoformat'
 
-    " Typescript formatting
-    " TODO: Find something that works better than Prettier and doesn't fuckup
-    " when I try to format a different kind of file.
+    " Tim Pope Plugins
+    Plugin 'tpope/vim-characterize'
+    Plugin 'tpope/vim-endwise'
+    Plugin 'tpope/vim-eunuch'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'tpope/vim-repeat'
+    Plugin 'tpope/vim-surround'
+
+    " Google Plugins
+    " Add maktaba, glaive, and codefmt to the runtimepath.
+    " (Glaive must also be installed before it can be used.)
+    Plugin 'google/vim-maktaba'
+    Plugin 'google/vim-codefmt'
+    Plugin 'google/vim-glaive'
 
     " Autocomplete
     Plugin 'davidhalter/jedi-vim'
     Plugin 'ervandew/supertab'
+
+    " LilyPond
+    Plugin 'sersorrel/vim-lilypond'
+
 
     " Airline needs Powerline-patched fonts, which I think are found here:
     " https://github.com/powerline/fonts
@@ -233,6 +248,25 @@
     " see :h vundle for more details or wiki for FAQ
     " Put your non-Plugin stuff after this line
 
+"====[ vim-glaive ]====
+
+" Resolve directory of this file, allowing for symlinks.
+let vimrc_dir = $MYVIMRC->resolve()->fnamemodify(':h') . "/"
+let google_java_format_jar_path = vimrc_dir . "google-java-format-1.22.0-all-deps.jar"
+let google_java_executable = "java -jar " . google_java_format_jar_path
+
+" the glaive#Install() should go after the "call vundle#end()"
+call glaive#Install()
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
+Glaive codefmt google_java_executable=`g:google_java_executable`
+
+"====[ vim-codefmt ]====
+
+nnoremap <c-k> :FormatCode<CR>:redraw!<CR>
+vnoremap <c-k> :FormatLines<CR>:redraw!<CR>
+
+
 "====[ Color Scheme ]====
 
     " DEIN: Colors must occur after call dein#end()
@@ -245,21 +279,7 @@
     highlight nonText ctermbg=NONE
     highlight LineNr ctermbg=NONE
 
-"====[ vim-autoformat ]====
-
-    noremap <c-k> :Autoformat<CR>
-    " au BufWrite * :Autoformat
-
-    " Python
-    let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
-    let g:formatters_python = ['autopep8']
-
-    " Typescript et al
-    " Source: https://gist.github.com/remarkablemark/23669b32afad86d32b1084f6abc4a9b5
-
-    " Turn it off for these, since it's bad
-    autocmd FileType vim let b:autoformat_autoindent=0
-    autocmd FileType markdown let b:autoformat_autoindent=0
+"====[ google/vim-codefmt ]====
 
 
 "====[ jedi-vim ]====
