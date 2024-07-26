@@ -11,37 +11,153 @@
   - [Terminator color schemes](#terminator-color-schemes)
   - [Mac OS Terminal color schemes](#terminal-color-schemes)
   - [PuTTY color schemes](#putty-color-schemes)
+  - [Xfce Terminal color schemes](#xfce-terminal-color-schemes)
+  - [FreeBSD vt(4) color schemes](#freebsd-vt-color-schemes)
   - [Previewing color schemes](#previewing-color-schemes)
+  - [MobaXterm color schemes](#mobaxterm-color-schemes)
+  - [LXTerminal color schemes](#lxterminal-color-schemes)
+  - [Visual Studio Code color schemes](#visual-studio-code-color-schemes)
+  - [Windows Terminal color schemes](#windows-terminal-color-schemes)
+  - [Alacritty color schemes](#alacritty-color-schemes)
+  - [Ghostty color schemes](#ghostty-color-schemes)
+  - [Termux color schemes](#termux-color-schemes)
 
 ## Intro
-This is a set of color schemes for iTerm (aka iTerm2). Screenshots below and in the [screenshots](screenshots/) directory.
+
+This is a set of color schemes for iTerm (aka iTerm2). It also includes ports to Terminal, Konsole, PuTTY, Xresources, XRDB, Remmina, Termite, XFCE, Tilda, FreeBSD VT, Terminator, Kitty, Ghostty, MobaXterm, LXTerminal, Microsoft's Windows Terminal, Visual Studio, Alacritty
+
+Screenshots below and in the [screenshots](screenshots/) directory.
 
 ## Installation Instructions
-To install:
 
-* Launch iTerm 2. Get the latest version at <a href="http://www.iterm2.com">iterm2.com</a>
-* Type CMD+i (⌘+i)
-* Navigate to **Colors** tab
-* Click on **Color Presets**
-* Click on **Import**
-* Select the .itermcolors file(s) of the scheme(s) you'd like to use
-* Click on **Color Presets** and choose a color scheme
+There are 3 ways to install an iTerm theme:
+
+- Direct way via keyboard shortcut:
+
+  - Launch iTerm 2. Get the latest version at <a href="http://www.iterm2.com">iterm2.com</a>
+  - Type CMD+i (⌘+i)
+  - Navigate to **Colors** tab
+  - Click on **Color Presets**
+  - Click on **Import**
+  - Click on the **schemes** folder
+  - Select the **.itermcolors** profiles you would like to import
+  - Click on **Color Presets** and choose a color scheme
+
+- Via iTerm preferences (go to the same configuration location as above):
+
+  - Launch iTerm 2. Get the latest version at <a href="http://www.iterm2.com">iterm2.com</a>
+  - Click on **iTerm2** menu title
+  - Select **Preferences...** option
+  - Select **Profiles**
+  - Navigate to **Colors** tab
+  - Click on **Color Presets**
+  - Click on **Import**
+  - Select the .itermcolors file(s) of the [schemes](schemes/) you'd like to use \* Click on **Color Presets** and choose a color scheme
+
+- Via Bash script
+
+  - Launch iTerm 2. Get the latest version at <a href="http://www.iterm2.com">iterm2.com</a>
+  - Run the following command:
+
+  ```sh
+  # Import all color schemes
+  tools/import-scheme.sh schemes/*
+
+  # Import all color schemes (verbose mode)
+  tools/import-scheme.sh -v schemes/*
+
+  # Import specific color schemes (quotations are needed for schemes with spaces in name)
+  tools/import-scheme.sh 'schemes/SpaceGray Eighties.itermcolors' # by file path
+  tools/import-scheme.sh 'SpaceGray Eighties'                     # by scheme name
+  tools/import-scheme.sh Molokai 'SpaceGray Eighties'             # import multiple
+  ```
+
+  - Restart iTerm 2. (Need to quit iTerm 2 to reload the configuration file.)
 
 ## Contribute
-Have a great iTerm theme? Send it to me via a Pull Request! To export your theme settings:
 
-* Launch iTerm 2
-* Type CMD+i (⌘+i)
-* Navigate to **Colors** tab
-* Click on **Color Presets**
-* Click on **Export**
-* Save the .itermcolors file
+### Prerequisites
 
-To include a screenshot, please generate the output using the [screenshotTable.sh script](tools/screenshotTable.sh) in the ```tools``` directory.
+1. For convenient work with generation scripts, it is recommended to install [pyenv](https://github.com/pyenv/pyenv).
+2. Run `pyenv install` inside project folder to install python version from `.python-version` file.
+3. Run `pip install -r requirements.txt` to install the project dependencies.
 
-**For screenshot consistency, please have your font set to 13pt Monaco and no transparency on the window**
+### How to add new theme
+
+Have a great iTerm theme? Send it to me via a Pull Request!
+
+1. Get your theme's`.itermcolors` file.
+    - Launch iTerm 2
+    - Type CMD+i (⌘+i)
+    - Navigate to **Colors** tab
+    - Click on **Color Presets**
+    - Click on **Export**
+    - Save the .itermcolors file
+2. Put your theme file into `/schemes/`
+    - `mv <your-itermcolors-file> schemes/`
+3. Generate other formats for your theme using the `gen.py` script.
+    - `cd tools/ && python3 gen.py` OR
+    - `cd tools/ && ./gen.py`
+4. If you only want to generate files for your theme, you can specify this with the `-s` flag.
+    - `./gen.py -s Dracula`
+5. Get a screenshot of your theme using the `screenshotTable.sh` script and ImageMagick. **For screenshot consistency, please have your font set to 13pt Monaco and no transparency on the window.**
+    - `cd tools/ && ./screenshotTable.sh` - this will create a color table for your theme that you can screenshot.
+    - Use ImageMagick (or some other tool) to resize your image for consistency - `mogrify -resize 600x300\! <path-to-your-screenshot>`
+    - Move your screenshot into `screenshots/` - `mv <your-screenshot> screenshots/`
+6. Update `README.md` and `screenshots/README.md` to include your theme and screenshot. Also update `CREDITS.md` to credit yourself for your contribution.
+
+### How to add new template
+
+Do you want to convert existing iTerm themes to themes for your favorite terminal/editor/etc?
+
+1. Get config file from your terminal/editor/etc.
+2. Change actual colors in config to template placeholders from the list below.
+
+```
+  {{ Background_Color }}
+  {{ Bold_Color }}
+  {{ Cursor_Color }}
+  {{ Cursor_Text_Color }}
+  {{ Foreground_Color }}
+  {{ Selected_Text_Color }}
+  {{ Selection_Color }}
+  {{ Ansi_0_Color }} // black
+  {{ Ansi_1_Color }} // red
+  {{ Ansi_2_Color }} // green
+  {{ Ansi_3_Color }} // yellow
+  {{ Ansi_4_Color }} // blue
+  {{ Ansi_5_Color }} // magenta
+  {{ Ansi_6_Color }} // cyan
+  {{ Ansi_7_Color }} // white
+  {{ Ansi_8_Color }} // bright black
+  {{ Ansi_9_Color }} // bright red
+  {{ Ansi_10_Color }} // bright green
+  {{ Ansi_11_Color }} // bright yellow
+  {{ Ansi_12_Color }} // bright blue
+  {{ Ansi_13_Color }} // bright magenta
+  {{ Ansi_14_Color }} // bright cyan
+  {{ Ansi_15_Color }} // bright white
+
+  Each color has these fields:
+    - {{ Background_Color.hex }} for hex representation
+    - {{ Background_Color.rgb }} for rgb representation as a "(r, g, b)" string
+    - {{ Backgroun_Color.guint16 }} for guint16 representation
+
+  Also you have access to this metadata fields:
+    - {{ Guint16_Palette }} with a string containing all ansi colors as guint16 values
+    - {{ Dark_Theme }} which contains a sign that the theme is dark
+```
+
+3. If you need a new value type for color, add it too `tools/converter.py`
+4. Put your template file into `tool/templates`. A folder with schemas will be created based on the filename. And the file extension will remain with all generated ones. Example: `editor.ext` file will generate schemas as `editor/scheme_name.ext`
+5. Generate all existing themes for all templates `cd tools/ && ./gen.py`. Or, if you only want to generate schemas for your template, you can use the `-t` flag.
+
+- `./gen.py -t kitty`
+
+6. If in the process you had to add new dependencies or update the version of python, do not forget to indicate this in `requirements.txt` or `.python-version`.
 
 ## Screenshots
+
 ### 3024 Day
 
 ![Screenshot](screenshots/3024_day.png)
@@ -49,6 +165,18 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ### 3024 Night
 
 ![Screenshot](screenshots/3024_night.png)
+
+### Aardvark Blue
+
+![Screenshot](screenshots/aardvark_blue.png)
+
+### Abernathy
+
+![Screenshot](screenshots/abernathy.png)
+
+### Adventure
+
+![Screenshot](screenshots/adventure.png)
 
 ### AdventureTime
 
@@ -58,9 +186,29 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/afterglow.png)
 
+### Alabaster
+
+![Screenshot](screenshots/alabaster.png)
+
 ### AlienBlood
 
 ![Screenshot](screenshots/alien_blood.png)
+
+### Andromeda
+
+![Screenshot](screenshots/andromeda.png)
+
+### Apple Classic
+
+![Screenshot](screenshots/apple-classic.png)
+
+### Apple System Colors
+
+![Screenshot](screenshots/apple-system-colors.png)
+
+### Arcoiris
+
+![Screenshot](screenshots/arcoiris.png)
 
 ### Argonaut
 
@@ -83,10 +231,24 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ![Screenshot](screenshots/atom_one_light.png)
 
 ### ayu
+
 ![Screenshot](screenshots/ayu.png)
 
 ### ayu Light
+
 ![Screenshot](screenshots/ayu_light.png)
+
+### ayu Mirage
+
+![Screenshot](screenshots/ayu_mirage.png)
+
+### Aurora
+
+![Screenshot](screenshots/aurora.png)
+
+### Banana Blueberry
+
+![Screenshot](screenshots/banana_blueberry.png)
 
 ### Batman
 
@@ -108,9 +270,33 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/blazer.png)
 
+### BlueBerry Pie
+
+![Screenshot](screenshots/blueberry_pie.png)
+
+### BlueDolphin
+
+![Screenshot](screenshots/BlueDolphin.png)
+
+### Blue Matrix
+
+![Screenshot](screenshots/blue_matrix.png)
+
+### Bluloco Dark
+
+![Screenshot](screenshots/bluloco_dark.png)
+
+### Bluloco Light
+
+![Screenshot](screenshots/bluloco_light.png)
+
 ### Borland
 
 ![Screenshot](screenshots/borland.png)
+
+### Breeze
+
+![Screenshot](screenshots/breeze.png)
 
 ### Bright Lights
 
@@ -128,6 +314,30 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/c64.png)
 
+### Calamity
+
+![Screenshot](screenshots/calamity.png)
+
+### Catppuccin Frappé
+
+![Screenshot](screenshots/catppuccin-frappe.png)
+
+### Catppuccin Latte
+
+![Screenshot](screenshots/catppuccin-latte.png)
+
+### Catppuccin Macchiato
+
+![Screenshot](screenshots/catppuccin-macchiato.png)
+
+### Catppuccin Mocha
+
+![Screenshot](screenshots/catppuccin-mocha.png)
+
+### CGA
+
+![Screenshot](screenshots/CGA.png)
+
 ### Chalk
 
 ![Screenshot](screenshots/chalk.png)
@@ -135,6 +345,14 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ### Chalkboard
 
 ![Screenshot](screenshots/chalkboard.png)
+
+### ChallengerDeep
+
+![Screenshot](screenshots/challenger_deep.png)
+
+### Chester
+
+![Screenshot](screenshots/chester.png)
 
 ### Ciapre
 
@@ -152,13 +370,29 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/cobalt2.png)
 
+### Coffee
+
+![Screenshot](screenshots/Coffee.png)
+
 ### CrayonPonyFish
 
 ![Screenshot](screenshots/crayon_pony_fish.png)
 
+### Cyberdyne
+
+![Screenshot](screenshots/cyberdyne.png)
+
+### Cyberpunk
+
+![Screenshot](screenshots/cyberpunk.png)
+
 ### Dark Pastel
 
 ![Screenshot](screenshots/dark_pastel.png)
+
+### Dark+
+
+![Screenshot](screenshots/dark_plus.png)
 
 ### Darkside
 
@@ -176,6 +410,26 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/dimmed_monokai.png)
 
+### Django
+
+![Screenshot](screenshots/Django.png)
+
+### DjangoRebornAgain
+
+![Screenshot](screenshots/DjangoRebornAgain.png)
+
+### DjangoSmoothy
+
+![Screenshot](screenshots/DjangoSmoothy.png)
+
+### Doom One
+
+![Screenshot](screenshots/doom_one.png)
+
+### Doom Peacock
+
+![Screenshot](screenshots/doom_peacock.png)
+
 ### DotGov
 
 ![Screenshot](screenshots/dot_gov.png)
@@ -183,6 +437,14 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ### Dracula
 
 ![Screenshot](screenshots/dracula.png)
+
+### Dracula+
+
+![Screenshot](screenshots/Dracula+.png)
+
+### Duckbones
+
+![Screenshot](screenshots/duckbones.png)
 
 ### Duotone Dark
 
@@ -212,6 +474,18 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/espresso_libre.png)
 
+### Everblush
+
+![Screenshot](screenshots/everblush.png)
+
+### Fairyfloss
+
+![Screenshot](screenshots/fairyfloss.png)
+
+### Fahrenheit
+
+![Screenshot](screenshots/fahrenheit.png)
+
 ### Fideloper
 
 ![Screenshot](screenshots/fideloper.png)
@@ -236,6 +510,14 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/flatland.png)
 
+### Flexoki Dark
+
+![Screenshot](screenshots/flexoki-dark.png)
+
+### Flexoki Light
+
+![Screenshot](screenshots/flexoki-light.png)
+
 ### Floraverse
 
 ![Screenshot](screenshots/floraverse.png)
@@ -243,6 +525,10 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ### Forest Blue
 
 ![Screenshot](screenshots/forest_blue.png)
+
+### Framer
+
+![Screenshot](screenshots/framer.png)
 
 ### FrontEndDelight
 
@@ -256,9 +542,17 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/galaxy.png)
 
+### Galizur
+
+![image](screenshots/galizur.png)
+
 ### Github
 
 ![Screenshot](screenshots/github.png)
+
+### GitHub Dark
+
+![Screenshot](screenshots/GitHub_Dark.png)
 
 ### Glacier
 
@@ -272,9 +566,29 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/grass.png)
 
+### Grey-green
+
+![Screenshot](screenshots/Grey-green.png)
+
 ### Gruvbox Dark
 
 ![Screenshot](screenshots/gruvbox_dark.png)
+
+### Gruvbox Dark Hard
+
+![Screenshot](screenshots/gruvbox_dark_hard.png)
+
+### Gruvbox Light
+
+![Screenshot](screenshots/gruvbox_light.png)
+
+### Guezwhoz
+
+![Screenshot](screenshots/Guezwhoz.png)
+
+### Hacktober
+
+![Screenshot](screenshots/hacktober.png)
 
 ### Hardcore
 
@@ -284,6 +598,18 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/harper.png)
 
+### HaX0R_R3D
+
+![Screenshot](screenshots/HaX0R_R3D.png)
+
+### HaX0R_GR33N
+
+![Screenshot](screenshots/HaX0R_GR33N.png)
+
+### HaX0R_BLUE
+
+![Screenshot](screenshots/HaX0R_BLUE.png)
+
 ### Highway
 
 ![Screenshot](screenshots/highway.png)
@@ -292,9 +618,21 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/hipster_green.png)
 
+### Hivacruz
+
+![Screenshot](screenshots/hivacruz.png)
+
 ### Homebrew
 
 ![Screenshot](screenshots/homebrew.png)
+
+### Hopscotch
+
+![Screenshot](screenshots/hopscotch.png)
+
+### Hopscotch 256
+
+![Screenshot](screenshots/hopscotch_256.png)
 
 ### Hurtado
 
@@ -312,6 +650,14 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/ic_orange_ppl.png)
 
+### iceberg
+
+![Screenshot](screenshots/iceberg.png)
+
+### IDEA Drak
+
+![Screenshot](screenshots/idea.png)
+
 ### idleToes
 
 ![Screenshot](screenshots/idleToes.png)
@@ -319,6 +665,42 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ### IR_Black
 
 ![Screenshot](screenshots/ir_black.png)
+
+### iTerm2 Default
+
+![Screenshot](screenshots/iterm2-default.png)
+
+### iTerm2 Dark Background
+
+![Screenshot](screenshots/iterm2-dark-background.png)
+
+### iTerm2 Light Background
+
+![Screenshot](screenshots/iterm2-light-background.png)
+
+### iTerm2 Pastel (Dark Background)
+
+![Screenshot](screenshots/iterm2-pastel-dark-background.png)
+
+### iTerm2 Smoooooth
+
+![Screenshot](screenshots/iterm2-smoooooth.png)
+
+### iTerm2 Solarized Dark
+
+![Screenshot](screenshots/iterm2-solarized-dark.png)
+
+### iTerm2 Solarized Light
+
+![Screenshot](screenshots/iterm2-solarized-light.png)
+
+### iTerm2 Tango Dark
+
+![Screenshot](screenshots/iterm2-tango-dark.png)
+
+### iTerm2 Tango Light
+
+![Screenshot](screenshots/iterm2-tango-light.png)
 
 ### Jackie Brown
 
@@ -336,11 +718,35 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/jetbrains_darcula.png)
 
+### Jubi
+
+![Screenshot](screenshots/jubi.png)
+
+### Kanagawabones
+
+![Screenshot](screenshots/kanagawabones.png)
+
 ### Kibble
 
 ![Screenshot](screenshots/kibble.png)
 
-### Later This Evening 
+### Kolorit
+
+![Screenshot](screenshots/kolorit.png)
+
+### Konsolas
+
+![Screenshot](screenshots/konsolas.png)
+
+### Lab Fox
+
+![Screenshot](screenshots/lab_fox.png)
+
+### Laser
+
+![Screenshot](screenshots/laser.png)
+
+### Later This Evening
 
 ![Screenshot](screenshots/later_this_evening.png)
 
@@ -360,9 +766,17 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/liquid_carbon_transparent_inverse.png)
 
+### LoveLace
+
+![Screenshot](screenshots/LoveLace.png)
+
 ### Man Page
 
 ![Screenshot](screenshots/man_page.png)
+
+### Mariana
+
+![Screenshot](screenshots/mariana.png)
 
 ### Material
 
@@ -372,13 +786,45 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/material_dark.png)
 
+### MaterialDarker
+
+![Screenshot](screenshots/material_darker.png)
+
+### MaterialDesignColors
+
+![Screenshot](screenshots/material_design_colors.png)
+
+### MaterialOcean
+
+![Screenshot](screenshots/material_ocean.png)
+
 ### Mathias
 
 ![Screenshot](screenshots/mathias.png)
 
+### Matrix
+
+![Screenshot](screenshots/matrix.png)
+
+### Dark Matrix
+
+![Screenshot](screenshots/darkmatrix.png)
+
+### Darker Matrix
+
+![Screenshot](screenshots/darkermatrix.png)
+
 ### Medallion
 
 ![Screenshot](screenshots/medallion.png)
+
+### Midnight In Mojave
+
+![Screenshot](screenshots/midnight_in_mojave.png)
+
+### Mirage
+
+![Screenshot](screenshots/mirage.png)
 
 ### Misterioso
 
@@ -392,6 +838,10 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/mona_lisa.png)
 
+### Monokai Remastered
+
+![Screenshot](screenshots/monokai_remastered.png)
+
 ### Monokai Soda
 
 ![Screenshot](screenshots/monokai_soda.png)
@@ -403,6 +853,18 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ### N0tch2k
 
 ![Screenshot](screenshots/n0tch2k.png)
+
+### Neobones Dark
+
+![Screenshot](screenshots/neobones_dark.png)
+
+### Neobones Light
+
+![Screenshot](screenshots/neobones_light.png)
+
+### Neon
+
+![Screenshot](screenshots/neon.png)
 
 ### Neopolitan
 
@@ -420,9 +882,29 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/nightlion_v2.png)
 
+### Night Owlish Light
+
+![Screenshot](screenshots/night_owlish_light.png)
+
+### Niji
+
+![Screenshot](screenshots/niji.png)
+
 ### Novel
 
 ![Screenshot](screenshots/novel.png)
+
+### Nocturnal Winter
+
+![Screenshot](screenshots/nocturnal_winter.png)
+
+### Nord
+
+![Screenshot](screenshots/nord.png)
+
+### Nord-light
+
+![Screenshot](screenshots/nord_light.png)
 
 ### Obsidian
 
@@ -432,10 +914,13 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/ocean.png)
 
-
 ### OceanicMaterial
 
 ![Screenshot](screenshots/oceanic_material.png)
+
+### Oceanic Next
+
+![Screenshot](screenshots/oceanic_next.png)
 
 ### Ollie
 
@@ -449,11 +934,23 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/onehalflight.png)
 
+### Operator Mono Dark
+
+![Screenshot](screenshots/operator_mono_dark.png)
+
+### Overnight Slumber
+
+![Screenshot](screenshots/overnight_slumber.png)
+
+### Palenight High Contrast
+
+![Screenshot](screenshots/PaleNightHC.png)
+
 ### Pandora
 
 ![Screenshot](screenshots/pandora.png)
 
-### Parasio Dark
+### Paraiso Dark
 
 ![Screenshot](screenshots/paraiso_dark.png)
 
@@ -469,6 +966,10 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/pencil_light.png)
 
+### Peppermint
+
+![Screenshot](screenshots/Peppermint.png)
+
 ### Piatto Light
 
 ![Screenshot](screenshots/piatto_light.png)
@@ -477,21 +978,85 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/pnevma.png)
 
+### Popping and Locking
+
+![Screenshot](screenshots/Popping_and_Locking.png)
+
+### Primary
+
+![Screenshot](screenshots/primary.png)
+
 ### Pro
 
 ![Screenshot](screenshots/pro.png)
+
+### Pro Light
+
+![Screenshot](screenshots/pro_light.png)
+
+### Purple Peter
+
+![Screenshot](screenshots/purplepeter.png)
+
+### Purple Rain
+
+![Screenshot](screenshots/purple_rain.png)
+
+### Rapture
+
+![Screenshot](screenshots/rapture.png)
+
+### Raycast Dark
+
+![Screenshot](screenshots/raycast_dark.png)
+
+### Raycast Light
+
+![Screenshot](screenshots/raycast_light.png)
+
+### Rebecca
+
+![Screenshot](screenshots/rebecca.png)
 
 ### Red Alert
 
 ![Screenshot](screenshots/red_alert.png)
 
+### Red Planet
+
+![Screenshot](screenshots/red_planet.png)
+
 ### Red Sands
 
 ![Screenshot](screenshots/red_sands.png)
 
+### Relaxed
+
+![Screenshot](screenshots/relaxed.png)
+
+### Retro
+
+![Screenshot](screenshots/Retro.png)
+
 ### Rippedcasts
 
 ![Screenshot](screenshots/rippedcasts.png)
+
+### Rosé Pine
+
+![Screenshot](screenshots/rose-pine.png)
+
+### Rosé Pine Dawn
+
+![Screenshot](screenshots/rose-pine-dawn.png)
+
+### Rosé Pine Moon
+
+![Screenshot](screenshots/rose-pine-moon.png)
+
+### Rouge 2
+
+![Screenshot](screenshots/rouge_2.png)
 
 ### Royal
 
@@ -501,6 +1066,14 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/ryuuko.png)
 
+### Sakura
+
+![Screenshot](screenshots/sakura.png)
+
+### Scarlet Protocol
+
+![Screenshot](screenshots/scarlet_protocol.png)
+
 ### Seafoam Pastel
 
 ![Screenshot](screenshots/seafoam_pastel.png)
@@ -508,6 +1081,14 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ### SeaShells
 
 ![Screenshot](screenshots/sea_shells.png)
+
+### Seoulbones Dark
+
+![Screenshot](screenshots/seoulbones_dark.png)
+
+### Seoulbones Light
+
+![Screenshot](screenshots/seoulbones_light.png)
 
 ### Seti
 
@@ -517,13 +1098,25 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 
 ![Screenshot](screenshots/shaman.png)
 
+### Shades-Of-Purple
+
+![Screenshot](screenshots/ShadesOfPurple.png)
+
 ### Slate
 
 ![Screenshot](screenshots/slate.png)
 
+### SleepyHollow
+
+![Screenshot](screenshots/SleepyHollow.png)
+
 ### Smyck
 
 ![Screenshot](screenshots/smyck.png)
+
+### Snazzy
+
+![Screenshot](screenshots/snazzy.png)
 
 ### SoftServer
 
@@ -536,10 +1129,6 @@ To include a screenshot, please generate the output using the [screenshotTable.s
 ### Solarized Darcula (Without background image)
 
 ![Screenshot](screenshots/solarized_darcula.png)
-
-### Solarized Dark
-
-![Screenshot](screenshots/solarized_dark.png)
 
 ### Solarized Dark - Patched
 
@@ -557,10 +1146,6 @@ more information.
 ### Solarized Dark Higher Contrast
 
 ![Screenshot](screenshots/solarized_dark_higher_contrast.png)
-
-### Solarized Light
-
-![Screenshot](screenshots/solarized_light.png)
 
 ### SpaceGray
 
@@ -590,6 +1175,14 @@ more information.
 
 ![Screenshot](screenshots/square.png)
 
+### Sublette
+
+![Screenshot](screenshots/sublette.png)
+
+### Subliminal
+
+![Screenshot](screenshots/subliminal.png)
+
 ### Sundried
 
 ![Screenshot](screenshots/sundried.png)
@@ -597,6 +1190,26 @@ more information.
 ### Symfonic
 
 ![Screenshot](screenshots/symfonic.png)
+
+### synthwave
+
+![Screenshot](screenshots/synthwave.png)
+
+### Synthwave Alpha
+
+![Screenshot](screenshots/synthwave_alpha.png)
+
+### Synthwave Everything
+
+![Screenshot](screenshots/synthwave-everything.png)
+
+### Tango Adapted
+
+![Screenshot](screenshots/tango_adapted.png)
+
+### Tango Half Adapted
+
+![Screenshot](screenshots/tango_half_adapted.png)
 
 ### Teerb
 
@@ -613,6 +1226,26 @@ more information.
 ### The Hulk
 
 ![Screenshot](screenshots/the_hulk.png)
+
+### Tinacious Design (Dark)
+
+![Screenshot](screenshots/tinacious_design_dark.png)
+
+### Tinacious Design (Light)
+
+![Screenshot](screenshots/tinacious_design_light.png)
+
+### TokyoNight
+
+![Screenshot](screenshots/tokyonight.png)
+
+### TokyoNight Storm
+
+![Screenshot](screenshots/tokyonight-storm.png)
+
+### TokyoNight Day
+
+![Screenshot](screenshots/tokyonight-day.png)
 
 ### Tomorrow
 
@@ -634,6 +1267,10 @@ more information.
 
 ![Screenshot](screenshots/tomorrow_night_eighties.png)
 
+### Tomorrow Night Burns
+
+![Screenshot](screenshots/tomorrow_night_burns.png)
+
 ### ToyChest
 
 ![Screenshot](screenshots/toy_chest.png)
@@ -650,9 +1287,21 @@ more information.
 
 ![Screenshot](screenshots/ubuntu.png)
 
+### UltraViolent
+
+![Screenshot](screenshots/ultra_violent.png)
+
+### UltraDark
+
+![Screenshot](screenshots/ultradark.png)
+
 ### Under The Sea
 
 ![Screenshot](screenshots/under_the_sea.png)
+
+### Unikitty
+
+![Screenshot](screenshots/unikitty.png)
 
 ### Urple
 
@@ -665,6 +1314,10 @@ more information.
 ### VibrantInk
 
 ![Screenshot](screenshots/vibrant_ink.png)
+
+### Vimbones
+
+![Screenshot](screenshots/vimbones.png)
 
 ### Violet Light
 
@@ -682,9 +1335,17 @@ more information.
 
 ![Screenshot](screenshots/wez.png)
 
+### Whimsy
+
+![Screenshot](screenshots/whimsy.png)
+
 ### WildCherry
 
 ![Screenshot](screenshots/wild_cherry.png)
+
+### Wilmersdorf
+
+![Screenshot](screenshots/wilmersdorf.png)
 
 ### Wombat
 
@@ -694,202 +1355,53 @@ more information.
 
 ![Screenshot](screenshots/wryan.png)
 
+### Zenbones
+
+![Screenshot](screenshots/zenbones.png)
+
+### Zenbones Dark
+
+![Screenshot](screenshots/zenbones_dark.png)
+
+### Zenbones Light
+
+![Screenshot](screenshots/zenbones_light.png)
+
 ### Zenburn
 
 ![Screenshot](screenshots/zenburn.png)
 
+### Zenburned
+
+![Screenshot](screenshots/zenburned.png)
+
+### Zenwritten Dark
+
+![Screenshot](screenshots/zenwritten_dark.png)
+
+### Zenwritten Light
+
+![Screenshot](screenshots/zenwritten_light.png)
+
 ## Credits
-The schemes Novel, Espresso, Grass, Homebrew, Ocean, Pro, Man Page, Red Sands, and Terminal Basic are ports of the schemes of the same name included with the Mac Terminal application. All of Terminal's schemes have now been ported, with the excption of "Solid Colors" (random backgrounds, which iTerm doesn't support) and "Aerogel" (which is hideous).
 
-The scheme Violet was created by [ashfinal](https://github.com/ashfinal/vim-colors-violet).
-
-The scheme idleToes was inspired by the [idleFingers](http://www.idlefingers.co.uk/) TextMate theme and suggested for inclusion by Seth Wilson.
-
-The scheme Zenburn was inspired by the [Zenburn](http://sunaku.github.io/zenburn-terminal-color-scheme.html) version created by Suraj N. Kurapati.
-
-The scheme Symfonic was inspired by the color scheme used in the [documentation](http://symfony.com/doc/current/book/index.html) for the [Symfony](http://www.symfony.com) PHP Framework.
-
-The scheme Github was inspired by the color theme palette used at [Github](https://github.com/) for their UI and in some of their mascot images.
-
-The scheme Solarized Darcula was inspired by the color theme created by [@rickhanlonii](https://github.com/rickhanlonii). There are two screenshots below; one with a background and one without. The background image is included in the backgrounds/ directory and the image must be manually set on the profile's Preferences->Window tab. It's hard to see from the screenshot, but it looks great!
-
-The theme Hurtado was found [here](https://github.com/juanghurtado/dotfiles).
-
-The theme Molokai was based on the [vim colorscheme](https://github.com/tomasr/molokai) of the same name.
-
-The theme Monokai Soda was found [here](https://github.com/deepsweet/Monokai-Soda-iTerm).
-
-The theme Monokai Vivid was created by [vitalymak](https://github.com/vitalymak/iTerm2-Color-Schemes).
-
-The theme Neopolitan was created by [daytonn](https://github.com/daytonn/iTerm2-Color-Schemes)
-
-The themes Solarized Dark and Solarized Light come from the official [Solarized web site](http://ethanschoonover.com/solarized)
-
-The Obsidian theme was on my hard drive and I don't recall where it came from. If anyone knows, ping me and I'll link back to the author(s).
-
-The Spacedust theme was created by [mhallendal](https://github.com/mhallendal/spacedust-theme) and ported to iTerm by [Couto](https://github.com/Couto)
-
-The theme Mathias was created by [mathiasbynens](https://github.com/mathiasbynens/dotfiles)
-
-The LiquidCarbon themes were created by [markcho](https://github.com/markcho/iTerm2_LiquidCarbon)
-
-The NightLion themes were created by [Curvve Media](http://www.curvve.com/blog/category/themes/)
-
-The Tomorrow themes were created by [chriskempson](https://github.com/chriskempson/tomorrow-theme/tree/master/iTerm2)
-
-The Twilight theme was created by [stefri](https://gist.github.com/stefri/1183140)
-
-The Teerb theme was created by [Teerb](https://gist.github.com/teerb/1360453)
-
-The IR_Black theme was found [here](https://gist.github.com/meqif/1238378)
-
-The Misterioso theme was created by [flooose](https://github.com/flooose/misterioso-iterm2)
-
-The Hybrid theme was found [here](https://gist.github.com/luan/6362811)
-
-The Thayer Bright theme was found [here](https://github.com/t3chnoboy/thayer-bright-iTerm)
-
-The Spring theme was found [here](https://github.com/t3chnoboy/spring-iTerm)
-
-The Smyck theme was found [here](https://github.com/hukl/Smyck-Color-Scheme)
-
-The Forest Blue theme was found [here](https://github.com/olkinn/forest-blue-iTerm)
-
-The Cobalt2 theme was created by [wesbos](https://github.com/wesbos/Cobalt2-iterm)
-
-The WarmNeon theme was ported from [PyCharm](http://www.jetbrains.com/pycharm/) by [firewut](https://github.com/firewut)
-
-The SpaceGray theme was created by [ryentzer](https://github.com/ryentzer/SpaceGray-iTerm)
-
-The Jellybeans theme was created by [qtpi](https://github.com/qtpi/Jellybeans.itermcolors)
-
-The PaulMillr theme was created by [paulmillr](https://github.com/paulmillr/dotfiles/tree/master/terminal) and ported to iTerm by me
-
-The Harper theme was created by [idleberg](https://github.com/idleberg/Harper-iTerm2)
-
-The CLRS theme was created by [jasonlong](https://github.com/jasonlong/iterm-clrs)
-
-The Dracula theme was created by [zenorocha](https://github.com/zenorocha/dracula-theme)
-
-The themes AdventureTime, AlienBlood, BirdsOfParadise, Ciapre, CrayonPonyFish, DimmedMonokai, Earthsong, Elemental, FishTank, FrontEndDelight, FunForrest, Grape, Highway, IC_Green_PPL, IC_Orange_PPL, Lavandula, Medallion, MonaLisa, Ollie, Royal, SeaShells, Shaman, SoftServer, Sundried, ToyChest, Treehouse, and Urple were created by [zdj](https://github.com/zdj/themes/tree/master/iterm2)
-
-The Japanesque theme was created by [aereal](https://github.com/aereal/dotfiles/blob/master/colors/Japanesque/Japanesque.itermcolors)
-
-The Seti theme was created by [jesseweed](https://github.com/jesseweed/seti-syntax/) and ported to iTerm2 by [philduffy](https://github.com/willmanduffy/seti-iterm) and slightly modified to make the ANSI blacks have a little more contrast
-
-The Hipster Green and Jackie Brown themes were created by [Unkulunkulu](https://github.com/Unkulunkulu)
-
-The Chalk theme was created by [achalv](https://github.com/achalv/chalk)
-
-The Pencil Dark and Pencil Light themes were created by [mattly](https://github.com/mattly/iterm-colors-pencil)
-
-The Flat theme was created by [ahmetsulek](https://github.com/ahmetsulek/flat-terminal)
-
-The Atom, Brogrammer, Glacier and Darkside themes were created by [bahlo](https://github.com/bahlo/iterm-colors)
-
-The Afterglow theme was created by [yabatadesign](https://github.com/YabataDesign/afterglow-itermcolors)
-
-The Broadcast theme was created by [vinkla](https://github.com/vinkla/broadcast-theme)
-
-The Arthur, N0tch2k, Pnevma, Square, and Wryan themes were created by [baskerville](https://github.com/baskerville/iTerm-2-Color-Themes)
-
-The Belafonte Day, Belafonte Night, Paraiso Dark, and C64 themes were created by [idleberg](https://github.com/idleberg)
-
-The 3024 Day and 3024 Night themes were created by [0x3024](https://github.com/0x3024)
-
-The Argonaut theme was created by [effkay](https://github.com/effkay/iTerm-argonaut)
-
-The Espresso Libre theme was created by [jurgemaister](https://github.com/jurgemaister/Espresso-Libre)
-
-The Hardcore theme was created by [hardcore](https://github.com/hardcore/iTerm-colors)
-
-The Rippedcasts theme was created by [mdw123](https://github.com/mdw123/rippedcasts)
-
-The Solorized Dark Higher Contrast theme was created by [heisters](https://gist.github.com/heisters/1015503)
-
-The VibrantInk theme was created by [asanghi](https://github.com/asanghi/vibrantinklion)
-
-The Wez theme was created by [wez](https://gist.github.com/wez/850268/)
-
-The Wombat theme was created by [djoyner](https://github.com/djoyner/iTerm2-wombat)
-
-The WildCherry theme was created by [mashaal](https://github.com/mashaal/wild-cherry)
-
-The Flatland theme was created by [realchaseadams](http://www.snip2code.com/Snippet/148193/Flatland-color-scheme-for-iTerm2)
-
-The Neutron theme was created by [Ch4s3](https://github.com/Ch4s3/iTerm2-Neutron)
-
-The Fideloper theme was inspired by [Fideloper](http://fideloper.com/)
-
-The Later This Evening theme was created by [vilhalmer](https://github.com/vilhalmer/System/tree/master/terminal-themes)
-
-The Galaxy theme was created by [jglovier](https://github.com/jglovier/galaxy-theme-iterm)
-
-The Slate theme was created by [deneshshan](https://github.com/deneshshan)
-
-The SpaceGray Eighties and SpaceGray Eighties Dull themes were created by [mhkeller](https://github.com/mhkeller/spacegray-eighties-iterm)
-
-The Borland theme was created by [delip](https://gist.github.com/delip/9e16c606d9331d69d681)
-
-The Cobalt Neon theme was created by [vazquez](https://github.com/vazquez/cobalt-neon-iterm)
-
-The AtelierSulphurpool theme was created by [atelierbram](http://atelierbram.github.io/syntax-highlighting/atelier-schemes/sulphurpool/)
-
-The Batman, Spiderman, and The Hulk themes were created by [pyrophos](https://github.com/pyrophos)
-
-The ENCOM theme was created by [Josh Braun](http://wideaperture.net)
-
-The Floraverse theme was created by [papayakitty](http://floraverse.com/)
-
-The Material and MaterialDark themes were created by [stoeffel](https://github.com/stoeffel/material-iterm)
-
-The OceanicMaterial theme was created by [rahulpatel](https://github.com/rahulpatel)
-
-The AtomOneLight theme was created by [iamstarkov](https://github.com/iamstarkov)
-
-The Piatto Light theme was created by [kovv](https://github.com/kovv)
-
-The DotGov theme was inspired by the color palette used in the [U.S. Web Design Standards](https://standards.usa.gov/visual-style/)
-
-The DuoTone Dark theme was created by [chibicode](http://chibicode.com) based on [simurai](https://github.com/simurai)'s [duotone-dark](https://github.com/simurai/duotone-dark-syntax) Atom theme.
-
-The JetBrains Darcula theme was created by [vitstr](https://github.com/vitstr)
-
-The Bright Lights theme was created by [tw15egan](https://github.com/tw15egan)
-
-The Ubuntu theme was inspired by default Ubuntu's console colors. Created by [Maximus](http://superuser.com/questions/497240/ubuntu-purple-terminal-colors-in-conemu) and ported to iTerm2 by [stepin](https://github.com/stepin).
-
-The Under The Sea theme was created by [peterpme](https://github.com/peterpme)
-
-The One Half themes were created by [sonph](https://github.com/sonph), based on Atom's One with some tweakings.
-
-The FirefoxDev theme was created by [Or3stis](https://github.com/Or3stis)
-
-The Ryuuko theme was created by [dylanaraps](https://github.com/dylanaraps) and added by [iandrewt](https://github.com/iandrewt)
-
-The Firewatch theme was created by [Sebastian Szturo](https://github.com/SebastianSzturo) as an [atom syntax theme](https://atom.io/themes/firewatch-syntax) and ported to an iTerm scheme by [Ben Styles](https://github.com/leeds-ebooks). It was originally inspired by the [Firewatch game](http://www.firewatchgame.com/).
-
-The Pandora theme was created by [milosmatic](https://github.com/milosmatic/Pandora-iterm)
-
-The Elementary OS  theme was created by [elementary.io](https://elementary.io/) and added by [987poiuytrewq](https://github.com/987poiuytrewq)
-
-The Gruvbox Dark  theme was created by [morhetz](https://github.com/morhetz) and added by [mcchrish](https://github.com/mcchrish)
-
-The Ayu and Ayu Light  themes were created by [alebcay](https://github.com/alebcay)
-
-The Deep  theme was created by [ADoyle](https://github.com/adoyle-h)
+- The schemes [_Novel_](#novel), [_Espresso_](#espresso), [_Grass_](#grass), [_Homebrew_](#homebrew), [_Ocean_](#ocean), [_Pro_](#pro), [_Man Page_](#man-page), [_Red Sands_](#red-sands), and [_Terminal Basic_](#terminal-basic) are ports of the schemes of the same name included with the Mac Terminal application. All of Terminal's schemes have now been ported, with the exception of _Solid Colors_ (random backgrounds, which iTerm doesn't support) and _Aerogel_ (which is hideous).
+- The schemes [_iTerm2 Default_](#iterm2-default), [_iTerm2 Dark Background_](#iterm2-dark-background), [_iTerm2 Light Background_](#iterm2-light-background), [_iTerm2 Pastel (Dark Background)_](#iterm2-pastel-dark-background), [_iTerm2 Smoooooth_](#iterm2-smoooooth), [_iTerm2 Solarized Dark_](#iterm2-solarized-dark), [_iTerm2 Solarized Light_](#iterm2-solarized-light), [_iTerm2 Tango Dark_](#iterm2-tango-dark), and [_iTerm2 Tango Light_](#iterm2-tango-light) are ports from the built-in color schemes of iTerm2 (current source is iTerm2 v3.4.19).
+- Credits for all other themes are listed in [CREDITS.md](./CREDITS.md)
 
 If there are other color schemes you'd like to see included, drop me a line!
 
 ## Extra
+
 ### X11 Installation
+
 To install under the [X Window System](https://www.x.org/):
 
-* Import the .xrdb file of the scheme you'd like to use:
+- Import the .xrdb file of the scheme you'd like to use:
 
         #include "/home/mbadolato/iTerm2-Color-Schemes/xrdb/Blazer.xrdb"
 
-* Use the `#define`s provided by the imported .xrdb file:
+- Use the `#define`s provided by the imported .xrdb file:
 
         Rxvt*color0:       Ansi_0_Color
         Rxvt*color1:       Ansi_1_Color
@@ -913,7 +1425,7 @@ To install under the [X Window System](https://www.x.org/):
         Rxvt*foreground:   Foreground_Color
         Rxvt*background:   Background_Color
         Rxvt*cursorColor:  Cursor_Color
-        
+
         XTerm*color0:      Ansi_0_Color
         XTerm*color1:      Ansi_1_Color
         XTerm*color2:      Ansi_2_Color
@@ -937,17 +1449,17 @@ To install under the [X Window System](https://www.x.org/):
         XTerm*background:  Background_Color
         XTerm*cursorColor: Cursor_Color
 
-* Store the above snippets in a file and pass it in:
+- Store the above snippets in a file and pass it in:
 
-        $ xrdb -merge YOUR_FILE_CONTAINING_ABOVE_SNIPPETS
+        xrdb -merge YOUR_FILE_CONTAINING_ABOVE_SNIPPETS
 
-* Open new XTerm or Rxvt windows to see the changes.
+- Open new XTerm or Rxvt windows to see the changes.
 
-* Adapt this procedure to other terminals as needed.
+- Adapt this procedure to other terminals as needed.
 
 ### Terminator color schemes
 
-Edit your Terminator configuration file (located in: `$HOME/.config/terminator/config`) and add the configurations for the theme(s) you'd like to use the ``[profiles]`` section. The `terminator/` directory contains the config snippets you'll need. Just paste the configurations into the `[profiles]` sections, and you're good to go!
+Edit your Terminator configuration file (located in: `$HOME/.config/terminator/config`) and add the configurations for the theme(s) you'd like to use the `[profiles]` section. The `terminator/` directory contains the config snippets you'll need. Just paste the configurations into the `[profiles]` sections, and you're good to go!
 
 At a minimum, this is all you need. You can customize the fonts and other aspects as well, if you wish. See the Terminator documentation for more details.
 
@@ -984,21 +1496,24 @@ An example config file that includes the code snippet for the Symfonic theme wou
 
 ### Konsole color schemes
 
-Copy the themes from the `konsole` directory to `$HOME/.config/konsole`, restart Konsole and choose your new theme from the profile preferences window.
+Copy the themes from the `konsole` directory to `$HOME/.config/konsole` (in some versions of KDE, the theme directory may be located at `$HOME/.local/share/konsole`), restart Konsole and choose your new theme from the profile preferences window.
 
 If you want to make the themes available to all users, copy the .colorscheme files to `/usr/share/konsole`.
 
 ### Terminal color schemes
+
 Just double click on selected theme in `terminal` directory
 
 ### PuTTY color schemes
 
 #### New Session Method
+
 This method creates a new blank session with JUST colors set properly.
 
 Download the appropriate `colorscheme.reg` file and import the registry changes by right-clicking and choosing Merge. Choose "Yes" when prompted if you're sure. Color scheme will show up as a new PuTTY session with all defaults except entries at `Window > Colours > Adjust the precise colours PuTTY displays`.
 
 #### Modify Session Method
+
 This method modifies an existing session and changes JUST the color settings.
 
 Download the appropriate `colorscheme.reg` file. Open the file with a text editor and change the color scheme portion (`Molokai` below) to match the session you want to modify:
@@ -1015,19 +1530,60 @@ Download the appropriate `colorscheme.reg` file. Open the file with a text edito
 
 ```
 Window > Apprearance
-	Font: Consolas, bold, 14-point
-	Font quality:
-		( ) Antialiased     ( ) Non-Antialiased
-		(O) ClearType       ( ) Default
+ Font: Consolas, bold, 14-point
+ Font quality:
+  ( ) Antialiased     ( ) Non-Antialiased
+  (O) ClearType       ( ) Default
 Window > Colours
-	[X] Allow terminal to specify ANSI colours
-	[X] Allow terminal to use xterm 256-colour mode
-	Indicate bolded text by changing:
-		( ) The font   (O) The colour   ( ) Both
-	[ ] Attempt to use logical palettes
-	[ ] Use system colours
+ [X] Allow terminal to specify ANSI colours
+ [X] Allow terminal to use xterm 256-colour mode
+ Indicate bolded text by changing:
+  ( ) The font   (O) The colour   ( ) Both
+ [ ] Attempt to use logical palettes
+ [ ] Use system colours
 ```
 
+### Xfce Terminal color schemes
+
+Copy the `colorschemes` folder to `~/.local/share/xfce4/terminal/` and restart Terminal.
+
+### FreeBSD vt color schemes
+
+Append your favourite theme from `freebsd_vt/` to `/boot/loader.conf`
+or `/boot/loader.conf.local` and reboot.
+
+### MobaXterm color schemes
+
+Copy the theme content from `mobaxterm/` and paste the content to your `MobaXterm.ini` in the corresponding place (`[Colors]`).
+
+### LXTerminal color schemes
+
+Copy the theme content from `lxterminal/` and paste the content to your `lxterminal` in the corresponding place (`[general]`).
+
+### Visual Studio Code color schemes
+
+Copy the theme content from `vscode/` and paste the content to your [UserSettings.json](https://code.visualstudio.com/docs/getstarted/settings).
+
+### Windows Terminal color schemes
+
+Copy the theme content from `windowsterminal/` and paste the content to your `profiles.json` in the corresponding place (`"schemes"`). Then specify the name of your theme by `"colorScheme"` in `"profiles"`.
+
+### Alacritty color schemes
+
+Copy the theme content from `alacritty/` and paste the content to your [alacritty config file](https://github.com/alacritty/alacritty/blob/master/alacritty.yml).
+
+### Ghostty color schemes
+
+Copy the theme content from `ghostty/` and paste the content in your Ghostty config file, at `~/.config/ghostty/config`.
+
+### Rio color schemes
+
+Copy the theme file from `rio/` and paste to your rio theme config directory (typically `~/.config/rio/themes/`).
+Then specify the name of your theme in the `theme` field in the [config file](https://raphamorim.io/rio/docs/#configuration-file).
+
+### Termux color schemes
+
+Copy the theme content from `termux/` and paste the content to `~/.termux` directory as `~/.termux/colors.properties` file and run `termux-reload-settings` to apply the theme.
 
 ### Previewing color schemes
 
@@ -1047,7 +1603,7 @@ tools/preview.rb schemes/AdventureTime.itermcolors
 tools/preview.rb schemes/*
 ```
 
-----
+---
 
 iTerm Color Schemes | iTerm2 Color Schemes | iTerm 2 Color Schemes | iTerm Themes | iTerm2 Themes | iTerm 2 Themes
 
