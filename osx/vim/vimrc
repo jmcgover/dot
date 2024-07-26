@@ -1,254 +1,239 @@
 "====[ BEGIN ~/.vimrc ]====
-
-    " Preferred Location: ~/.vimrc
-    " Author: Jeff McGovern
+" Preferred Location: ~/.vimrc
+" Author: Jeff McGovern
 
 "====[ Minimal .vimrc (Pilfered) ]====
-
-    " Minimal .vimrc pilfered (almost exactly) from:
-    " http://stackoverflow.com/questions/1840862/favorite-minimalistic-vimrc-configuration
-    setlocal backspace=2 " backspace in insert mode works like normal editor
-    syntax on            " syntax highlighting
-    filetype indent on   " activates indenting for files
-    setlocal autoindent  " auto indenting
-    setlocal number      " line numbers
-    colorscheme desert   " colorscheme desert
-    setlocal nobackup    " get rid of anoying ~file
+" Minimal .vimrc pilfered (almost exactly) from:
+" http://stackoverflow.com/questions/1840862/favorite-minimalistic-vimrc-configuration
+setlocal backspace=2 " backspace in insert mode works like normal editor
+syntax on            " syntax highlighting
+filetype indent on   " activates indenting for files
+setlocal autoindent  " auto indenting
+setlocal number      " line numbers
+colorscheme desert   " colorscheme desert
+setlocal nobackup    " get rid of anoying ~file
 
 "====[ Mouse Support ]====
-
-    set mouse=a
+set mouse=a
 
 "====[ Define Shell ]====
-
-    " Sources .bash_profile upon :sh
-    set shell=bash\ --login
-    " Makes tab complete work like bash
-    set wildmode=longest,list
+" Sources .bash_profile upon :sh
+set shell=bash\ --login
+" Makes tab complete work like bash
+set wildmode=longest,list
 
 "====[ Ignoring Case ]====
-
-    setlocal ignorecase
-    setlocal smartcase
+setlocal ignorecase
+setlocal smartcase
 
 "====[ Highlight Search ]====
-
-    func ToggleHighlight()
-        if (&hlsearch == 1)
-            set nohlsearch
-        else
-            set hlsearch
-        endif
-    endfunc
-    nnoremap <C-H> :call ToggleHighlight()<cr>
-    set hlsearch
+func ToggleHighlight()
+    if (&hlsearch == 1)
+        set nohlsearch
+    else
+        set hlsearch
+    endif
+endfunc
+nnoremap <C-H> :call ToggleHighlight()<cr>
+set hlsearch
 
 "====[ Arrow Removal ]====
 
+let g:arrowson=1
+func ArrowsOff()
+    let g:arrowson=0
+    noremap! <Up>    <NOP>
+    noremap! <Down>  <NOP>
+    noremap! <Left>  <NOP>
+    noremap! <Right> <NOP>
+    noremap  <Up>    <NOP>
+    noremap  <Down>  <NOP>
+    noremap  <Left>  <NOP>
+    noremap  <Right> <NOP>
+endfunc
+func ArrowsOn()
     let g:arrowson=1
-    func ArrowsOff()
-        let g:arrowson=0
-        noremap! <Up>    <NOP>
-        noremap! <Down>  <NOP>
-        noremap! <Left>  <NOP>
-        noremap! <Right> <NOP>
-        noremap  <Up>    <NOP>
-        noremap  <Down>  <NOP>
-        noremap  <Left>  <NOP>
-        noremap  <Right> <NOP>
-    endfunc
-    func ArrowsOn()
-        let g:arrowson=1
-        noremap  <Up>    <Up>
-        noremap  <Down>  <Down>
-        noremap  <Left>  <Left>
-        noremap  <Right> <Right>
-        noremap! <Up>    <Up>
-        noremap! <Down>  <Down>
-        noremap! <Left>  <Left>
-        noremap! <Right> <Right>
-    endfunc
-    func ToggleArrows()
-        if (g:arrowson == 1)
-            call ArrowsOff()
-        else
-            call ArrowsOn()
-        endif
-    endfunc
-    "call ArrowsOff()
+    noremap  <Up>    <Up>
+    noremap  <Down>  <Down>
+    noremap  <Left>  <Left>
+    noremap  <Right> <Right>
+    noremap! <Up>    <Up>
+    noremap! <Down>  <Down>
+    noremap! <Left>  <Left>
+    noremap! <Right> <Right>
+endfunc
+func ToggleArrows()
+    if (g:arrowson == 1)
+        call ArrowsOff()
+    else
+        call ArrowsOn()
+    endif
+endfunc
+"call ArrowsOff()
 
 "====[ Turn Off Error Noises ]====
 
-    setlocal novisualbell " remove annoying visual beeps
-    setlocal noerrorbells " remove annoying audio beeps
+setlocal novisualbell " remove annoying visual beeps
+setlocal noerrorbells " remove annoying audio beeps
 
 "====[ Tabs to Spaces ]====
 
-    " DEFAULT: 4 space tabs
-    " expandtab: means TAB key will insert <sofftabstop> number of spaces
-    " set used because setlocal didn't work for vim -O (inserted tab)
-    set tabstop=4
-    set shiftwidth=4
-    set softtabstop=4
-    set expandtab
+" DEFAULT: 4 space tabs
+" expandtab: means TAB key will insert <sofftabstop> number of spaces
+" set used because setlocal didn't work for vim -O (inserted tab)
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
 
 "====[ Tabs, trailing whitespace, and non-breaking spaces visible ]====
 
-    exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
-    set list
+exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set list
 
 "====[ Ruler ]====
 
-    " Displays the row,col in the bottom right
-    set ruler
+" Displays the row,col in the bottom right
+set ruler
 
 "====[ Relative Line Numbering ]====
 
-    " change to absolute line numbering
-    function! SetLineNumber()
-        setlocal norelativenumber
-        setlocal number
-    endfunc
-    " change to relative line numbering
-    function! SetRelativeLineNumber()
-        setlocal relativenumber
-        setlocal number
-    endfunc
-    " toggles relative/absolute line
-    function! ToggleLineNumStyle()
-        if (&relativenumber == 1)
-            call SetLineNumber()
-        else
-            call SetRelativeLineNumber()
-        endif
-    endfunc
-    " ctrl + n calls toggle
-    nnoremap <C-n> :call ToggleLineNumStyle()<cr>
-    " DEFAULT: relative line numbering
-    set relativenumber
-    set number
-    " only relative when pane in focus
-    :autocmd WinLeave * call SetLineNumber()
-    :autocmd WinEnter * call SetRelativeLineNumber()
-    " switches to absolute when in insert
-    autocmd InsertEnter * call SetLineNumber()
-    autocmd InsertLeave * call SetRelativeLineNumber()
+" change to absolute line numbering
+function! SetLineNumber()
+    setlocal norelativenumber
+    setlocal number
+endfunc
+" change to relative line numbering
+function! SetRelativeLineNumber()
+    setlocal relativenumber
+    setlocal number
+endfunc
+" toggles relative/absolute line
+function! ToggleLineNumStyle()
+    if (&relativenumber == 1)
+        call SetLineNumber()
+    else
+        call SetRelativeLineNumber()
+    endif
+endfunc
+" ctrl + n calls toggle
+nnoremap <C-n> :call ToggleLineNumStyle()<cr>
+" DEFAULT: relative line numbering
+set relativenumber
+set number
+" only relative when pane in focus
+:autocmd WinLeave * call SetLineNumber()
+:autocmd WinEnter * call SetRelativeLineNumber()
+" switches to absolute when in insert
+autocmd InsertEnter * call SetLineNumber()
+autocmd InsertLeave * call SetRelativeLineNumber()
 
 
 "====[ Case Insensitive Save and Quit Commands ]====
 
-    :command WQA wqa
-    :command WQa wqa
-    :command Wqa wqa
-    :command QA qa
-    :command Qa qa
-    :command WA wa
-    :command Wa wa
-    :command WQ wq
-    :command Wq wq
-    :command W w
-    :command Q q
+:command WQA wqa
+:command WQa wqa
+:command Wqa wqa
+:command QA qa
+:command Qa qa
+:command WA wa
+:command Wa wa
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
 
 " Consider Switching to vim-plug
 " https://github.com/junegunn/vim-plug
 "====[ Vundle Plugin Manager ]====
 
-    set nocompatible              " be iMproved, required
-    filetype off                  " required
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-    " set the runtime path to include Vundle and initialize
-    set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
-    " alternatively, pass a path where Vundle should install plugins
-    "call vundle#begin('~/some/path/here')
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-    " let Vundle manage Vundle, required
-    Plugin 'VundleVim/Vundle.vim'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
-    " The following are examples of different formats supported.
-    " Keep Plugin commands between vundle#begin/end.
-    " plugin on GitHub repo
-    " Plugin 'tpope/vim-fugitive'
-    " plugin from http://vim-scripts.org/vim/scripts.html
-    " Plugin 'L9'
-    " Git plugin not hosted on GitHub
-    " Plugin 'git://git.wincent.com/command-t.git'
-    " git repos on your local machine (i.e. when working on your own plugin)
-    " Plugin 'file:///home/gmarik/path/to/plugin'
-    " The sparkup vim script is in a subdirectory of this repo called vim.
-    " Pass the path to set the runtimepath properly.
-    " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-    " Install L9 and avoid a Naming conflict if you've already installed a
-    " different version somewhere else.
-    " Plugin 'ascenator/L9', {'name': 'newL9'}
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
 
-    Plugin 'HerringtonDarkholme/yats.vim'
-    Plugin 'JamshedVesuna/vim-markdown-preview'
-    Plugin 'MaxMEllon/vim-jsx-pretty'
-    Plugin 'eapache/rainbow_parentheses.vim'
-    Plugin 'fatih/vim-go'
-    Plugin 'flazz/vim-colorschemes'
-    Plugin 'raimon49/requirements.txt.vim'
-    Plugin 'scrooloose/nerdtree'
+Plugin 'HerringtonDarkholme/yats.vim'
+Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'MaxMEllon/vim-jsx-pretty'
+Plugin 'eapache/rainbow_parentheses.vim'
+Plugin 'fatih/vim-go'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'raimon49/requirements.txt.vim'
+Plugin 'scrooloose/nerdtree'
 
-    " Linting/Formatting
-    " Plugin 'vim-autoformat/vim-autoformat'
+" Linting/Formatting
+" Plugin 'vim-autoformat/vim-autoformat'
 
-    " Tim Pope Plugins
-    Plugin 'tpope/vim-characterize'
-    Plugin 'tpope/vim-endwise'
-    Plugin 'tpope/vim-eunuch'
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'tpope/vim-repeat'
-    Plugin 'tpope/vim-surround'
+" Tim Pope Plugins
+Plugin 'tpope/vim-characterize'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
 
-    " Google Plugins
-    " Add maktaba, glaive, and codefmt to the runtimepath.
-    " (Glaive must also be installed before it can be used.)
-    Plugin 'google/vim-maktaba'
-    Plugin 'google/vim-codefmt'
-    Plugin 'google/vim-glaive'
+" Google Plugins
+" Add maktaba, glaive, and codefmt to the runtimepath.
+" (Glaive must also be installed before it can be used.)
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
 
-    " Autocomplete
-    Plugin 'davidhalter/jedi-vim'
-    Plugin 'ervandew/supertab'
+" Autocomplete
+Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/supertab'
 
-    " LilyPond
-    Plugin 'sersorrel/vim-lilypond'
+" LilyPond
+Plugin 'sersorrel/vim-lilypond'
 
 
-    " Airline needs Powerline-patched fonts, which I think are found here:
-    " https://github.com/powerline/fonts
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
-    Plugin 'Lokaltog/powerline'
+" Airline needs Powerline-patched fonts, which I think are found here:
+" https://github.com/powerline/fonts
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Lokaltog/powerline'
 
-    "call dein#add('scrooloose/nerdtree')
-    "call dein#add('eapache/rainbow_parentheses.vim')
-    "call dein#add('vim-airline/vim-airline')
-    "call dein#add('vim-airline/vim-airline-themes')
-    "call dein#add('JamshedVesuna/vim-markdown-preview')
-    "call dein#add('flazz/vim-colorschemes',
-    "            \ { 'build':
-    "            \ 'mkdir -p /Users/jmcgover/.vim/colors && cp /Users/jmcgover/.vim/bundles/repos/github.com/flazz/vim-colorschemes/colors/* /Users/jmcgover/.vim/colors' }
-    "            \ )
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
-    " All of your Plugins must be added before the following line
-    call vundle#end()            " required
-    filetype plugin indent on    " required
-    " To ignore plugin indent changes, instead use:
-    "filetype plugin on
-    "
-    " Brief help
-    " :PluginList       - lists configured plugins
-    " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-    " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-    " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-    "
-    " see :h vundle for more details or wiki for FAQ
-    " Put your non-Plugin stuff after this line
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
-"====[ vim-glaive ]====
+"====[ google/vim-glaive ]====
 
 " Resolve directory of this file, allowing for symlinks.
 let vimrc_dir = $MYVIMRC->resolve()->fnamemodify(':h') . "/"
@@ -261,7 +246,7 @@ call glaive#Install()
 Glaive codefmt plugin[mappings]
 Glaive codefmt google_java_executable=`g:google_java_executable`
 
-"====[ vim-codefmt ]====
+"====[ google/vim-codefmt ]====
 
 nnoremap <c-k> :FormatCode<CR>:redraw!<CR>
 vnoremap <c-k> :FormatLines<CR>:redraw!<CR>
@@ -269,193 +254,182 @@ vnoremap <c-k> :FormatLines<CR>:redraw!<CR>
 
 "====[ Color Scheme ]====
 
-    " DEIN: Colors must occur after call dein#end()
-    colorscheme desert
-    colorscheme slate
-    " colorscheme 3dglasses
-    " colorscheme Benokai
-    " colorscheme xoria256
-    highlight Normal ctermbg=NONE
-    highlight nonText ctermbg=NONE
-    highlight LineNr ctermbg=NONE
+" DEIN: Colors must occur after call dein#end()
+colorscheme desert
+colorscheme slate
+" colorscheme 3dglasses
+" colorscheme Benokai
+" colorscheme xoria256
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+highlight LineNr ctermbg=NONE
 
-"====[ google/vim-codefmt ]====
 
 
 "====[ jedi-vim ]====
-
-    let g:jedi#use_tabs_not_buffers = 1
-    let g:jedi#use_splits_not_buffers = "top"
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#use_splits_not_buffers = "top"
 
 "====[ GetFileTypes ]====
+" Source: https://vi.stackexchange.com/a/5782
+function! GetFiletypes()
+    " Get a list of all the runtime directories by taking the value of that
+    " option and splitting it using a comma as the separator.
+    let rtps = split(&runtimepath, ",")
+    " This will be the list of filetypes that the function returns
+    let filetypes = []
 
-    " Source: https://vi.stackexchange.com/a/5782
-    function! GetFiletypes()
-        " Get a list of all the runtime directories by taking the value of that
-        " option and splitting it using a comma as the separator.
-        let rtps = split(&runtimepath, ",")
-        " This will be the list of filetypes that the function returns
-        let filetypes = []
+    " Loop through each individual item in the list of runtime paths
+    for rtp in rtps
+        let syntax_dir = rtp . "/syntax"
+        " Check to see if there is a syntax directory in this runtimepath.
+        if (isdirectory(syntax_dir))
+            " Loop through each vimscript file in the syntax directory
+            for syntax_file in split(glob(syntax_dir . "/*.vim"), "\n")
+                " Add this file to the filetypes list with its everything
+                " except its name removed.
+                call add(filetypes, fnamemodify(syntax_file, ":t:r"))
+            endfor
+        endif
+    endfor
 
-        " Loop through each individual item in the list of runtime paths
-        for rtp in rtps
-            let syntax_dir = rtp . "/syntax"
-            " Check to see if there is a syntax directory in this runtimepath.
-            if (isdirectory(syntax_dir))
-                " Loop through each vimscript file in the syntax directory
-                for syntax_file in split(glob(syntax_dir . "/*.vim"), "\n")
-                    " Add this file to the filetypes list with its everything
-                    " except its name removed.
-                    call add(filetypes, fnamemodify(syntax_file, ":t:r"))
-                endfor
-            endif
-        endfor
-
-        " This removes any duplicates and returns the resulting list.
-        " NOTE: This might not be the best way to do this, suggestions are welcome.
-        return uniq(sort(filetypes))
-    endfunction
+    " This removes any duplicates and returns the resulting list.
+    " NOTE: This might not be the best way to do this, suggestions are welcome.
+    return uniq(sort(filetypes))
+endfunction
 
 "====[ vim-Markdown-Preview ]====
-
-    let vim_markdown_preview_github=1
-    let vim_markdown_preview_browser='Google Chrome'
-    let vim_markdown_preview_toggle=1
+let vim_markdown_preview_github=1
+let vim_markdown_preview_browser='Google Chrome'
+let vim_markdown_preview_toggle=1
 
 "====[ NerdTREE ]====
+" NerdTREE:
+" call dein#add('scrooloose/nerdtree')
+nnoremap <C-F> :NERDTree<cr>
 
-    " NerdTREE:
-    " call dein#add('scrooloose/nerdtree')
-    nnoremap <C-F> :NERDTree<cr>
+" Commands:
+" Type :help NERDTreeMappings to read through all of the default keyboard
+" shortcuts. These are the ones I use the most frequently:
+"
+" t: Open the selected file in a new tab
+" i: Open the selected file in a horizontal split window
+" s: Open the selected file in a vertical split window
+" I: Toggle hidden files
+" m: Show the NERD Tree menu
+" R: Refresh the tree, useful if files change outside of Vim
+" ?: Toggle NERD Tree's quick help
+"
+" Options:
+let NERDTreeWinSize=65
 
-    " Commands:
-    " Type :help NERDTreeMappings to read through all of the default keyboard
-    " shortcuts. These are the ones I use the most frequently:
-    "
-    " t: Open the selected file in a new tab
-    " i: Open the selected file in a horizontal split window
-    " s: Open the selected file in a vertical split window
-    " I: Toggle hidden files
-    " m: Show the NERD Tree menu
-    " R: Refresh the tree, useful if files change outside of Vim
-    " ?: Toggle NERD Tree's quick help
-    "
-    " Options:
-    let NERDTreeWinSize=65
+"====[ Syntastic ]====
+" Syntastic:
+" call dein#add('scrooloose/syntastic')
 
-    "====[ Syntastic ]====
+" Recommended Settings:
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-    " Syntastic:
-    " call dein#add('scrooloose/syntastic')
-
-    " Recommended Settings:
-    " set statusline+=%#warningmsg#
-    " set statusline+=%{SyntasticStatuslineFlag()}
-    " set statusline+=%*
-
-    " let g:syntastic_always_populate_loc_list = 1
-    " let g:syntastic_auto_loc_list = 1
-    " let g:syntastic_check_on_open = 1
-    " let g:syntastic_check_on_wq = 0
-    " let g:syntastic_objc_compiler_options="-F/AppleInternal/Library/Frameworks"
-    " let g:syntastic_full_redraws=1
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_objc_compiler_options="-F/AppleInternal/Library/Frameworks"
+" let g:syntastic_full_redraws=1
 
 ""====[ Rainbow Parentheses Settings ]====
+" Rainbow Parentheses:
+" call dein#add('eapache/rainbow_parentheses.vim')
 "
-"    " Rainbow Parentheses:
-"    " call dein#add('eapache/rainbow_parentheses.vim')
+"Options:
+"let g:rbpt_colorpairs = [
+"    \ ['brown',       'RoyalBlue3'],
+"    \ ['Darkblue',    'SeaGreen3'],
+"    \ ['darkgray',    'DarkOrchid3'],
+"    \ ['darkgreen',   'firebrick3'],
+"    \ ['darkcyan',    'RoyalBlue3'],
+"    \ ['darkred',     'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['brown',       'firebrick3'],
+"    \ ['gray',        'RoyalBlue3'],
+"    \ ['black',       'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['Darkblue',    'firebrick3'],
+"    \ ['darkgreen',   'RoyalBlue3'],
+"    \ ['darkcyan',    'SeaGreen3'],
+"    \ ['darkred',     'DarkOrchid3'],
+"    \ ['red',         'firebrick3'],
+"    \ ]
+"let g:rbpt_max = 16
+"let g:rbpt_loadcmd_toggle = 0
 "
-"    " Options:
-"     let g:rbpt_colorpairs = [
-"         \ ['brown',       'RoyalBlue3'],
-"         \ ['Darkblue',    'SeaGreen3'],
-"         \ ['darkgray',    'DarkOrchid3'],
-"         \ ['darkgreen',   'firebrick3'],
-"         \ ['darkcyan',    'RoyalBlue3'],
-"         \ ['darkred',     'SeaGreen3'],
-"         \ ['darkmagenta', 'DarkOrchid3'],
-"         \ ['brown',       'firebrick3'],
-"         \ ['gray',        'RoyalBlue3'],
-"         \ ['black',       'SeaGreen3'],
-"         \ ['darkmagenta', 'DarkOrchid3'],
-"         \ ['Darkblue',    'firebrick3'],
-"         \ ['darkgreen',   'RoyalBlue3'],
-"         \ ['darkcyan',    'SeaGreen3'],
-"         \ ['darkred',     'DarkOrchid3'],
-"         \ ['red',         'firebrick3'],
-"         \ ]
-"    " let g:rbpt_max = 16
-"    " let g:rbpt_loadcmd_toggle = 0
+" Commands:
+" :RainbowParenthesesToggle       " Toggle it on/off
+" :RainbowParenthesesLoadRound    " (), the default when toggling
+" :RainbowParenthesesLoadSquare   " []
+" :RainbowParenthesesLoadBraces   " {}
+" :RainbowParenthesesLoadChevrons " <>
 "
-"    " Commands:
-"    " :RainbowParenthesesToggle       " Toggle it on/off
-"    " :RainbowParenthesesLoadRound    " (), the default when toggling
-"    " :RainbowParenthesesLoadSquare   " []
-"    " :RainbowParenthesesLoadBraces   " {}
-"    " :RainbowParenthesesLoadChevrons " <>
-"
-    " Always On Rainbow Parens:
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
-    au Syntax * RainbowParenthesesLoadChevrons
+" Always On Rainbow Parens:
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+au Syntax * RainbowParenthesesLoadChevrons
 
 "====[ Vim Airline Settings ]====
+" Airline:
+" call dein#add('Lokaltog/vim-powerline')
+" call dein#add('vim-airline/vim-airline')
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_powerline_fonts = 1
 
-    " Airline:
-    " call dein#add('Lokaltog/vim-powerline')
-    " call dein#add('vim-airline/vim-airline')
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#left_sep = ' '
-    let g:airline#extensions#tabline#left_alt_sep = '|'
-    let g:airline_powerline_fonts = 1
-
-    " Airline Themes:
-    " call dein#add('vim-airline/vim-airline-themes')
-    let g:airline_theme = 'base16'
-    let g:airline_theme = 'wombat'
+" Airline Themes:
+" call dein#add('vim-airline/vim-airline-themes')
+let g:airline_theme = 'base16'
+let g:airline_theme = 'wombat'
 
 "====[ VIM Split Settings ]====
-
-    noremap _ <C-w>-
-    noremap + <C-w>+
-    noremap < <C-w><
-    noremap > <C-w>>
+noremap _ <C-w>-
+noremap + <C-w>+
+noremap < <C-w><
+noremap > <C-w>>
 
 "====[ ClangComplete ]====
-
-    let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
-    let g:clang_user_options="-F/AppleInternal/Library/Frameworks"
+let g:clang_library_path="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
+let g:clang_user_options="-F/AppleInternal/Library/Frameworks"
 
 "====[ FileType Specifics ]====
+autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
+autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype go         exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
+let g:gofmt_command = "goimports"
 
-    autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
-    autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
-    autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
-    autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
-    autocmd Filetype go         exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
-    let g:gofmt_command = "goimports"
+function TextMode()
+    setlocal noexpandtab
+    setlocal formatoptions=1
+    setlocal spell
+    setlocal spelllang=en_us
+    setlocal complete+=s
+    setlocal wrap
+    setlocal linebreak
+    setlocal nolist
+    setlocal textwidth=0
+    setlocal wrapmargin=0
+    "noremap j gj
+    "noremap k gk
+endfunction
+autocmd Filetype txt,text call TextMode()
+:au BufWritePost * redraw!
 
-    function TextMode()
-        setlocal noexpandtab
-        setlocal formatoptions=1
-        setlocal spell
-        setlocal spelllang=en_us
-        setlocal complete+=s
-        setlocal wrap
-        setlocal linebreak
-        setlocal nolist
-        setlocal textwidth=0
-        setlocal wrapmargin=0
-        "noremap j gj
-        "noremap k gk
-    endfunction
-    autocmd Filetype txt,text call TextMode()
-    :au BufWritePost * redraw!
-
-    " Some motherfucker (possibly me) mapped this shit away.
-    :unmap <
-    :unmap >
+" Some motherfucker (possibly me) mapped this shit away.
+:unmap <
+:unmap >
 
 "====[ END ~/.vimrc ]====
