@@ -3,3 +3,13 @@
 
 # OS X Bookeeping
 .DS_Store
+
+# Vim Undo File
+*.un~
+
+# Vim swp File
+*.swp
+
+# Python
+.venv
+.env
