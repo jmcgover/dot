@@ -220,6 +220,7 @@
     Plugin 'fatih/vim-go'
     Plugin 'HerringtonDarkholme/yats.vim'
     Plugin 'MaxMEllon/vim-jsx-pretty'
+    Plugin 'raimon49/requirements.txt.vim'
 
     " Linting/Formatting
     Plugin 'vim-autoformat/vim-autoformat'
@@ -303,15 +304,16 @@
 
     " Format on close
     let g:prettier#autoformat = 0
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue Prettier
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue Prettier
     augroup PrettierFileDetect
         noremap <c-k> :Prettier<CR>
         setlocal expandtab tabstop=2 sts=2 shiftwidth=2
     augroup end
 
 
-    " Turn it off for vim, since it's bad
+    " Turn it off for these, since it's bad
     autocmd FileType vim let b:autoformat_autoindent=0
+    autocmd FileType markdown let b:autoformat_autoindent=0
 
 
 "====[ jedi-vim ]====
@@ -350,9 +352,9 @@
 
 "====[ vim-Markdown-Preview ]====
 
-    " let vim_markdown_preview_github=1
-    " let vim_markdown_preview_toggle=2
-    " nnoremap <C-p> :call Vim_Markdown_Preview_Local()<cr>
+    let vim_markdown_preview_github=1
+    let vim_markdown_preview_browser='Google Chrome'
+    let vim_markdown_preview_toggle=1
 
 "====[ NerdTREE ]====
 
