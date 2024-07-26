@@ -149,37 +149,6 @@
     :command W w
     :command Q q
 
-"====[COMMENTS]=====
-
-    " Command/Comment Legend
-    " ,# : shell, perl, etc
-    " ,/ : c++
-    " ,> : email quote
-    " ," : vim
-    " ,% : latex, prolog
-    " ,! : assembly/X-resources
-    " ,; : scheme
-    " ,- : sql, ada
-    " ,c : clears any of the previous comments
-
-    " LHS Comments
-    map ,# :s/^/#/<CR>:nohlsearch<CR>
-    map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
-    map ,> :s/^/> /<CR>:nohlsearch<CR>
-    map ," :s/^/\"/<CR>:nohlsearch<CR>
-    map ,% :s/^/%/<CR>:nohlsearch<CR>
-    map ,! :s/^/!/<CR>:nohlsearch<CR>
-    map ,; :s/^/;/<CR>:nohlsearch<CR>
-    map ,- :s/^/--/<CR>:nohlsearch<CR>
-    map ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
-
-    " Wrapping Comments
-    map ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>:nohlsearch<CR>
-    map ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>:nohlsearch<CR>
-    map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>:nohlsearch<CR>
-    map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
-
-
 " Consider Switching to vim-plug
 " https://github.com/junegunn/vim-plug
 "====[ Vundle Plugin Manager ]====
@@ -226,16 +195,8 @@
     Plugin 'vim-autoformat/vim-autoformat'
 
     " Typescript formatting
-    " vim-prettier requires prettier, install with:
-    " npm install --prefix ~/.vim/bundle/ prettier
-    " Consider this solution: https://github.com/VundleVim/Vundle.vim/issues/804#issuecomment-723585604
-    " Consider switching to vim-plug
-    if executable('npm') && !isdirectory($HOME . "/.vim/bundle/node_modules/prettier/")
-        echo "Installing Prettier..."
-        silent call system('npm install --prefix ~/.vim/bundle/ prettier')
-        echo "Done."
-    endif
-    Plugin 'prettier/vim-prettier'
+    " TODO: Find something that works better than Prettier and doesn't fuckup
+    " when I try to format a different kind of file.
 
     " Autocomplete
     Plugin 'davidhalter/jedi-vim'
@@ -295,21 +256,6 @@
 
     " Typescript et al
     " Source: https://gist.github.com/remarkablemark/23669b32afad86d32b1084f6abc4a9b5
-    let g:prettier#autoformat_require_pragma = 0
-    let g:prettier#config#bracket_spacing = 'true'
-    let g:prettier#config#jsx_bracket_same_line = 'false'
-    " number of spaces per indentation level: a number or 'auto' (use softtabstop)
-    " default: 'auto'
-    let g:prettier#config#tab_width = 2
-
-    " Format on close
-    let g:prettier#autoformat = 0
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue Prettier
-    augroup PrettierFileDetect
-        noremap <c-k> :Prettier<CR>
-        setlocal expandtab tabstop=2 sts=2 shiftwidth=2
-    augroup end
-
 
     " Turn it off for these, since it's bad
     autocmd FileType vim let b:autoformat_autoindent=0
