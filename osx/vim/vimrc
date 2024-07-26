@@ -253,8 +253,6 @@ vnoremap <c-k> :FormatLines<CR>:redraw!<CR>
 
 
 "====[ Color Scheme ]====
-
-" DEIN: Colors must occur after call dein#end()
 colorscheme desert
 colorscheme slate
 " colorscheme 3dglasses
@@ -303,9 +301,7 @@ let vim_markdown_preview_github=1
 let vim_markdown_preview_browser='Google Chrome'
 let vim_markdown_preview_toggle=1
 
-"====[ NerdTREE ]====
-" NerdTREE:
-" call dein#add('scrooloose/nerdtree')
+"====[ scrooloose/nerdtree ]====
 nnoremap <C-F> :NERDTree<cr>
 
 " Commands:
@@ -323,10 +319,7 @@ nnoremap <C-F> :NERDTree<cr>
 " Options:
 let NERDTreeWinSize=65
 
-"====[ Syntastic ]====
-" Syntastic:
-" call dein#add('scrooloose/syntastic')
-
+"====[ scrooloose/syntastic ]====
 " Recommended Settings:
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
@@ -339,10 +332,7 @@ let NERDTreeWinSize=65
 " let g:syntastic_objc_compiler_options="-F/AppleInternal/Library/Frameworks"
 " let g:syntastic_full_redraws=1
 
-""====[ Rainbow Parentheses Settings ]====
-" Rainbow Parentheses:
-" call dein#add('eapache/rainbow_parentheses.vim')
-"
+""====[ eapache/rainbow_parentheses.vim ]====
 "Options:
 "let g:rbpt_colorpairs = [
 "    \ ['brown',       'RoyalBlue3'],
@@ -379,17 +369,13 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 au Syntax * RainbowParenthesesLoadChevrons
 
-"====[ Vim Airline Settings ]====
-" Airline:
-" call dein#add('Lokaltog/vim-powerline')
-" call dein#add('vim-airline/vim-airline')
+"====[ vim-airline/vim-airline ]====
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
 
-" Airline Themes:
-" call dein#add('vim-airline/vim-airline-themes')
+"====[ vim-airline/vim-airline-themes ]====
 let g:airline_theme = 'base16'
 let g:airline_theme = 'wombat'
 
@@ -405,11 +391,10 @@ let g:clang_user_options="-F/AppleInternal/Library/Frameworks"
 
 "====[ FileType Specifics ]====
 autocmd Filetype java       setlocal expandtab tabstop=4 sts=4 shiftwidth=4
-autocmd Filetype py,python  setlocal noexpandtab tabstop=8 sts=8 shiftwidth=8
 autocmd Filetype py,python  setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype c,cpp      setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype go         exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
-let g:gofmt_command = "goimports"
+" let g:gofmt_command = "goimports"
 
 function TextMode()
     setlocal noexpandtab
