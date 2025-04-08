@@ -1,48 +1,55 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
-echoerr() {
-    (>&2 echo $@)
-}
-changeDirectory() {
-    echoerr "Changing to:" "$@"
-    cd $@
-    return $?
-}
-saveOld() {
-    local BACK_SUFFIX=".backup"
-    local curDate=$(date)
+set -o noclobber nounset errexit
 
-    local filename="$1"
-    local backupName="${filename}${BACK_SUFFIX}"
-    echoerr "${curDate}: Backing up ${filename} -> ${backupName}"
-    echo "# BEGIN" ${curDate} >> ${backupName}
-    cat ${filename} >> ${backupName}
-    echo "# END" ${curDate} >> ${backupName}
+BASHFILES=("bashrc" "bash_profile" "bash_login" "bash_logout")
+BASHFOLDER="bash"
+
+function check_targets() {
+  echo 'Checking targets...'
+  for base in "${BASHFILES[@]}" "${BASHFOLDER}"; do
+    target_filename="${HOME}/.${base}"
+    if [ -f "${target_filename}" ]; then
+      echo "Target file already exists: ${target_filename}"
+      return 22
+    fi
+    echo "Does not exist: ${target_filename}"
+  done
+  echo 'Checking targets DONE'
 }
 
-# Directories
-curDir="$(pwd)"
-target="${HOME}"
+function check_sources() {
+  echo 'Checking sources...'
+  basedir="$(dirname $(realpath ${BASH_SOURCE:-$0}))"
+  for base in "${BASHFILES[@]}"; do
+    source_filename="${basedir}/${base}"
+    if [ ! -f "${source_filename}" ]; then
+      echo "Source file does not exist: ${source_filename}"
+      return 22
+    fi
+    echo "Exists: ${source_filename}"
+  done
+  echo 'Checking sources DONE'
+}
 
-# Change to target directory, the user's home, in this case
-changeDirectory ${target}
-if [[ "$?" == "0" ]]; then
+function link_dotfiles() {
+  echo 'Linking dotfiles...'
+  basedir="$(dirname $(realpath ${BASH_SOURCE:-$0}))"
+  for base in "${BASHFILES[@]}"; do
+    source_filename="${basedir}/${base}"
+    target_filename="${HOME}/.${base}"
+    ln -v -w -s "${source_filename}" "${target_filename}"
+  done
+  ln -v -w -s "${basedir}" "${HOME}/.${BASHFOLDER}"
+  echo 'Linking dotfiles DONE'
+}
 
-    echoerr 
-    echoerr Saving the content of the old configuration files...
-    saveOld .bashrc
-    saveOld .bash_profile
+function main() {
+  echo 'Infecting...'
+  check_targets
+  check_sources
+  link_dotfiles
+  echo 'Infecting DONE'
+}
 
-    echoerr 
-    echoerr Linking the new configuration files, overwriting the old...
-    ln -sfv "${curDir}/bashrc" .bashrc
-    ln -sfv "${curDir}/bash_profile" .bash_profile
-else
-    echoerr "Error ($?): Failed to change to target directory:" ${target}
-fi
-
-# Change back to dotfiles directory
-echoerr 
-changeDirectory ${curDir}
-
-exit 0
+main "$@"

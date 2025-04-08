@@ -1,4 +1,85 @@
-#echo .bashrc
+#!/usr/bin/env bash
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# Some tools will straight up ignore ~/.bash_profile and only look at
+# ~/.bashrc, so just put everything in here.
+
+# How to use a different shell without changing the default:
+# https://support.apple.com/en-us/102360
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+### ESSENTIALS ###
+function path() {
+    echo -e ${PATH//:/\\n}
+}
+
+function cls() {
+    printf "\033c"
+}
+
+### PROMPT ###
+filename="${HOME}/.bash/prompt/prompt.bash"
+if [ -f "${filename}" ]; then
+  source "${filename}"
+else
+  echo "no ${filename}"
+fi
+
+### LIBRARIES ###
+libraries=("utility" "tmux" "date" "git")
+for lib in "${libraries[@]}"; do
+  filename="${HOME}/.bash/${lib}.bash"
+  if [ -f "${filename}" ]; then
+    source "${filename}"
+  fi
+done
+
+### COMPLETIONS ###
+completions=("bash_completion" "git-completion.bash" "just-completion.bash" "fzf-completion.bash")
+for compl in "${completions[@]}"; do
+  filename="${HOME}/.bash/completion/${compl}"
+  if [ -f "${filename}" ]; then
+    source "${filename}"
+  fi
+done
+
+### HOMEBREW ###
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+### PIPX ###
+# Created by `pipx` on 2025-02-18 21:29:55
+export PATH="${PATH}:${HOME}/.local/bin"
+
+### PYTHON ###
+
+### Ruby ###
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+#export PATH=/usr/local/opt/ruby/bin:$PATH
+#source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh
+#source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
+
+# Needs to go after the above, which I think makes the Homebrew Ruby the one used for this command
+# Pilfered from: https://stackoverflow.com/a/36485733
+export PATH="$PATH:`ruby -e 'puts Gem.user_dir'`/bin"
+
+# Ruby/Jekyll Stuffs
+# https://jekyllrb.com/docs/installation/macos/
+# export GEM_HOME=$HOME/.gem
+# export PATH=$PATH:$HOME/.gem/bin
+# export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
+
+### HISTORY ###
+# man bash
+# Putting this last in case the above commands become part of the history.
+# HISTFILE=~/.bash_history # <== default. If unset, the command history is not saved when a shell exits.
+export HISTSIZE="-1" # Numeric values less than zero result in every command being saved on the history list (there is not limit).
+export HISTTIMEFORMAT="+${ISO8601_FMT:=%Y-%m-%dT%H:%M:%S%Z}"
+
+# set -o history # enable command history (on by default in interactive shells)
+shopt -s histappend # history list is appended when the shell exits, rather than overwriting the file
+shopt -s cmdhist # 
+
+### TERMINAL ###
+export TERM=xterm-256color
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
