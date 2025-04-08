@@ -11,7 +11,7 @@ function check_targets() {
     target_filename="${HOME}/.${base}"
     if [ -f "${target_filename}" ]; then
       echo "Target file already exists: ${target_filename}"
-      return 22
+      exit 22
     fi
     echo "Does not exist: ${target_filename}"
   done
@@ -25,7 +25,7 @@ function check_sources() {
     source_filename="${basedir}/${base}"
     if [ ! -f "${source_filename}" ]; then
       echo "Source file does not exist: ${source_filename}"
-      return 22
+      exit 22
     fi
     echo "Exists: ${source_filename}"
   done
