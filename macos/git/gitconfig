@@ -1,0 +1,60 @@
+# Hobbled together from the following:
+# - https://blog.gitbutler.com/how-git-core-devs-configure-git/
+# - https://dandavison.github.io/delta/configuration.html
+# - https://news.ycombinator.com/item?id=43169861
+
+[column]
+    ui = auto
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
+[init]
+    defaultBranch = main
+[diff]
+    algorithm = histogram # incremental improvement on ‘patience’, which is better than default ('myers')
+    colorMoved = plain # show code movement in different colors than added / removed lines
+    mnemonicPrefix = true # In diff header output, show where the diff is coming from: i/ (index), w/ (working directory) or c/ commit
+    renames = true # detect if a file has been renamed
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+[fetch]
+    # Make sure we delete origin/blah if blah is deleted on the server, and
+    # also do it automatically for all the remotes that we have configured.
+    prune = true
+    pruneTags = true
+    all = true
+
+[help]
+    autocorrect = prompt
+[commit]
+    verbose = true
+[rerere]
+    # reuse recorded resolution: Allows asking Git to remember how you’ve
+    # resolved a hunk conflict so that the next time it sees the same
+    # conflict, Git can resolve it for you automatically.
+    enabled = true
+    autoupdate = true
+[core]
+    excludesfile = ~/.gitignore
+    pager = delta # brew install git-delta
+    editor = vim
+[merge]
+        # (just 'diff3' if git version < 2.3)
+    conflictstyle = zdiff3 
+[rebase]
+        # autoSquash = true
+        # autoStash = true
+    updateRefs = true
+[pull]
+        # rebase = true
+[log]
+    date = iso
+[apply]
+    whitespace = fix # When applying a patch, fix whitespace errors
+
+[user]
+    email = jeff@jdmcg.org
+    name = Jeffrey McGovern
