@@ -42,6 +42,9 @@ for compl in "${completions[@]}"; do
   fi
 done
 
+### COWSAY ###
+export COWPATH="${HOME}/.cows/mine/:${HOME}/.cows/paulkaefer/"
+
 ### HOMEBREW ###
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
