@@ -2,23 +2,26 @@
 
 # FUNCTIONS
 function mkcd() {
-    mkdir "$@"
-    cd "${@: -1}"
+  mkdir "$@"
+  cd "${@: -1}"
 }
 
 function ports() {
-    netstat -tulanp
+  netstat -tulanp
 }
 
 function csvtable() {
-    column -s, -t
+  column -s, -t
 }
 
 UNAME_S=$(uname -s)
 if [[ "${UNAME_S}" == "Darwin" ]]; then
-    function manpdf() {
-        man -t $1 | open -f -a /Applications/Preview.app
-    }
+  function manpdf() {
+    # man -t $1 | open -f -a /Applications/Preview.app # DEPRCATED in macOS Ventura
+    # brew install ghostscript
+    # man -t "${1}" | /usr/bin/env ps2pdf - - | open -f -a /System/Applications/Preview.app
+    mandoc -T pdf "$(/usr/bin/env man -w ${@})" | open -f -a Preview
+  }
 fi
 
 # ALIASES
