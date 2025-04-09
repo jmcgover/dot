@@ -6,7 +6,7 @@ COWDIR="cows"
 
 function check_targets() {
   echo 'Checking targets...'
-  target_filename="${HOME}/.${COWDIR}"
+  target_filename="${HOME}/.${COWDIR}/mine/"
   if [ -f "${target_filename}" ]; then
     echo "Target file already exists: ${target_filename}"
     exit 22
@@ -33,7 +33,8 @@ function check_sources() {
 function link_dotfiles() {
   echo 'Linking dotfiles...'
   basedir="$(dirname $(realpath ${BASH_SOURCE:-$0}))"
-  ln -v -w -s "${basedir}" "${HOME}/.${COWDIR}"
+  mkdir -p "${HOME}/.${COWDIR}"
+  ln -v -w -s "${basedir}" "${HOME}/.${COWDIR}/mine"
   echo 'Linking dotfiles DONE'
 }
 
