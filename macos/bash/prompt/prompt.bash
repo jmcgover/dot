@@ -33,9 +33,9 @@ fi
 PS1="$DATE_COLOR<\D{%H:%M:%S}>$BASH_COLOR\s-\v-$VIM_COLOR${VIM##*/}$HOST_COLOR$(scutil --get LocalHostName)\[\033[00m\]\[\e[$COLON_COLOR\]:"
 
 ##### GIT PROMPT #####
-git_prompt="${HOME}/.bash/prompt/git-prompt.bash"
+git_prompt="${HOME}/.bash/prompt/git-prompt.sh"
 if [ -f "${git_prompt}" ]; then
-  export GIT_PS1_SHOWDIRTSTATE=1
+  export GIT_PS1_SHOWDIRTYSTATE=1
   #export GIT_PS1_SHOWCOLORHINTS=1
   source "${git_prompt}"
   PS1="${PS1}$WD_COLOR["'\w$(__git_ps1 " (%s)")'"$WD_COLOR]"
