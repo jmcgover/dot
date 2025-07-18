@@ -8,6 +8,7 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 ### ESSENTIALS ###
+export EDITOR=vim
 function path() {
     echo -e ${PATH//:/\\n}
 }
@@ -34,6 +35,7 @@ for lib in "${libraries[@]}"; do
 done
 
 ### COMPLETIONS ###
+# Breaks /bin/bash (v3.2)
 completions=("bash_completion" "git-completion.bash" "just-completion.bash" "fzf-completion.bash")
 for compl in "${completions[@]}"; do
   filename="${HOME}/.bash/completion/${compl}"
@@ -74,7 +76,14 @@ export PATH="$PATH:`ruby -e 'puts Gem.user_dir'`/bin"
 # man bash
 # Putting this last in case the above commands become part of the history.
 # HISTFILE=~/.bash_history # <== default. If unset, the command history is not saved when a shell exits.
-export HISTSIZE="-1" # Numeric values less than zero result in every command being saved on the history list (there is not limit).
+if [ "${BASH_VERSINFO:-0}" -ge 4 ]; then
+  # Numeric values less than zero result in every command being saved on the
+  # history list (there is not limit).
+  # Breaks /bin/bash v3.2
+  export HISTSIZE="-1"
+else
+  export HISTSIZE="50000"  # default=500
+fi
 export HISTTIMEFORMAT="+${ISO8601_FMT:=%Y-%m-%dT%H:%M:%S%Z}"
 
 # set -o history # enable command history (on by default in interactive shells)
@@ -85,4 +94,3 @@ shopt -s cmdhist #
 export TERM=xterm-256color
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
