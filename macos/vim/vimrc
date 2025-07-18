@@ -13,6 +13,19 @@ setlocal number      " line numbers
 colorscheme desert   " colorscheme desert
 setlocal nobackup    " get rid of anoying ~file
 
+"====[ Color Scheme ]====
+colorscheme desert
+" colorscheme slate
+" colorscheme retrobox
+" colorscheme delek  " horrendous with ctermbg=NONE
+" colorscheme 3dglasses
+" colorscheme Benokai
+" colorscheme xoria256
+
+highlight Normal guibg=NONE ctermbg=NONE
+highlight nonText guibg=NONE ctermbg=NONE
+highlight LineNr guibg=NONE ctermbg=NONE
+
 "====[ Mouse Support ]====
 set mouse=a
 
