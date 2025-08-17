@@ -4,6 +4,7 @@ theme="Everforest Dark - Hard"
 #theme="Kanagawa Wave"
 #theme="nord"
 bold-is-bright=true
+minimum-contrast=3
 
 ### ICON ###
 # macos-icon: official, blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray
