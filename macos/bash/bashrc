@@ -16,6 +16,7 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 
 ### ESSENTIALS ###
 export EDITOR=vim
+export MANPAGER="vim -M +MANPAGER - "
 function path() {
     echo -e ${PATH//:/\\n}
 }
