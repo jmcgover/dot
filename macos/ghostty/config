@@ -1,0 +1,5 @@
+theme=AlienBlood
+bold-is-bright=true
+
+# macos-icon: official, blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray
+macos-icon=holographic
