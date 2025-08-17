@@ -1,3 +1,5 @@
+### FONT ###
+font-family="Osaka"
 ### THEME ###
 #theme="AlienBloodMine"
 theme="Everforest Dark - Hard"
@@ -5,10 +7,8 @@ theme="Everforest Dark - Hard"
 #theme="nord"
 
 ### Contrast ###
-# If you want to avoid invisible text (same color as background), a value of
-# 1.1 is a good value.
-# If you want to avoid text that is difficult to read, a value of 3 or higher
-# is a good value.
+# If you want to avoid invisible text (same color as background), a value of 1.1 is a good value.
+# If you want to avoid text that is difficult to read, a value of 3 or higher is a good value.
 # The higher the value, the more likely that text will become black or white.
 minimum-contrast=3
 
