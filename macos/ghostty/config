@@ -3,6 +3,7 @@
 theme="Everforest Dark - Hard"
 #theme="Kanagawa Wave"
 #theme="nord"
+
 ### Contrast ###
 # If you want to avoid invisible text (same color as background), a value of
 # 1.1 is a good value.
@@ -10,7 +11,9 @@ theme="Everforest Dark - Hard"
 # is a good value.
 # The higher the value, the more likely that text will become black or white.
 minimum-contrast=3
-bold-is-bright=true # bold text uses bright color palette
+
+# bold-is-bright: bold text uses bright color palette
+bold-is-bright=true
 
 ### ICON ###
 # macos-icon: official, blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray
