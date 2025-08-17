@@ -48,6 +48,7 @@ done
 export COWPATH="${HOME}/.cows/mine:${HOME}/.cows/paulkaefer"
 
 ### HOMEBREW ###
+export HOMEBREW_BUNDLE_FILE="${HOME}/.brew/bundlefile"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ### PIPX ###
