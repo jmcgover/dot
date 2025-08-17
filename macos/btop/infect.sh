@@ -6,7 +6,7 @@ BTOPFOLDER="btop"
 
 function check_targets() {
   echo 'Checking targets...'
-  global_config_dir="${HOME}/.config"
+  global_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
   if [ ! -d "${global_config_dir}" ]; then
     echo "Global config folder does not exist: ${global_config_dir}"
     exit 22
@@ -27,7 +27,7 @@ function check_sources() {
 function link_dotfiles() {
   echo 'Linking dotfiles...'
   basedir="$(dirname $(realpath ${BASH_SOURCE:-$0}))"
-  global_config_dir="${HOME}/.config"
+  global_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}"
   ln -v -w -s "${basedir}" "${global_config_dir}/${BTOPFOLDER}"
   echo 'Linking dotfiles DONE'
 }
