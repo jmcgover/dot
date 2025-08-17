@@ -1,5 +1,10 @@
-theme=AlienBlood
+### THEME ###
+#theme="AlienBloodMine"
+theme="Everforest Dark - Hard"
+#theme="Kanagawa Wave"
+#theme="nord"
 bold-is-bright=true
 
+### ICON ###
 # macos-icon: official, blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray
 macos-icon=holographic
