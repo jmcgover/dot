@@ -1,6 +1,7 @@
 ### FONT ###
 font-family="Osaka"
 ### THEME ###
+# List with `ghostty +list-themes`
 #theme="AlienBloodMine"
 theme="Everforest Dark Hard"
 #theme="Kanagawa Wave"
