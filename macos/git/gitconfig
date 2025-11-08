@@ -42,9 +42,20 @@
     excludesfile = ~/.gitignore
     pager = delta # brew install git-delta
     editor = vim
+[delta]
+    features = wooly-mammoth
+    navigate = true # use n and N to move between diff sections
+    line-numbers = true
+    side-by-side = true
+    true-color = always
+    #theme = Solarized (dark)
+    # delta determines terminal colors automatically -- set one of these to override
+    #dark = true
+    #light = true
 [merge]
         # (just 'diff3' if git version < 2.3)
-    conflictstyle = zdiff3 
+    conflictstyle = zdiff3
+    tool = vimdiff
 [rebase]
         # autoSquash = true
         # autoStash = true
