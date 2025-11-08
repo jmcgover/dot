@@ -1,9 +1,15 @@
 ### FONT ###
+# ghostty +list-fonts
 font-family="Osaka"
+#font-family="Menlo"
+#font-size=11
+# bold-is-bright: bold text uses bright color palette
+bold-is-bright=true
+
 ### THEME ###
 # List with `ghostty +list-themes`
-#theme="AlienBloodMine"
-theme="Everforest Dark Hard"
+theme="AlienBloodMine"
+#theme="Everforest Dark Hard"
 #theme="Kanagawa Wave"
 #theme="nord"
 
@@ -12,9 +18,6 @@ theme="Everforest Dark Hard"
 # If you want to avoid text that is difficult to read, a value of 3 or higher is a good value.
 # The higher the value, the more likely that text will become black or white.
 minimum-contrast=3
-
-# bold-is-bright: bold text uses bright color palette
-bold-is-bright=true
 
 ### ICON ###
 # macos-icon: official, blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray
