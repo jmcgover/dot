@@ -2,7 +2,7 @@
 
 set -o noclobber nounset errexit
 
-PKGLISTS=("cli.txt" "devel.txt" "tools.txt" "games.txt" "python.txt" "latex.txt" "cachyos.txt")
+PKGLISTS=("cli.txt" "devel.txt" "tools.txt" "games.txt" "python.txt" "latex.txt" "window.txt" "cachyos.txt")
 
 function check_sources() {
   echo 'Checking sources...'
