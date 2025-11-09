@@ -3,3 +3,4 @@ ffmpeg
 parallel
 xan
 nmap
+gnome-calculator
