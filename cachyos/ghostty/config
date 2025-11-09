@@ -12,8 +12,8 @@ theme="AlienBloodMine"
 #theme="Everforest Dark Hard"
 #theme="Kanagawa Wave"
 #theme="nord"
-background-opacity=0.90
-background-opacity-cells=true
+#background-opacity=0.85
+#background-opacity-cells=true
 
 ### Contrast ###
 # If you want to avoid invisible text (same color as background), a value of 1.1 is a good value.
