@@ -4,3 +4,4 @@ parallel
 xan
 nmap
 gnome-calculator
+pactree

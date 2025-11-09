@@ -1,0 +1,4 @@
+nemo
+ffmpegthumbnailer
+ghostscript
+poppler
