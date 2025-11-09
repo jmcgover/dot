@@ -1,0 +1,2 @@
+appmenu-gtk-module
+libdbusmenu-glib
