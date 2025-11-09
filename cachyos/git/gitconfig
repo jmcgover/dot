@@ -1,0 +1,75 @@
+# Hobbled together from the following:
+# - https://blog.gitbutler.com/how-git-core-devs-configure-git/
+# - https://dandavison.github.io/delta/configuration.html
+# - https://news.ycombinator.com/item?id=43169861
+
+[column]
+    ui = auto
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
+[init]
+    defaultBranch = main
+[diff]
+    algorithm = histogram # incremental improvement on ‘patience’, which is better than default ('myers')
+    colorMoved = plain # show code movement in different colors than added / removed lines
+    mnemonicPrefix = true # In diff header output, show where the diff is coming from: i/ (index), w/ (working directory) or c/ commit
+    renames = true # detect if a file has been renamed
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+[fetch]
+    # Make sure we delete origin/blah if blah is deleted on the server, and
+    # also do it automatically for all the remotes that we have configured.
+    prune = true
+    pruneTags = true
+    all = true
+
+[help]
+    autocorrect = prompt
+[commit]
+    verbose = true
+    gpgsign = true
+[rerere]
+    # reuse recorded resolution: Allows asking Git to remember how you’ve
+    # resolved a hunk conflict so that the next time it sees the same
+    # conflict, Git can resolve it for you automatically.
+    enabled = true
+    autoupdate = true
+[core]
+    excludesfile = ~/.gitignore
+    pager = delta # brew install git-delta
+    editor = vim
+[delta]
+    features = wooly-mammoth
+    navigate = true # use n and N to move between diff sections
+    line-numbers = true
+    side-by-side = true
+    true-color = always
+    #theme = Solarized (dark)
+    # delta determines terminal colors automatically -- set one of these to override
+    #dark = true
+    #light = true
+[merge]
+        # (just 'diff3' if git version < 2.3)
+    conflictstyle = zdiff3
+    tool = vimdiff
+[rebase]
+        # autoSquash = true
+        # autoStash = true
+    updateRefs = true
+[pull]
+        # rebase = true
+[log]
+    date = iso
+[apply]
+    whitespace = fix # When applying a patch, fix whitespace errors
+
+[user]
+    email = jeff@jdmcg.org
+    name = Jeffrey McGovern
+    signingkey = /home/bendu/.ssh/id_ed25519.pub
+[gpg]
+    format = ssh

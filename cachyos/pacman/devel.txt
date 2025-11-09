@@ -1,0 +1,5 @@
+git
+base-devel
+just
+git-delta
+github-cli

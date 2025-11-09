@@ -1,0 +1,11 @@
+bash
+tmux
+fzf
+cowsay
+fastfetch
+tree
+pv
+vim
+btop
+bat
+ghostty

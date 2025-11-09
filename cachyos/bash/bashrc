@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+# Some tools will straight up ignore ~/.bash_profile and only look at
+# ~/.bashrc, so just put everything in here.
+
+# How to use a different shell without changing the default:
+# https://support.apple.com/en-us/102360
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+### XDG Base Directory Specification ###
+### https://specifications.freedesktop.org/basedir-spec/latest/
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_STATE_HOME="${HOME}/.local/state"
+export XDG_CACHE_HOME="${HOME}/.cache"
+
+### MANPAGER ###
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+#export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+#export MANPAGER="vim +MANPAGER --not-a-term -"
+
+### ESSENTIALS ###
+export EDITOR=vim
+function path() {
+    echo -e ${PATH//:/\\n}
+}
+
+function cls() {
+    printf "\033c"
+}
+
+### PROMPT ###
+filename="${HOME}/.bash/prompt/prompt.bash"
+if [ -f "${filename}" ]; then
+  source "${filename}"
+else
+  echo "no ${filename}"
+fi
+
+### LIBRARIES ###
+libraries=("utility" "tmux" "date" "git")
+for lib in "${libraries[@]}"; do
+  filename="${HOME}/.bash/${lib}.bash"
+  if [ -f "${filename}" ]; then
+    source "${filename}"
+  fi
+done
+
+### COMPLETIONS ###
+# Breaks /bin/bash (v3.2)
+completions=("bash_completion" "git-completion.bash" "just-completion.bash" "fzf-completion.bash")
+for compl in "${completions[@]}"; do
+  filename="${HOME}/.bash/completion/${compl}"
+  if [ -f "${filename}" ]; then
+    source "${filename}"
+  fi
+done
+
+### COWSAY ###
+export COWPATH="${HOME}/.cows/mine:${HOME}/.cows/paulkaefer"
+
+### PIPX ###
+# Created by `pipx` on 2025-02-18 21:29:55
+export PATH="${PATH}:${HOME}/.local/bin"
+
+### PYENV ###
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - bash)"
+
+### Ruby ###
+
+### HISTORY ###
+# man bash
+# Putting this last in case the above commands become part of the history.
+# HISTFILE=~/.bash_history # <== default. If unset, the command history is not saved when a shell exits.
+if [ "${BASH_VERSINFO:-0}" -ge 4 ]; then
+  # Numeric values less than zero result in every command being saved on the
+  # history list (there is not limit).
+  # Breaks /bin/bash v3.2
+  export HISTSIZE="-1"
+else
+  export HISTSIZE="50000"  # default=500
+fi
+export HISTTIMEFORMAT="+${ISO8601_FMT:=%Y-%m-%dT%H:%M:%S%Z}"
+
+# set -o history # enable command history (on by default in interactive shells)
+shopt -s histappend # history list is appended when the shell exits, rather than overwriting the file
+shopt -s cmdhist # 
+
+### TERMINAL ###
+export TERM=xterm-256color
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
