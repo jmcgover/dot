@@ -38,7 +38,7 @@ get_duration() {
 
 KEY=""
 CITY=""
-UNITS="metric"
+UNITS="imperial"
 SYMBOL="°"
 
 API="https://api.openweathermap.org/data/2.5"
