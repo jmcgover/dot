@@ -48,7 +48,7 @@ done
 
 ### COMPLETIONS ###
 # Breaks /bin/bash (v3.2)
-completions=("bash_completion" "git-completion.bash" "just-completion.bash" "fzf-completion.bash")
+completions=("bash_completion" "git-completion.bash" "just-completion.bash" "fzf-completion.bash" "rustup-completion.bash")
 for compl in "${completions[@]}"; do
   filename="${HOME}/.bash/completion/${compl}"
   if [ -f "${filename}" ]; then
