@@ -13,7 +13,7 @@ theme="AlienBloodMine"
 #theme="Kanagawa Wave"
 #theme="nord"
 
-### Contrast ###
+### CONTRAST ###
 # If you want to avoid invisible text (same color as background), a value of 1.1 is a good value.
 # If you want to avoid text that is difficult to read, a value of 3 or higher is a good value.
 # The higher the value, the more likely that text will become black or white.
@@ -22,3 +22,7 @@ minimum-contrast=3
 ### ICON ###
 # macos-icon: official, blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray
 macos-icon=holographic
+
+### WORKDIR ###
+window-inherit-working-directory=false
+working-directory=home
