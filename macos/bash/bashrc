@@ -38,7 +38,7 @@ else
 fi
 
 ### LIBRARIES ###
-libraries=("utility" "tmux" "date" "git")
+libraries=("utility" "tmux" "date" "git" "brew")
 for lib in "${libraries[@]}"; do
   filename="${HOME}/.bash/${lib}.bash"
   if [ -f "${filename}" ]; then
@@ -58,10 +58,6 @@ done
 
 ### COWSAY ###
 export COWPATH="${HOME}/.cows/mine:${HOME}/.cows/paulkaefer"
-
-### HOMEBREW ###
-export HOMEBREW_BUNDLE_FILE="${HOME}/.brew/bundlefile"
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ### PIPX ###
 # Created by `pipx` on 2025-02-18 21:29:55
