@@ -1,2 +1,17 @@
 
 . "$HOME/.cargo/env"
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+case ":$PATH:" in
+    *:/Users/qimer/.juliaup/bin:*)
+        ;;
+
+    *)
+        export PATH=/Users/qimer/.juliaup/bin${PATH:+:${PATH}}
+        ;;
+esac
+
+# <<< juliaup initialize <<<
