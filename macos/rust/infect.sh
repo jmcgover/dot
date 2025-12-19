@@ -44,11 +44,20 @@ function link_dotfiles() {
   echo 'Linking dotfiles DONE'
 }
 
+function install() {
+  local -
+  set -o xtrace
+  # https://rust-lang.org/tools/install/
+  # https://doc.rust-lang.org/cargo/getting-started/installation.html
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+}
+
 function main() {
   echo 'Infecting...'
   check_targets || return $?
   check_sources || return $?
   link_dotfiles || return $?
+  install || return $?
   echo 'Infecting DONE'
 }
 
