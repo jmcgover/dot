@@ -149,7 +149,11 @@ Plugin 'mbbill/undotree'
 Plugin 'tpope/vim-fugitive' " git interaction
 Plugin 'tpope/vim-repeat' " remaps . in a way that plugins can tap into it
 
-" All of your Plugins must be added before the following line
+" Markdown
+Plugin 'jmcgover/markdown-preview.nvim', {'name': 'jmcgover-markdown-preview.nvim'} " fork of iamcco/markdown-preview.nvim
+
+
+" ALL PLUGINS MUST BE ADDED BEFORE THE FOLLOWING LINE
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -215,6 +219,33 @@ if has("persistent_undo")
     let &undodir=target_path
     set undofile
 endif
+
+"====[ iamcco/markdown-preview.nvim ]====
+"##### SETUP
+":call mkdp#util#install()
+
+" these filetypes will have MarkdownPreview... commands
+let g:mkdp_filetypes = ['markdown']
+
+" set to 1, nvim will open the preview window after entering the Markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when changing from Markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 1
+
+" normal/insert mappings
+"nmap <C-s> <Plug>MarkdownPreview
+"nmap <M-s> <Plug>MarkdownPreviewStop
+nmap <C-p> <Plug>MarkdownPreviewToggle
+
+" browser
+function OpenMarkdownPreview (url)
+    execute "silent ! open -a 'Google Chrome' -n --args --new-tab " . a:url
+    redraw!
+endfunction
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'
 
 "====[ FileType Specifics ]====
 autocmd Filetype bash,shell,sh setlocal expandtab tabstop=2 sts=2 shiftwidth=2
