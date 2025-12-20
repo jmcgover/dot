@@ -121,12 +121,6 @@ autocmd InsertLeave * call SetRelativeLineNumber()
 :command W w
 :command Q q
 
-"====[ VIM Split Settings ]====
-noremap _ <C-w>-
-noremap + <C-w>+
-noremap < <C-w><
-noremap > <C-w>>
-
 "====[ FileType Specifics ]====
 autocmd Filetype bash,shell,sh setlocal expandtab tabstop=2 sts=2 shiftwidth=2
 autocmd Filetype java          setlocal expandtab tabstop=2 sts=2 shiftwidth=2
