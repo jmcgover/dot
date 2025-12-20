@@ -145,6 +145,9 @@ Plugin 'ahw/vim-pbcopy' " 1) select in Visual Mode; 2) cy ==> clipboard
 Plugin 'eapache/rainbow_parentheses.vim'
 Plugin 'mbbill/undotree'
 
+" Autocomplete
+Plugin 'ervandew/supertab' " :help supertab
+
 " Tim Pope
 Plugin 'tpope/vim-fugitive' " git interaction
 Plugin 'tpope/vim-repeat' " remaps . in a way that plugins can tap into it
@@ -153,7 +156,6 @@ Plugin 'tpope/vim-repeat' " remaps . in a way that plugins can tap into it
 Plugin 'jmcgover/markdown-preview.nvim', {'name': 'jmcgover-markdown-preview.nvim'} " fork of iamcco/markdown-preview.nvim
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
-
 
 " ALL PLUGINS MUST BE ADDED BEFORE THE FOLLOWING LINE
 call vundle#end()            " required
