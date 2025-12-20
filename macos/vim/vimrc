@@ -157,6 +157,11 @@ Plugin 'jmcgover/markdown-preview.nvim', {'name': 'jmcgover-markdown-preview.nvi
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
 
+" Just
+" https://just.systems/man/en/vim-and-neovim.html
+Plugin 'NoahTheDuke/vim-just'
+
+
 " ALL PLUGINS MUST BE ADDED BEFORE THE FOLLOWING LINE
 call vundle#end()            " required
 filetype plugin indent on    " required
