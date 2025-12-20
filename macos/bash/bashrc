@@ -106,7 +106,6 @@ shopt -s cmdhist #
 export TERM=xterm-256color
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-. "$HOME/.cargo/env"
 
 # >>> juliaup initialize >>>
 
@@ -131,3 +130,4 @@ esac
 # This section can be safely removed at any time if needed.
 test -r '/Users/qimer/.opam/opam-init/init.sh' && . '/Users/qimer/.opam/opam-init/init.sh' > /dev/null 2> /dev/null || true
 # END opam configuration
+. "$HOME/.cargo/env"
