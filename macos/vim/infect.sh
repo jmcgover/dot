@@ -48,11 +48,16 @@ function link_dotfiles() {
   echo 'Linking dotfiles DONE'
 }
 
+function vundle() {
+  git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
+}
+
 function main() {
   echo 'Infecting...'
-  check_targets
-  check_sources
-  link_dotfiles
+  check_targets || return $?
+  check_sources || return $?
+  link_dotfiles || return $?
+  vundle || return $?
   echo 'Infecting DONE'
 }
 

@@ -122,40 +122,30 @@ autocmd InsertLeave * call SetRelativeLineNumber()
 :command Q q
 
 "====[ BEGIN Vundle ]====
-" 1. REQUIREMENTS
-"   - git
-"   - curl
-" 2. SETUP
-"   - git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-" 3. CONFIGURE
+"##### PREREQUISITES
+" git clone
+" curl
+"##### SETUP
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"##### CONFIGURE
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+" Fundamentals
+Plugin 'ahw/vim-pbcopy' " 1) select in Visual Mode; 2) cy ==> clipboard
+Plugin 'eapache/rainbow_parentheses.vim'
+Plugin 'mbbill/undotree'
+
+" Tim Pope
+Plugin 'tpope/vim-fugitive' " git interaction
+Plugin 'tpope/vim-repeat' " remaps . in a way that plugins can tap into it
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -171,8 +161,58 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-" 4. INSTALL
+"##### INSTALL
+
 "====[ END Vundle ]====
+
+"====[ eapache/rainbow_parentheses.vim ]====
+"let g:rbpt_colorpairs = [
+"   \ ['red',         'RoyalBlue3'],
+"   \ ['brown',       'SeaGreen3'],
+"   \ ['blue',        'DarkOrchid3'],
+"   \ ['gray',        'firebrick3'],
+"   \ ['green',       'RoyalBlue3'],
+"   \ ['magenta',     'SeaGreen3'],
+"   \ ['cyan',        'DarkOrchid3'],
+"   \ ['darkred',     'firebrick3'],
+"   \ ['brown',       'RoyalBlue3'],
+"   \ ['darkblue',    'DarkOrchid3'],
+"   \ ['gray',        'firebrick3'],
+"   \ ['darkgreen',   'RoyalBlue3'],
+"   \ ['darkmagenta', 'SeaGreen3'],
+"   \ ['darkcyan',    'DarkOrchid3'],
+"   \ ['red',         'firebrick3'],
+"   \ ]
+" How deep to colour (repeating the colour list if necessary) before giving up; limited for performance reasons.
+"let g:rbpt_max = 15
+"let g:rbpt_loadcmd_toggle = 0
+" Bold parenthese to make the colours stand out more
+let g:bold_parentheses = 1 " Default on
+" :RainbowParenthesesToggle       " Toggle it on/off
+" :RainbowParenthesesLoadRound    " (), the default when toggling
+" :RainbowParenthesesLoadSquare   " []
+" :RainbowParenthesesLoadBraces   " {}
+" :RainbowParenthesesLoadChevrons " <>
+" To always use Rainbow Parenthesis:
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+"====[ mbbill/undotree ]====
+nnoremap <F5> :UndotreeToggle<CR>
+if has("persistent_undo")
+   let target_path = expand('~/.vim-undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
 
 "====[ FileType Specifics ]====
 autocmd Filetype bash,shell,sh setlocal expandtab tabstop=2 sts=2 shiftwidth=2
