@@ -161,6 +161,10 @@ Plugin 'preservim/vim-markdown'
 " https://just.systems/man/en/vim-and-neovim.html
 Plugin 'NoahTheDuke/vim-just'
 
+" fzf
+Plugin 'junegunn/fzf' " , { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+
 
 " ALL PLUGINS MUST BE ADDED BEFORE THE FOLLOWING LINE
 call vundle#end()            " required
@@ -258,6 +262,9 @@ let g:mkdp_browserfunc = 'OpenMarkdownPreview'
 
 "====[ preservim/vim-markdown ]====
 let g:vim_markdown_folding_disabled = 1
+
+"====[ preservim/vim-markdown ]====
+" https://github.com/junegunn/fzf/blob/master/README-VIM.md#configuration
 
 "====[ FileType Specifics ]====
 autocmd Filetype bash,shell,sh setlocal expandtab tabstop=2 sts=2 shiftwidth=2
