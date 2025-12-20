@@ -49,7 +49,10 @@ function link_dotfiles() {
 }
 
 function vundle() {
+  local -
+  set -o xtrace
   git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
+  vim +PluginUpdate +qall
 }
 
 function main() {
