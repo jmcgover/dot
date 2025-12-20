@@ -134,3 +134,4 @@ autocmd Filetype py,python     setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype c,cpp         setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype gitconfig     setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype go            exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
+set rtp^="/Users/qimer/.opam/default/share/ocp-indent/vim"
