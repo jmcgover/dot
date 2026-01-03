@@ -69,7 +69,7 @@ set expandtab
 
 "====[ Tabs, trailing whitespace, and non-breaking spaces visible ]====
 
-exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+setlocal listchars=tab:»»,trail:·,nbsp:~
 set list
 
 "====[ Ruler ]====
@@ -292,7 +292,7 @@ autocmd Filetype bash,shell,sh setlocal expandtab tabstop=2 sts=2 shiftwidth=2
 autocmd Filetype java          setlocal expandtab tabstop=2 sts=2 shiftwidth=2
 autocmd Filetype markdown      setlocal expandtab tabstop=2 sts=2 shiftwidth=2
 autocmd Filetype py,python     setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype go,gomod      setlocal listchars=tab:\ \ ,trail:·,nbsp:~"
 autocmd Filetype c,cpp         setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype gitconfig     setlocal expandtab tabstop=4 sts=4 shiftwidth=4
-autocmd Filetype go            exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~"
 set rtp^="/Users/qimer/.opam/default/share/ocp-indent/vim"
