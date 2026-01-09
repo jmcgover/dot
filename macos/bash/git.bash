@@ -3,6 +3,7 @@
 function git_gitignore_new() {
   local -
   local gitignore_path="${1:-./.gitignore}"
+  #local gitignore_stems=("Global/macOS" "Python" "Go" "C" "C++" "Global/Vim")
   local gitignore_stems=("Global/macOS" "Python" "Global/Vim")
   local github_base="https://github.com/github/gitignore/blob/main"
   local github_base_raw="https://raw.githubusercontent.com/github/gitignore/refs/heads/main"
