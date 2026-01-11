@@ -174,6 +174,11 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'powerline/powerline'
 
+" Google Vim Plugin
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-glaive' " before use, run: call glaive#Install()
+Plugin 'google/vim-codefmt'
+
 
 " ALL PLUGINS MUST BE ADDED BEFORE THE FOLLOWING LINE
 call vundle#end()            " required
@@ -287,12 +292,56 @@ let g:vim_markdown_folding_disabled = 1
 "====[ preservim/vim-markdown ]====
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md#configuration
 
+"====[ google/vim-maktaba ]====
+" Add helloworld to the runtime path. (Normally this would be done with another
+" Plugin command, but helloworld doesn't have a repository of its own.)
+call maktaba#plugin#Install(maktaba#path#Join([maktaba#Maktaba().location, 'examples', 'helloworld']))
+
+"====[ google/vim-glaive ]====
+let vimrc_dir = $MYVIMRC->resolve()->fnamemodify(':h') . "/"
+let google_java_fmt_jar_path = vimrc_dir . "google-java-format-latest.jar"
+let java_fmt_cmd = "java -jar " . google_java_fmt_jar_path
+
+call glaive#Install()
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
+Glaive codefmt google_java_executable=`g:java_fmt_cmd`
+
+"====[ google/vim-codefmt ]====
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript,typescript,arduino AutoFormatBuffer clang-format
+  autocmd FileType clojure AutoFormatBuffer cljstyle
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType elixir,eelixir,heex AutoFormatBuffer mixformat
+  autocmd FileType fish AutoFormatBuffer fish_indent
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType haskell AutoFormatBuffer ormolu
+  " Alternative for web languages: prettier
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType jsonnet AutoFormatBuffer jsonnetfmt
+  autocmd FileType julia AutoFormatBuffer JuliaFormatter
+  autocmd FileType kotlin AutoFormatBuffer ktfmt
+  autocmd FileType lua AutoFormatBuffer luaformatterfiveone
+  autocmd FileType markdown AutoFormatBuffer prettier
+  autocmd FileType ocaml AutoFormatBuffer ocamlformat
+  autocmd FileType python AutoFormatBuffer black
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType ruby AutoFormatBuffer rubocop
+  autocmd FileType rust AutoFormatBuffer rustfmt
+  autocmd FileType swift AutoFormatBuffer swift-format
+  autocmd FileType vue AutoFormatBuffer prettier
+augroup END
+
+
 "====[ FileType Specifics ]====
 autocmd Filetype bash,shell,sh setlocal expandtab tabstop=2 sts=2 shiftwidth=2
 autocmd Filetype java          setlocal expandtab tabstop=2 sts=2 shiftwidth=2
 autocmd Filetype markdown      setlocal expandtab tabstop=2 sts=2 shiftwidth=2
 autocmd Filetype py,python     setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 autocmd Filetype go,gomod      setlocal listchars=tab:\ \ ,trail:·,nbsp:~"
-autocmd Filetype c,cpp         setlocal expandtab tabstop=4 sts=4 shiftwidth=4
+autocmd Filetype c,cpp         setlocal expandtab tabstop=4 sts=4 shiftwidth=4 listchars=tab:\ \ ,trail:·,nbsp:~"
 autocmd Filetype gitconfig     setlocal expandtab tabstop=4 sts=4 shiftwidth=4
 set rtp^="/Users/qimer/.opam/default/share/ocp-indent/vim"
