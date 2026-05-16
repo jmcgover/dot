@@ -308,6 +308,8 @@ Glaive codefmt plugin[mappings]
 Glaive codefmt google_java_executable=`g:java_fmt_cmd`
 
 "====[ google/vim-codefmt ]====
+nnoremap <c-k> :FormatCode<CR>:redraw!<CR>
+vnoremap <c-k> :FormatLines<CR>:redraw!<CR>
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
   autocmd FileType c,cpp,proto,javascript,typescript,arduino AutoFormatBuffer clang-format
