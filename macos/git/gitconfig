@@ -73,3 +73,7 @@
     signingkey = /Users/qimer/.ssh/id_ed25519.pub
 [gpg]
     format = ssh
+[lfs "customtransfer.xet"]
+	path = git-xet
+	args = transfer
+	concurrent = true
