@@ -1,3 +1,7 @@
+### VERSION ###
+auto-update=check
+auto-update-channel=tip
+
 ### FONT ###
 # ghostty +list-fonts
 font-family="Osaka"
