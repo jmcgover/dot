@@ -44,3 +44,5 @@ brew "ispell"
 brew "make"
 # Alternative to docker-compose using podman
 brew "podman-compose"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
