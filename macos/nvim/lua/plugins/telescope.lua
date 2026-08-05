@@ -1,8 +1,8 @@
 print(("%s: Hello!"):format(debug.getinfo(1,'S').source))
 return {
   {
-    enabled = true,  -- When false, or if the function returns false, then this plugin will not be included in the spec
     'nvim-telescope/telescope.nvim', version = '*', -- highly extendable fuzzy finder over lists
+    enabled = true,  -- When false, or if the function returns false, then this plugin will not be included in the spec
     dependencies = {  -- list of plugin names or plugin specs that should be loaded when the plugin loads
         'nvim-lua/plenary.nvim',
         -- optional but recommended
