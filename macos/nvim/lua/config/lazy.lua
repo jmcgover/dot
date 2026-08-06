@@ -1,4 +1,19 @@
 print(("%s: Hello!"):format(debug.getinfo(1,'S').source))
+-- Startup Sequence --
+-- lazy.nvim does NOT use Neovim packages and even disables plugin loading completely (vim.go.loadplugins = false).
+-- It takes over the complete startup sequence for more flexibility and better performance.
+-- In practice this means that step 10 of Neovim Initialization is done by Lazy:
+--
+-- 1. All the plugins' init() functions are executed
+-- 2. All plugins with lazy=false are loaded. This includes sourcing /plugin and /ftdetect files. (/after will not be sourced yet)
+-- 3. All files from /plugin and /ftdetect directories in your rtp are sourced (excluding /after)
+-- 4. All /after/plugin files are sourced (this includes /after from plugins)
+--
+-- Files from runtime directories are always sourced in alphabetical order.
+--
+-- Configuring Plugins --
+-- Any lua file in ~/.config/nvim/lua/plugins/*.lua will be automatically merged in the main plugin spec
+
 -- Copied from: https://lazy.folke.io/installation
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -36,5 +51,3 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
--- Configuring Plugins
--- Any lua file in ~/.config/nvim/lua/plugins/*.lua will be automatically merged in the main plugin spec
