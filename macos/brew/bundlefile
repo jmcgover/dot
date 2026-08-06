@@ -46,3 +46,5 @@ brew "make"
 brew "podman-compose"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Parser generator tool (required for nvim-treesitter)
+brew "tree-sitter-cli"
