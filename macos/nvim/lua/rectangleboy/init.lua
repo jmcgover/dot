@@ -1,6 +1,6 @@
 require("rectangleboy.close")
-require("rectangleboy.remap")
 require("rectangleboy.set")
+require("rectangleboy.remap")
 require("rectangleboy.number")
 require("rectangleboy.search")
 require("rectangleboy.shell")
