@@ -1,4 +1,3 @@
-print(("%s: Hello!"):format(debug.getinfo(1,'S').source))
 return
 {
 	"rose-pine/neovim",  -- All natural pine, faux fur and a bit of soho vibes for the classy minimalist.

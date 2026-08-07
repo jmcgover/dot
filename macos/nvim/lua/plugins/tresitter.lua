@@ -1,4 +1,3 @@
-print(("%s: Hello!"):format(debug.getinfo(1,'S').source))
 -- The nvim-treesitter plugin provides: 
 --   - functions for installing, updating, and removing tree-sitter parsers; 
 --   - a collection of queries for enabling tree-sitter features built into

@@ -1,4 +1,3 @@
-print(("%s: Hello!"):format(debug.getinfo(1,'S').source))
 return {
 	{
 		'nvim-telescope/telescope.nvim', -- highly extendable fuzzy finder over lists
@@ -15,8 +14,7 @@ return {
 			vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope live grep' })
 			vim.keymap.set('n', '<leader>ps', function ()
 				builtin.grep_string({ search = vim.fn.input("grep > ")});
-
-			end)
+			end, { desc = 'Telescope grep string' })
 		end,
 	}
 }

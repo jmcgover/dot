@@ -1,2 +1,6 @@
-print(("%s: Hello!"):format(debug.getinfo(1,'S').source))
+require("rectangleboy.close")
 require("rectangleboy.remap")
+require("rectangleboy.set")
+require("rectangleboy.number")
+require("rectangleboy.search")
+require("rectangleboy.shell")

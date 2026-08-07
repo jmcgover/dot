@@ -1,4 +1,3 @@
-print(("%s: Hello!"):format(debug.getinfo(1,'S').source))
 -- STARTUP SEQUENCE
 -- lazy.nvim does NOT use Neovim packages and even disables plugin loading completely (vim.go.loadplugins = false).
 -- It takes over the complete startup sequence for more flexibility and better performance.
@@ -53,11 +52,11 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
+-- WARNING: Make sure to setup `mapleader` and `maplocalleader` before loading
+-- lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+-- vim.g.mapleader = " "
+-- vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
 require("lazy").setup({

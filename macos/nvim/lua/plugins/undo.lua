@@ -1,4 +1,3 @@
-print(("%s: Hello!"):format(debug.getinfo(1,'S').source))
 return {
 	{
 		'mbbill/undotree', version = '*', -- highly extendable fuzzy finder over lists
@@ -9,7 +8,6 @@ return {
 			-- https://neovim.io/doc/user/options/#'undofile'
 			-- 'undofile' 'udf'	boolean	(default off) ==> local to buffer
 			vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-			vim.opt.undofile = true
 		end,
 	}
 }
