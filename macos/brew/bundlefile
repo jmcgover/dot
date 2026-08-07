@@ -48,3 +48,5 @@ brew "podman-compose"
 brew "neovim"
 # Parser generator tool (required for nvim-treesitter)
 brew "tree-sitter-cli"
+# Package manager for the Lua programming language
+brew "luarocks"
