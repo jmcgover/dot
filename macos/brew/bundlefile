@@ -50,3 +50,5 @@ brew "neovim"
 brew "tree-sitter-cli"
 # Package manager for the Lua programming language
 brew "luarocks"
+# Language Server for the Lua language
+brew "lua-language-server"

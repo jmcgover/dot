@@ -51,3 +51,6 @@ vim.keymap.set("v", "<leader>s", [["hy:%s/\<<C-r>h\>/<C-r>h/gI<Left><Left><Left>
 
 -- FILE PERMISSIONS
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- JUMP
+vim.keymap.set("n", "<S-Tab>", "<C-o>", { desc = "Go to [count] Older cursor position in jump list" })
