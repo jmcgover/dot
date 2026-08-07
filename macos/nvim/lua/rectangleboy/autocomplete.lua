@@ -1,10 +1,14 @@
---  Pilfered and Converted from: https://neovim.io/doc/user/insert/#_7.-insert-mode-completion
---
+--  Sources:
+--  - https://neovim.io/doc/user/insert/#_7.-insert-mode-completion
+--  - https://neovim.io/doc/user/lua/#vim.keymap.set()
+-- Vim Version:
+-- vim.cmd([[
 -- set autocomplete
 -- set complete=.^5,w^5,b^5,u^5
 -- set completeopt=popup
 -- inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 -- inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+-- ]])
 
 vim.opt.autocomplete = true
 vim.opt.complete = ".^5,w^5,b^5,u^5"
