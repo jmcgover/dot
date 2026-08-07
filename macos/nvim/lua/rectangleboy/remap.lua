@@ -30,7 +30,7 @@ vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "move selected lines u
 
 -- CENTERED CURSOR
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "page down, center cursor" })
-vim.keymap.set("n", "<C-u>", "<C-d>zz", { desc = "page up, center cursor" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "page up, center cursor" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "next result, center cursor" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "next result, center cursor" })
 
