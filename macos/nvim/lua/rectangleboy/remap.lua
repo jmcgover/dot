@@ -45,7 +45,7 @@ vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "y$ into system clipboard" })
 -- DISABLE REGISTER REPEAT
 vim.keymap.set("n", "Q", "<nop>", { desc = "disable 'repeat the last recorded register [count] times'" })
 
--- FIND+REPLACE
+-- FIND(+REPLACE)
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "replace current word" })
 vim.keymap.set("v", "<leader>s", [["hy:%s/\<<C-r>h\>/<C-r>h/gI<Left><Left><Left>]], { desc = "replace current selection" })
 
