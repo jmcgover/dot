@@ -49,7 +49,8 @@ vim.lsp.config('luals', {
 vim.lsp.config('ruff', {
     cmd = { 'ruff', 'server' },
     filetypes = { 'python' },
-    root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
+    root_markers = { 'ruff.toml', '.ruff.toml', },
+    workspace_required = true,
     init_options = {
         settings = {
             logLevel = 'debug',
@@ -71,6 +72,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     desc = 'LSP: Disable hover capability from Ruff',
 })
 -- SERVER: pylsp
+-- REQUIREMENTS:
+--   - pylsp-mypy
+--   - pylsp-workspace-symbols
 vim.lsp.config('pylsp', {
     cmd = { 'pylsp' },
     filetypes = { 'python' },
@@ -80,8 +84,66 @@ vim.lsp.config('pylsp', {
         'setup.cfg',
         'requirements.txt',
         'Pipfile',
-        '.git',
+        'mypy.ini',
     },
+    workspace_required = true,
+    settings = {
+        pylsp = {
+            plugins = {
+                jedi_workspace_symbols = {
+                    enabled = true,
+                    max_symbols = 500,
+                    ignore_folders = {},
+
+                },
+                inlay_hints = {
+                    enabled = true,
+                    show_assign_types = true,
+                    show_return_types = true,
+                    show_raises = true,
+                    show_parameter_hints = true,
+                    max_hints_per_file = 200,
+                },
+                code_lens = {
+                    enabled = true,
+                    show_references = true,
+                    show_implementations = true,
+                    cross_file_implementations = false,
+                    show_run = true,
+                    show_tests = true,
+                    max_definitions = 150
+                },
+                semantic_tokens = {
+                    enabled = false
+                },
+                call_hierarchy = {
+                    enabled = true
+                },
+                type_hierarchy = {
+                    enabled = true
+                },
+                document_links = {
+                    enabled = true
+                },
+                document_colors = {
+                    enabled = true
+                },
+                on_type_formatting = {
+                    enabled = true,
+                    indent_size = 4,
+                    dedent_keywords = true,
+                    colon_dedent = true,
+                    colon_space = true,
+                    bracket_indent = true,
+                    auto_format_strings = true,
+                    hash_space = true,
+                    auto_docstring = true,
+                    closer_align = true,
+                    debug = false
+                }
+            }
+        }
+    }
 })
 
 -- ENABLE
