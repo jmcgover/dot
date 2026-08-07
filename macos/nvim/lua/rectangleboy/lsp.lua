@@ -31,7 +31,7 @@ vim.keymap.set('n', '<C-b>', '<Plug>(nvim.lsp.ctrl-s)', {desc = "Displays signat
 
 vim.keymap.set('n', '<C-k>', function() 
     vim.lsp.buf.format({ async = false })
-end, {desc = ""})
+end, {desc = "Formats a buffer using the attached (and optionally filtered) language server clients."})
 
 -- LANGUAGE: lua
 -- Install: Global
